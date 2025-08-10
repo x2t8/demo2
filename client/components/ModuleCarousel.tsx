@@ -89,38 +89,57 @@ export default function ModuleCarousel({ modules }: ModuleCarouselProps) {
           {modules.map((module, index) => {
             const position = getModulePosition(index);
             const isCenter = position === "center";
-            
+            const isVisible = position !== "hidden";
+
+            if (!isVisible) return null;
+
             return (
               <div
                 key={index}
                 className={getModuleStyles(position)}
+                onClick={() => !isCenter && setActiveIndex(index)}
               >
-                <Card 
+                <Card
                   className={cn(
-                    "w-64 lg:w-72 bg-white/95 dark:bg-gray-800/95 backdrop-blur-sm border-0 shadow-xl hover:shadow-2xl transition-all duration-300",
-                    isCenter && "ring-2 ring-education-blue/30"
+                    "w-64 lg:w-72 bg-white/95 dark:bg-gray-800/95 backdrop-blur-sm border-0 transition-all duration-300",
+                    isCenter
+                      ? "shadow-2xl ring-2 ring-education-blue/30 hover:shadow-3xl"
+                      : "shadow-lg hover:shadow-xl hover:scale-105 cursor-pointer",
+                    !isCenter && "hover:z-50"
                   )}
                 >
                   <CardContent className="p-6 lg:p-8 text-center">
-                    <div className={`inline-flex p-4 lg:p-5 rounded-2xl ${module.color} mb-4 lg:mb-6 ${isCenter ? 'animate-protective-pulse' : ''}`}>
+                    <div className={`inline-flex p-4 lg:p-5 rounded-2xl ${module.color} mb-4 lg:mb-6 transition-all ${isCenter ? 'animate-protective-pulse' : 'group-hover:scale-110'}`}>
                       <module.icon className="h-8 w-8 lg:h-10 lg:w-10" />
                     </div>
                     <h3 className="text-lg lg:text-xl font-bold text-gray-900 dark:text-white mb-3">
                       {module.title}
                     </h3>
-                    <p className="text-sm lg:text-base text-gray-600 dark:text-gray-300 mb-4 lg:mb-6 leading-relaxed">
-                      {module.description}
-                    </p>
-                    <Badge 
-                      variant="outline" 
-                      className={`mb-4 ${module.color.split(' ')[0]} border-current`}
-                    >
-                      Mô-đun {index + 1}
-                    </Badge>
+                    {(isCenter || position.includes("1")) && (
+                      <>
+                        <p className="text-sm lg:text-base text-gray-600 dark:text-gray-300 mb-4 lg:mb-6 leading-relaxed">
+                          {module.description}
+                        </p>
+                        <Badge
+                          variant="outline"
+                          className={`mb-4 ${module.color.split(' ')[0]} border-current`}
+                        >
+                          Mô-đun {index + 1}
+                        </Badge>
+                      </>
+                    )}
+                    {!isCenter && position.includes("2") && (
+                      <Badge
+                        variant="outline"
+                        className={`${module.color.split(' ')[0]} border-current`}
+                      >
+                        {index + 1}
+                      </Badge>
+                    )}
                     {isCenter && (
                       <div className="mt-4">
                         <Link to={module.link}>
-                          <Button 
+                          <Button
                             className="bg-gradient-to-r from-education-blue to-education-purple hover:from-blue-700 hover:to-purple-700 text-white shadow-lg hover:shadow-xl transition-all w-full"
                           >
                             Khám phá ngay
