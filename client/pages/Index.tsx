@@ -30,6 +30,7 @@ import { CaringToastProvider } from "@/components/CaringToast";
 import LearningProgress from "@/components/LearningProgress";
 import ReportGuideModal from "@/components/ReportGuideModal";
 import FloatingActionButton from "@/components/FloatingActionButton";
+import ModuleCarousel from "@/components/ModuleCarousel";
 
 export default function Index() {
   // Initialize scroll-based animations
@@ -42,7 +43,7 @@ export default function Index() {
     {
       icon: Shield,
       title: "An Toàn Số",
-      description: "Nhận biết và phòng tránh lừa đảo, bảo vệ thông tin cá nhân",
+      description: "Nhận biết và phòng tránh lừa đảo, bảo v�� thông tin cá nhân",
       color: "text-red-600 bg-red-200",
       link: "/scam-types",
     },
@@ -106,7 +107,7 @@ export default function Index() {
               className="text-lg sm:text-xl text-gray-600 dark:text-gray-300 mb-6 sm:mb-8 max-w-3xl mx-auto leading-relaxed animate-fade-in"
               style={{ animationDelay: "0.3s" }}
             >
-              Nền tảng giáo dục toàn diện về an toàn số, đ���o đức số, AI và kỹ
+              Nền tảng giáo dục toàn diện về an toàn số, đạo đức số, AI và kỹ
               năng công nghệ cho người Việt Nam
             </p>
             <div
