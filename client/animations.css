@@ -1,0 +1,232 @@
+/* Meaningful animations for digital safety education */
+
+/* Heart-warming entrance animations */
+@keyframes gentleSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes gentleFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Protective shield animation */
+@keyframes protectivePulse {
+  0%,
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.4);
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow: 0 0 0 10px rgba(59, 130, 246, 0);
+  }
+}
+
+/* Warning attention grabber */
+@keyframes warningGlow {
+  0%,
+  100% {
+    box-shadow: 0 0 5px rgba(239, 68, 68, 0.3);
+  }
+  50% {
+    box-shadow:
+      0 0 20px rgba(239, 68, 68, 0.6),
+      0 0 30px rgba(239, 68, 68, 0.4);
+  }
+}
+
+/* Caring hover effect */
+@keyframes caringLift {
+  from {
+    transform: translateY(0) scale(1);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  }
+  to {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow:
+      0 20px 25px -5px rgba(0, 0, 0, 0.1),
+      0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  }
+}
+
+/* Progress indicator */
+@keyframes progressFill {
+  from {
+    width: 0%;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+/* Heartbeat for important info */
+@keyframes heartbeat {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  14% {
+    transform: scale(1.1);
+  }
+  28% {
+    transform: scale(1);
+  }
+  42% {
+    transform: scale(1.1);
+  }
+  70% {
+    transform: scale(1);
+  }
+}
+
+/* Gentle wave for attention */
+@keyframes gentleWave {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(5deg);
+  }
+  75% {
+    transform: rotate(-5deg);
+  }
+}
+
+/* Smooth scale on interaction */
+@keyframes gentleScale {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.05);
+  }
+}
+
+/* Typography breathing */
+@keyframes textBreathe {
+  0%,
+  100% {
+    transform: translateY(0px);
+    opacity: 1;
+  }
+  50% {
+    transform: translateY(-2px);
+    opacity: 0.8;
+  }
+}
+
+/* Utility classes */
+.animate-slide-up {
+  animation: gentleSlideUp 0.6s ease-out forwards;
+}
+
+.animate-fade-in {
+  animation: gentleFadeIn 0.8s ease-out forwards;
+}
+
+.animate-protective-pulse {
+  animation: protectivePulse 2s infinite;
+}
+
+.animate-warning-glow {
+  animation: warningGlow 2s ease-in-out infinite;
+}
+
+.animate-heartbeat {
+  animation: heartbeat 2s ease-in-out infinite;
+}
+
+.animate-gentle-wave {
+  animation: gentleWave 3s ease-in-out infinite;
+}
+
+.animate-text-breathe {
+  animation: textBreathe 4s ease-in-out infinite;
+}
+
+/* Hover states */
+.hover-caring-lift {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.hover-caring-lift:hover {
+  animation: caringLift 0.3s ease-out forwards;
+}
+
+/* Staggered entrance for lists */
+.stagger-children > * {
+  opacity: 0;
+  animation: gentleSlideUp 0.6s ease-out forwards;
+}
+
+.stagger-children > *:nth-child(1) {
+  animation-delay: 0.1s;
+}
+.stagger-children > *:nth-child(2) {
+  animation-delay: 0.2s;
+}
+.stagger-children > *:nth-child(3) {
+  animation-delay: 0.3s;
+}
+.stagger-children > *:nth-child(4) {
+  animation-delay: 0.4s;
+}
+.stagger-children > *:nth-child(5) {
+  animation-delay: 0.5s;
+}
+.stagger-children > *:nth-child(6) {
+  animation-delay: 0.6s;
+}
+
+/* Loading states */
+@keyframes shimmer {
+  0% {
+    background-position: -200px 0;
+  }
+  100% {
+    background-position: calc(200px + 100%) 0;
+  }
+}
+
+.loading-shimmer {
+  background: linear-gradient(90deg, #f3f4f6 25%, #e5e7eb 50%, #f3f4f6 75%);
+  background-size: 200px 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+/* Intersection Observer classes */
+.scroll-reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.scroll-reveal.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Emergency contact special animation */
+.emergency-pulse {
+  animation: protectivePulse 1.5s infinite;
+  background: linear-gradient(45deg, #ef4444, #dc2626);
+}
+
+.emergency-pulse:hover {
+  animation-duration: 1s;
+}
