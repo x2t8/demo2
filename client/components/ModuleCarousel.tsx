@@ -31,28 +31,33 @@ export default function ModuleCarousel({ modules }: ModuleCarouselProps) {
 
   const getModulePosition = (index: number) => {
     const diff = (index - activeIndex + modules.length) % modules.length;
-    if (diff === 0) return "center";
-    if (diff === 1 || diff === modules.length - 1) return diff === 1 ? "right-1" : "left-1";
-    if (diff === 2 || diff === modules.length - 2) return diff === 2 ? "right-2" : "left-2";
-    return "hidden";
+
+    switch (diff) {
+      case 0: return "center";
+      case 1: return "right-1";
+      case 2: return "right-2";
+      case 3: return "left-2";
+      case 4: return "left-1";
+      default: return "hidden";
+    }
   };
 
   const getModuleStyles = (position: string) => {
-    const baseStyles = "absolute transition-all duration-500 ease-in-out";
-    
+    const baseStyles = "absolute transition-all duration-700 ease-in-out cursor-pointer";
+
     switch (position) {
       case "center":
         return `${baseStyles} left-1/2 top-0 transform -translate-x-1/2 z-50 scale-100 opacity-100`;
       case "left-1":
-        return `${baseStyles} left-1/2 top-2 transform -translate-x-1/2 -translate-x-32 sm:-translate-x-40 lg:-translate-x-48 z-30 scale-90 opacity-80`;
+        return `${baseStyles} left-1/2 top-6 transform -translate-x-1/2 -translate-x-40 sm:-translate-x-48 lg:-translate-x-56 z-40 scale-85 opacity-85`;
       case "left-2":
-        return `${baseStyles} left-1/2 top-4 transform -translate-x-1/2 -translate-x-28 sm:-translate-x-36 lg:-translate-x-44 z-20 scale-80 opacity-60`;
+        return `${baseStyles} left-1/2 top-12 transform -translate-x-1/2 -translate-x-32 sm:-translate-x-38 lg:-translate-x-44 z-30 scale-75 opacity-60`;
       case "right-1":
-        return `${baseStyles} left-1/2 top-2 transform -translate-x-1/2 translate-x-32 sm:translate-x-40 lg:translate-x-48 z-30 scale-90 opacity-80`;
+        return `${baseStyles} left-1/2 top-6 transform -translate-x-1/2 translate-x-40 sm:translate-x-48 lg:translate-x-56 z-40 scale-85 opacity-85`;
       case "right-2":
-        return `${baseStyles} left-1/2 top-4 transform -translate-x-1/2 translate-x-28 sm:translate-x-36 lg:translate-x-44 z-20 scale-80 opacity-60`;
+        return `${baseStyles} left-1/2 top-12 transform -translate-x-1/2 translate-x-32 sm:translate-x-38 lg:translate-x-44 z-30 scale-75 opacity-60`;
       default:
-        return `${baseStyles} left-1/2 top-0 transform -translate-x-1/2 z-10 scale-70 opacity-0`;
+        return `${baseStyles} left-1/2 top-0 transform -translate-x-1/2 z-10 scale-70 opacity-0 pointer-events-none`;
     }
   };
 
