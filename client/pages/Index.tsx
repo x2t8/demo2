@@ -30,6 +30,7 @@ import { CaringToastProvider } from "@/components/CaringToast";
 import LearningProgress from "@/components/LearningProgress";
 import ReportGuideModal from "@/components/ReportGuideModal";
 import FloatingActionButton from "@/components/FloatingActionButton";
+import ModuleCarousel from "@/components/ModuleCarousel";
 
 export default function Index() {
   // Initialize scroll-based animations
@@ -42,7 +43,8 @@ export default function Index() {
     {
       icon: Shield,
       title: "An Toàn Số",
-      description: "Nhận biết và phòng tránh lừa đảo, bảo vệ thông tin cá nhân",
+      description:
+        "Nhận biết và phòng tránh lừa đảo, bảo v�� thông tin cá nhân",
       color: "text-red-600 bg-red-200",
       link: "/scam-types",
     },
@@ -214,62 +216,38 @@ export default function Index() {
         {/* Digital Modules */}
         <section
           id="modules"
-          className="py-16 sm:py-20 bg-gradient-to-br from-gray-50 to-blue-50"
+          className="py-12 sm:py-20 bg-gradient-to-br from-white via-blue-50/30 to-purple-50/30 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900"
         >
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-12 animate-fade-in">
-              <div className="inline-flex items-center justify-center w-16 h-16 bg-blue-100 rounded-full mb-6 animate-protective-pulse">
-                <BookOpen className="h-8 w-8 text-blue-600" />
+            <div className="text-center mb-8 sm:mb-16 animate-fade-in">
+              <div className="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-r from-education-blue to-education-purple rounded-full mb-4 animate-protective-pulse">
+                <BookOpen className="h-6 w-6 text-white" />
               </div>
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-4 animate-slide-up">
-                5 Mô-đun Giáo Dục Số Toàn Diện
+              <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-3 animate-slide-up">
+                5 Mô-đun Học Tập Thiết Yếu
               </h2>
               <p
-                className="text-lg sm:text-xl text-gray-600 max-w-2xl mx-auto mb-2 animate-fade-in"
+                className="text-base sm:text-lg text-gray-600 dark:text-gray-300 max-w-xl mx-auto animate-fade-in"
                 style={{ animationDelay: "0.2s" }}
               >
-                Hành trình hoàn chỉnh từ an toàn số đến thành thạo công nghệ
+                Khám phá từng mô-đun để trở thành công dân số thông minh
               </p>
-              <div
-                className="w-24 h-1 bg-gradient-to-r from-blue-600 to-purple-600 mx-auto rounded-full animate-slide-up"
-                style={{ animationDelay: "0.4s" }}
-              ></div>
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 sm:gap-6 stagger-children">
-              {digitalModules.map((module, index) => (
-                <Card
-                  key={index}
-                  className="hover:shadow-lg transition-all duration-300 cursor-pointer group hover-caring-lift scroll-reveal"
-                >
-                  <CardHeader className="text-center pb-3 sm:pb-4">
-                    <div
-                      className={`inline-flex p-3 sm:p-4 rounded-full ${module.color} mb-3 sm:mb-4 group-hover:scale-110 transition-transform`}
-                    >
-                      <module.icon className="h-6 w-6 sm:h-8 sm:w-8" />
-                    </div>
-                    <CardTitle className="text-base sm:text-lg">
-                      {module.title}
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent className="pt-0">
-                    <CardDescription className="text-center text-gray-600 text-sm sm:text-base mb-4">
-                      {module.description}
-                    </CardDescription>
-                    <div className="text-center">
-                      <Link to={module.link}>
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          className="text-blue-600 hover:text-blue-700 w-full sm:w-auto"
-                        >
-                          Khám phá
-                          <ChevronRight className="h-4 w-4 ml-1" />
-                        </Button>
-                      </Link>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
+
+            <ModuleCarousel modules={digitalModules} />
+
+            {/* Call to Action */}
+            <div className="text-center mt-12 sm:mt-16">
+              <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">
+                Bắt đầu hành trình học tập của bạn ngay hôm nay
+              </p>
+              <Button
+                size="sm"
+                className="bg-gradient-to-r from-education-blue to-education-purple hover:from-blue-700 hover:to-purple-700 text-white shadow-lg hover:shadow-xl transition-all"
+              >
+                Khám phá tất cả mô-đun
+                <BookOpen className="h-4 w-4 ml-2" />
+              </Button>
             </div>
           </div>
         </section>
