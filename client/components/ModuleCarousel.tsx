@@ -30,16 +30,47 @@ export default function ModuleCarousel({ modules }: ModuleCarouselProps) {
   };
 
   const getModulePosition = (index: number) => {
-    const diff = (index - activeIndex + modules.length) % modules.length;
+    // Fixed positions based on actual module numbers (1-5)
+    const moduleNumber = index + 1;
+    const centerModule = activeIndex + 1;
 
-    switch (diff) {
-      case 0: return "center";
-      case 1: return "right-1";
-      case 2: return "right-2";
-      case 3: return "left-2";
-      case 4: return "left-1";
-      default: return "hidden";
+    if (moduleNumber === centerModule) return "center";
+
+    // Define the stacking pattern around center module
+    switch (centerModule) {
+      case 1: // Module 1 is center
+        if (moduleNumber === 2) return "right-1";
+        if (moduleNumber === 3) return "right-2";
+        if (moduleNumber === 5) return "left-1";
+        if (moduleNumber === 4) return "left-2";
+        break;
+      case 2: // Module 2 is center
+        if (moduleNumber === 3) return "right-1";
+        if (moduleNumber === 4) return "right-2";
+        if (moduleNumber === 1) return "left-1";
+        if (moduleNumber === 5) return "left-2";
+        break;
+      case 3: // Module 3 is center
+        if (moduleNumber === 4) return "right-1";
+        if (moduleNumber === 5) return "right-2";
+        if (moduleNumber === 2) return "left-1";
+        if (moduleNumber === 1) return "left-2";
+        break;
+      case 4: // Module 4 is center
+        if (moduleNumber === 5) return "right-1";
+        if (moduleNumber === 1) return "right-2";
+        if (moduleNumber === 3) return "left-1";
+        if (moduleNumber === 2) return "left-2";
+        break;
+      case 5: // Module 5 is center
+        if (moduleNumber === 1) return "right-1";
+        if (moduleNumber === 2) return "right-2";
+        if (moduleNumber === 4) return "left-1";
+        if (moduleNumber === 3) return "left-2";
+        break;
     }
+
+    return "hidden";
   };
 
   const getModuleStyles = (position: string) => {
