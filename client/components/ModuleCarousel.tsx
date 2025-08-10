@@ -30,47 +30,19 @@ export default function ModuleCarousel({ modules }: ModuleCarouselProps) {
   };
 
   const getModulePosition = (index: number) => {
-    // Fixed positions based on actual module numbers (1-5)
-    const moduleNumber = index + 1;
-    const centerModule = activeIndex + 1;
+    // Calculate position relative to activeIndex (center)
+    // Always show all 5 modules in a circular arrangement
+    const totalModules = 5;
+    const relativeIndex = (index - activeIndex + totalModules) % totalModules;
 
-    if (moduleNumber === centerModule) return "center";
-
-    // Define the stacking pattern around center module
-    switch (centerModule) {
-      case 1: // Module 1 is center
-        if (moduleNumber === 2) return "right-1";
-        if (moduleNumber === 3) return "right-2";
-        if (moduleNumber === 5) return "left-1";
-        if (moduleNumber === 4) return "left-2";
-        break;
-      case 2: // Module 2 is center
-        if (moduleNumber === 3) return "right-1";
-        if (moduleNumber === 4) return "right-2";
-        if (moduleNumber === 1) return "left-1";
-        if (moduleNumber === 5) return "left-2";
-        break;
-      case 3: // Module 3 is center
-        if (moduleNumber === 4) return "right-1";
-        if (moduleNumber === 5) return "right-2";
-        if (moduleNumber === 2) return "left-1";
-        if (moduleNumber === 1) return "left-2";
-        break;
-      case 4: // Module 4 is center
-        if (moduleNumber === 5) return "right-1";
-        if (moduleNumber === 1) return "right-2";
-        if (moduleNumber === 3) return "left-1";
-        if (moduleNumber === 2) return "left-2";
-        break;
-      case 5: // Module 5 is center
-        if (moduleNumber === 1) return "right-1";
-        if (moduleNumber === 2) return "right-2";
-        if (moduleNumber === 4) return "left-1";
-        if (moduleNumber === 3) return "left-2";
-        break;
+    switch (relativeIndex) {
+      case 0: return "center";        // Current active module
+      case 1: return "right-1";       // Next module (right front)
+      case 2: return "right-2";       // Right back (behind right-1)
+      case 3: return "left-2";        // Left back (behind left-1)
+      case 4: return "left-1";        // Previous module (left front)
+      default: return "center";
     }
-
-    return "hidden";
   };
 
   const getModuleStyles = (position: string) => {
