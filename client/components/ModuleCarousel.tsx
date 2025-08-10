@@ -104,8 +104,7 @@ export default function ModuleCarousel({ modules }: ModuleCarouselProps) {
                     "w-64 lg:w-72 bg-white/95 dark:bg-gray-800/95 backdrop-blur-sm border-0 transition-all duration-300",
                     isCenter
                       ? "shadow-2xl ring-2 ring-education-blue/30 hover:shadow-3xl"
-                      : "shadow-lg hover:shadow-xl hover:scale-105 cursor-pointer",
-                    !isCenter && "hover:z-50"
+                      : "shadow-lg hover:shadow-xl hover:scale-105 cursor-pointer"
                   )}
                 >
                   <CardContent className="p-6 lg:p-8 text-center">
