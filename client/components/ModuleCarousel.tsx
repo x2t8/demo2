@@ -154,7 +154,7 @@ export default function ModuleCarousel({ modules }: ModuleCarouselProps) {
           <Card className="bg-white/95 dark:bg-gray-800/95 backdrop-blur-sm border-0 shadow-xl">
             <CardContent className="p-6 text-center">
               <div className={`inline-flex p-4 rounded-2xl ${modules[activeIndex].color} mb-4 animate-protective-pulse`}>
-                <modules[activeIndex].icon className="h-8 w-8" />
+                {React.createElement(modules[activeIndex].icon, { className: "h-8 w-8" })}
               </div>
               <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3">
                 {modules[activeIndex].title}
