@@ -65,22 +65,22 @@ export default function ModuleCarousel({ modules }: ModuleCarouselProps) {
     <div className="relative">
       {/* Desktop/Tablet View */}
       <div className="hidden sm:block">
-        <div className="relative h-80 lg:h-96 flex items-center justify-center">
+        <div className="relative h-80 lg:h-96 flex items-center justify-center overflow-hidden">
           {/* Navigation Buttons */}
           <Button
             variant="outline"
             size="icon"
             onClick={prevModule}
-            className="absolute left-4 lg:left-8 z-60 bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm hover:bg-white dark:hover:bg-gray-800 shadow-lg hover:shadow-xl transition-all"
+            className="absolute left-4 lg:left-8 z-40 bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm hover:bg-white dark:hover:bg-gray-800 shadow-lg hover:shadow-xl transition-all"
           >
             <ChevronLeft className="h-5 w-5" />
           </Button>
-          
+
           <Button
             variant="outline"
             size="icon"
             onClick={nextModule}
-            className="absolute right-4 lg:right-8 z-60 bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm hover:bg-white dark:hover:bg-gray-800 shadow-lg hover:shadow-xl transition-all"
+            className="absolute right-4 lg:right-8 z-40 bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm hover:bg-white dark:hover:bg-gray-800 shadow-lg hover:shadow-xl transition-all"
           >
             <ChevronRight className="h-5 w-5" />
           </Button>
