@@ -92,13 +92,11 @@ export default function ModuleCarousel({ modules }: ModuleCarouselProps) {
             <ChevronRight className="h-5 w-5" />
           </Button>
 
-          {/* Module Cards */}
+          {/* Module Cards - Show all 5 modules */}
           {modules.map((module, index) => {
             const position = getModulePosition(index);
             const isCenter = position === "center";
-            const isVisible = position !== "hidden";
-
-            if (!isVisible) return null;
+            const isFront = position.includes("1") || isCenter;
 
             return (
               <div
@@ -108,20 +106,23 @@ export default function ModuleCarousel({ modules }: ModuleCarouselProps) {
               >
                 <Card
                   className={cn(
-                    "w-64 lg:w-72 bg-white/95 dark:bg-gray-800/95 backdrop-blur-sm border-0 transition-all duration-300",
+                    "w-48 sm:w-56 lg:w-64 bg-white/95 dark:bg-gray-800/95 backdrop-blur-sm border-0 transition-all duration-300",
                     isCenter
-                      ? "shadow-2xl ring-2 ring-education-blue/30 hover:shadow-3xl"
-                      : "shadow-lg hover:shadow-xl hover:scale-105 cursor-pointer"
+                      ? "shadow-3xl ring-2 ring-education-blue/50 hover:shadow-3xl"
+                      : "shadow-lg hover:shadow-xl cursor-pointer",
+                    isFront && !isCenter && "hover:scale-110 hover:z-35"
                   )}
                 >
-                  <CardContent className="p-6 lg:p-8 text-center">
-                    <div className={`inline-flex p-4 lg:p-5 rounded-2xl ${module.color} mb-4 lg:mb-6 transition-all ${isCenter ? 'animate-protective-pulse' : 'group-hover:scale-110'}`}>
-                      <module.icon className="h-8 w-8 lg:h-10 lg:w-10" />
+                  <CardContent className={cn("text-center transition-all", isCenter ? "p-6 lg:p-8" : isFront ? "p-4 lg:p-5" : "p-3 lg:p-4")}>
+                    <div className={`inline-flex rounded-2xl ${module.color} mb-2 lg:mb-4 transition-all ${isCenter ? 'p-4 lg:p-5 animate-protective-pulse' : isFront ? 'p-3 lg:p-4' : 'p-2 lg:p-3'}`}>
+                      <module.icon className={cn("transition-all", isCenter ? "h-8 w-8 lg:h-10 lg:w-10" : isFront ? "h-6 w-6 lg:h-8 lg:w-8" : "h-5 w-5 lg:h-6 lg:w-6")} />
                     </div>
-                    <h3 className="text-lg lg:text-xl font-bold text-gray-900 dark:text-white mb-3">
+
+                    <h3 className={cn("font-bold text-gray-900 dark:text-white transition-all", isCenter ? "text-lg lg:text-xl mb-3" : isFront ? "text-base lg:text-lg mb-2" : "text-sm lg:text-base mb-1")}>
                       {module.title}
                     </h3>
-                    {(isCenter || position.includes("1")) && (
+
+                    {isCenter && (
                       <>
                         <p className="text-sm lg:text-base text-gray-600 dark:text-gray-300 mb-4 lg:mb-6 leading-relaxed">
                           {module.description}
@@ -132,27 +133,36 @@ export default function ModuleCarousel({ modules }: ModuleCarouselProps) {
                         >
                           Mô-đun {index + 1}
                         </Badge>
+                        <div className="mt-4">
+                          <Link to={module.link}>
+                            <Button
+                              className="bg-gradient-to-r from-education-blue to-education-purple hover:from-blue-700 hover:to-purple-700 text-white shadow-lg hover:shadow-xl transition-all w-full"
+                            >
+                              Khám phá ngay
+                              <ChevronRight className="h-4 w-4 ml-2" />
+                            </Button>
+                          </Link>
+                        </div>
                       </>
                     )}
-                    {!isCenter && position.includes("2") && (
+
+                    {isFront && !isCenter && (
                       <Badge
                         variant="outline"
-                        className={`${module.color.split(' ')[0]} border-current`}
+                        className={`text-xs ${module.color.split(' ')[0]} border-current`}
+                      >
+                        Mô-đun {index + 1}
+                      </Badge>
+                    )}
+
+                    {!isFront && !isCenter && (
+                      <Badge
+                        variant="outline"
+                        size="sm"
+                        className={`text-xs ${module.color.split(' ')[0]} border-current opacity-80`}
                       >
                         {index + 1}
                       </Badge>
-                    )}
-                    {isCenter && (
-                      <div className="mt-4">
-                        <Link to={module.link}>
-                          <Button
-                            className="bg-gradient-to-r from-education-blue to-education-purple hover:from-blue-700 hover:to-purple-700 text-white shadow-lg hover:shadow-xl transition-all w-full"
-                          >
-                            Khám phá ngay
-                            <ChevronRight className="h-4 w-4 ml-2" />
-                          </Button>
-                        </Link>
-                      </div>
                     )}
                   </CardContent>
                 </Card>
