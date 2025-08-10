@@ -106,7 +106,7 @@ export default function Index() {
               className="text-lg sm:text-xl text-gray-600 dark:text-gray-300 mb-6 sm:mb-8 max-w-3xl mx-auto leading-relaxed animate-fade-in"
               style={{ animationDelay: "0.3s" }}
             >
-              Nền tảng giáo dục toàn diện về an toàn số, đạo đức số, AI và kỹ
+              Nền tảng giáo dục toàn diện về an toàn số, đ���o đức số, AI và kỹ
               năng công nghệ cho người Việt Nam
             </p>
             <div
@@ -214,10 +214,10 @@ export default function Index() {
         {/* Digital Modules */}
         <section
           id="modules"
-          className="py-12 sm:py-16 bg-gradient-to-br from-white via-blue-50/30 to-purple-50/30 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900"
+          className="py-12 sm:py-20 bg-gradient-to-br from-white via-blue-50/30 to-purple-50/30 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900"
         >
-          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-8 sm:mb-12 animate-fade-in">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-8 sm:mb-16 animate-fade-in">
               <div className="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-r from-education-blue to-education-purple rounded-full mb-4 animate-protective-pulse">
                 <BookOpen className="h-6 w-6 text-white" />
               </div>
@@ -225,72 +225,14 @@ export default function Index() {
                 5 Mô-đun Học Tập Thiết Yếu
               </h2>
               <p className="text-base sm:text-lg text-gray-600 dark:text-gray-300 max-w-xl mx-auto animate-fade-in" style={{ animationDelay: "0.2s" }}>
-                Kiến thức cần thiết cho công dân số thông minh
+                Khám phá từng mô-đun để trở thành công dân số thông minh
               </p>
             </div>
 
-            {/* Desktop/Tablet View */}
-            <div className="hidden sm:block">
-              <div className="relative">
-                <div className="flex justify-center items-center space-x-4 lg:space-x-6">
-                  {digitalModules.map((module, index) => (
-                    <Link key={index} to={module.link} className="group">
-                      <div className="relative">
-                        <div className={`w-16 h-16 lg:w-20 lg:h-20 rounded-2xl ${module.color} flex items-center justify-center group-hover:scale-110 transition-all duration-300 shadow-lg group-hover:shadow-xl cursor-pointer`}>
-                          <module.icon className="h-8 w-8 lg:h-10 lg:w-10" />
-                        </div>
-                        <div className="absolute -bottom-16 left-1/2 transform -translate-x-1/2 w-24 lg:w-28 text-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                          <h3 className="text-sm lg:text-base font-semibold text-gray-900 dark:text-white mb-1">{module.title}</h3>
-                          <p className="text-xs text-gray-600 dark:text-gray-400 leading-tight">{module.description}</p>
-                        </div>
-                      </div>
-                    </Link>
-                  ))}
-                </div>
-
-                {/* Connection Lines */}
-                <div className="absolute top-8 lg:top-10 left-1/2 transform -translate-x-1/2 flex items-center space-x-4 lg:space-x-6 -z-10">
-                  {[...Array(4)].map((_, i) => (
-                    <div key={i} className="w-12 lg:w-16 h-0.5 bg-gradient-to-r from-education-blue to-education-purple opacity-30"></div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Module Names Row */}
-              <div className="flex justify-center items-center space-x-4 lg:space-x-6 mt-20">
-                {digitalModules.map((module, index) => (
-                  <div key={index} className="w-16 lg:w-20 text-center">
-                    <h3 className="text-sm lg:text-base font-semibold text-gray-900 dark:text-white mb-1">{module.title}</h3>
-                    <Badge variant="outline" className={`text-xs ${module.color.split(' ')[0]} border-current`}>
-                      Mô-đun {index + 1}
-                    </Badge>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Mobile View */}
-            <div className="sm:hidden space-y-4">
-              {digitalModules.map((module, index) => (
-                <Link key={index} to={module.link}>
-                  <Card className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border-0 shadow-md hover:shadow-lg transition-all duration-300 group">
-                    <CardContent className="p-4 flex items-center space-x-4">
-                      <div className={`w-12 h-12 rounded-xl ${module.color} flex items-center justify-center group-hover:scale-105 transition-transform flex-shrink-0`}>
-                        <module.icon className="h-6 w-6" />
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <h3 className="text-base font-semibold text-gray-900 dark:text-white mb-1">{module.title}</h3>
-                        <p className="text-sm text-gray-600 dark:text-gray-400 line-clamp-2">{module.description}</p>
-                      </div>
-                      <ChevronRight className="h-5 w-5 text-gray-400 group-hover:text-gray-600 transition-colors flex-shrink-0" />
-                    </CardContent>
-                  </Card>
-                </Link>
-              ))}
-            </div>
+            <ModuleCarousel modules={digitalModules} />
 
             {/* Call to Action */}
-            <div className="text-center mt-8 sm:mt-12">
+            <div className="text-center mt-12 sm:mt-16">
               <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">
                 Bắt đầu hành trình học tập của bạn ngay hôm nay
               </p>
