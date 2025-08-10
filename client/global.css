@@ -229,6 +229,10 @@
   .z-5 {
     z-index: 5;
   }
+
+  .hover\:z-35:hover {
+    z-index: 35;
+  }
 }
 
 @keyframes text-breathe {
