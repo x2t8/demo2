@@ -46,19 +46,23 @@ export default function ModuleCarousel({ modules }: ModuleCarouselProps) {
   };
 
   const getModuleStyles = (position: string) => {
-    const baseStyles = "absolute transition-all duration-700 ease-in-out cursor-pointer";
+    const baseStyles = "absolute transition-all duration-600 ease-in-out cursor-pointer";
 
     switch (position) {
       case "center":
-        return `${baseStyles} left-1/2 top-0 transform -translate-x-1/2 z-30 scale-100 opacity-100`;
+        return `${baseStyles} left-1/2 top-0 transform -translate-x-1/2 z-30 scale-110 opacity-100`;
       case "left-1":
-        return `${baseStyles} left-1/2 top-4 transform -translate-x-1/2 -translate-x-32 sm:-translate-x-36 lg:-translate-x-40 z-25 scale-90 opacity-90`;
+        // Module 1 đè lên 1/2 module 5
+        return `${baseStyles} left-1/2 top-6 transform -translate-x-1/2 -translate-x-28 sm:-translate-x-32 lg:-translate-x-36 z-25 scale-85 opacity-95`;
       case "left-2":
-        return `${baseStyles} left-1/2 top-8 transform -translate-x-1/2 -translate-x-48 sm:-translate-x-56 lg:-translate-x-64 z-20 scale-80 opacity-70`;
+        // Module 5 đè lên 1/2 module 4 (ở xa hơn, nhỏ hơn)
+        return `${baseStyles} left-1/2 top-12 transform -translate-x-1/2 -translate-x-40 sm:-translate-x-48 lg:-translate-x-56 z-20 scale-70 opacity-75`;
       case "right-1":
-        return `${baseStyles} left-1/2 top-4 transform -translate-x-1/2 translate-x-32 sm:translate-x-36 lg:translate-x-40 z-25 scale-90 opacity-90`;
+        // Module 1 đè lên 1/2 module 2
+        return `${baseStyles} left-1/2 top-6 transform -translate-x-1/2 translate-x-28 sm:translate-x-32 lg:translate-x-36 z-25 scale-85 opacity-95`;
       case "right-2":
-        return `${baseStyles} left-1/2 top-8 transform -translate-x-1/2 translate-x-48 sm:translate-x-56 lg:translate-x-64 z-20 scale-80 opacity-70`;
+        // Module 2 đè lên 1/2 module 3 (ở xa hơn, nhỏ hơn)
+        return `${baseStyles} left-1/2 top-12 transform -translate-x-1/2 translate-x-40 sm:translate-x-48 lg:translate-x-56 z-20 scale-70 opacity-75`;
       default:
         return `${baseStyles} left-1/2 top-0 transform -translate-x-1/2 z-5 scale-70 opacity-0 pointer-events-none`;
     }
