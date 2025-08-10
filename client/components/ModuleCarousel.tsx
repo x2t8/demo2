@@ -36,17 +36,24 @@ export default function ModuleCarousel({ modules }: ModuleCarouselProps) {
     const relativeIndex = (index - activeIndex + totalModules) % totalModules;
 
     switch (relativeIndex) {
-      case 0: return "center";        // Current active module
-      case 1: return "right-1";       // Next module (right front)
-      case 2: return "right-2";       // Right back (behind right-1)
-      case 3: return "left-2";        // Left back (behind left-1)
-      case 4: return "left-1";        // Previous module (left front)
-      default: return "center";
+      case 0:
+        return "center"; // Current active module
+      case 1:
+        return "right-1"; // Next module (right front)
+      case 2:
+        return "right-2"; // Right back (behind right-1)
+      case 3:
+        return "left-2"; // Left back (behind left-1)
+      case 4:
+        return "left-1"; // Previous module (left front)
+      default:
+        return "center";
     }
   };
 
   const getModuleStyles = (position: string) => {
-    const baseStyles = "absolute transition-all duration-600 ease-in-out cursor-pointer";
+    const baseStyles =
+      "absolute transition-all duration-600 ease-in-out cursor-pointer";
 
     switch (position) {
       case "center":
@@ -110,15 +117,44 @@ export default function ModuleCarousel({ modules }: ModuleCarouselProps) {
                     isCenter
                       ? "shadow-3xl ring-2 ring-education-blue/50 hover:shadow-3xl"
                       : "shadow-lg hover:shadow-xl cursor-pointer",
-                    isFront && !isCenter && "hover:scale-110 hover:z-35"
+                    isFront && !isCenter && "hover:scale-110 hover:z-35",
                   )}
                 >
-                  <CardContent className={cn("text-center transition-all", isCenter ? "p-6 lg:p-8" : isFront ? "p-4 lg:p-5" : "p-3 lg:p-4")}>
-                    <div className={`inline-flex rounded-2xl ${module.color} mb-2 lg:mb-4 transition-all ${isCenter ? 'p-4 lg:p-5 animate-protective-pulse' : isFront ? 'p-3 lg:p-4' : 'p-2 lg:p-3'}`}>
-                      <module.icon className={cn("transition-all", isCenter ? "h-8 w-8 lg:h-10 lg:w-10" : isFront ? "h-6 w-6 lg:h-8 lg:w-8" : "h-5 w-5 lg:h-6 lg:w-6")} />
+                  <CardContent
+                    className={cn(
+                      "text-center transition-all",
+                      isCenter
+                        ? "p-6 lg:p-8"
+                        : isFront
+                          ? "p-4 lg:p-5"
+                          : "p-3 lg:p-4",
+                    )}
+                  >
+                    <div
+                      className={`inline-flex rounded-2xl ${module.color} mb-2 lg:mb-4 transition-all ${isCenter ? "p-4 lg:p-5 animate-protective-pulse" : isFront ? "p-3 lg:p-4" : "p-2 lg:p-3"}`}
+                    >
+                      <module.icon
+                        className={cn(
+                          "transition-all",
+                          isCenter
+                            ? "h-8 w-8 lg:h-10 lg:w-10"
+                            : isFront
+                              ? "h-6 w-6 lg:h-8 lg:w-8"
+                              : "h-5 w-5 lg:h-6 lg:w-6",
+                        )}
+                      />
                     </div>
 
-                    <h3 className={cn("font-bold text-gray-900 dark:text-white transition-all", isCenter ? "text-lg lg:text-xl mb-3" : isFront ? "text-base lg:text-lg mb-2" : "text-sm lg:text-base mb-1")}>
+                    <h3
+                      className={cn(
+                        "font-bold text-gray-900 dark:text-white transition-all",
+                        isCenter
+                          ? "text-lg lg:text-xl mb-3"
+                          : isFront
+                            ? "text-base lg:text-lg mb-2"
+                            : "text-sm lg:text-base mb-1",
+                      )}
+                    >
                       {module.title}
                     </h3>
 
@@ -129,15 +165,13 @@ export default function ModuleCarousel({ modules }: ModuleCarouselProps) {
                         </p>
                         <Badge
                           variant="outline"
-                          className={`mb-4 ${module.color.split(' ')[0]} border-current`}
+                          className={`mb-4 ${module.color.split(" ")[0]} border-current`}
                         >
                           Mô-đun {index + 1}
                         </Badge>
                         <div className="mt-4">
                           <Link to={module.link}>
-                            <Button
-                              className="bg-gradient-to-r from-education-blue to-education-purple hover:from-blue-700 hover:to-purple-700 text-white shadow-lg hover:shadow-xl transition-all w-full"
-                            >
+                            <Button className="bg-gradient-to-r from-education-blue to-education-purple hover:from-blue-700 hover:to-purple-700 text-white shadow-lg hover:shadow-xl transition-all w-full">
                               Khám phá ngay
                               <ChevronRight className="h-4 w-4 ml-2" />
                             </Button>
@@ -149,7 +183,7 @@ export default function ModuleCarousel({ modules }: ModuleCarouselProps) {
                     {isFront && !isCenter && (
                       <Badge
                         variant="outline"
-                        className={`text-xs ${module.color.split(' ')[0]} border-current`}
+                        className={`text-xs ${module.color.split(" ")[0]} border-current`}
                       >
                         Mô-đun {index + 1}
                       </Badge>
@@ -159,7 +193,7 @@ export default function ModuleCarousel({ modules }: ModuleCarouselProps) {
                       <Badge
                         variant="outline"
                         size="sm"
-                        className={`text-xs ${module.color.split(' ')[0]} border-current opacity-80`}
+                        className={`text-xs ${module.color.split(" ")[0]} border-current opacity-80`}
                       >
                         {index + 1}
                       </Badge>
@@ -179,9 +213,9 @@ export default function ModuleCarousel({ modules }: ModuleCarouselProps) {
               onClick={() => setActiveIndex(index)}
               className={cn(
                 "w-3 h-3 rounded-full transition-all duration-300",
-                index === activeIndex 
-                  ? "bg-education-blue scale-125" 
-                  : "bg-gray-300 dark:bg-gray-600 hover:bg-gray-400 dark:hover:bg-gray-500"
+                index === activeIndex
+                  ? "bg-education-blue scale-125"
+                  : "bg-gray-300 dark:bg-gray-600 hover:bg-gray-400 dark:hover:bg-gray-500",
               )}
             />
           ))}
@@ -193,8 +227,12 @@ export default function ModuleCarousel({ modules }: ModuleCarouselProps) {
         <div className="relative">
           <Card className="bg-white/95 dark:bg-gray-800/95 backdrop-blur-sm border-0 shadow-xl">
             <CardContent className="p-6 text-center">
-              <div className={`inline-flex p-4 rounded-2xl ${modules[activeIndex].color} mb-4 animate-protective-pulse`}>
-                {React.createElement(modules[activeIndex].icon, { className: "h-8 w-8" })}
+              <div
+                className={`inline-flex p-4 rounded-2xl ${modules[activeIndex].color} mb-4 animate-protective-pulse`}
+              >
+                {React.createElement(modules[activeIndex].icon, {
+                  className: "h-8 w-8",
+                })}
               </div>
               <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3">
                 {modules[activeIndex].title}
@@ -202,9 +240,9 @@ export default function ModuleCarousel({ modules }: ModuleCarouselProps) {
               <p className="text-base text-gray-600 dark:text-gray-300 mb-4 leading-relaxed">
                 {modules[activeIndex].description}
               </p>
-              <Badge 
-                variant="outline" 
-                className={`mb-4 ${modules[activeIndex].color.split(' ')[0]} border-current`}
+              <Badge
+                variant="outline"
+                className={`mb-4 ${modules[activeIndex].color.split(" ")[0]} border-current`}
               >
                 Mô-đun {activeIndex + 1}
               </Badge>
@@ -243,9 +281,9 @@ export default function ModuleCarousel({ modules }: ModuleCarouselProps) {
               onClick={() => setActiveIndex(index)}
               className={cn(
                 "w-3 h-3 rounded-full transition-all duration-300",
-                index === activeIndex 
-                  ? "bg-education-blue scale-125" 
-                  : "bg-gray-300 dark:bg-gray-600"
+                index === activeIndex
+                  ? "bg-education-blue scale-125"
+                  : "bg-gray-300 dark:bg-gray-600",
               )}
             />
           ))}

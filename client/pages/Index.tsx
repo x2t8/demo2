@@ -43,7 +43,8 @@ export default function Index() {
     {
       icon: Shield,
       title: "An Toàn Số",
-      description: "Nhận biết và phòng tránh lừa đảo, bảo v�� thông tin cá nhân",
+      description:
+        "Nhận biết và phòng tránh lừa đảo, bảo v�� thông tin cá nhân",
       color: "text-red-600 bg-red-200",
       link: "/scam-types",
     },
@@ -225,7 +226,10 @@ export default function Index() {
               <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-3 animate-slide-up">
                 5 Mô-đun Học Tập Thiết Yếu
               </h2>
-              <p className="text-base sm:text-lg text-gray-600 dark:text-gray-300 max-w-xl mx-auto animate-fade-in" style={{ animationDelay: "0.2s" }}>
+              <p
+                className="text-base sm:text-lg text-gray-600 dark:text-gray-300 max-w-xl mx-auto animate-fade-in"
+                style={{ animationDelay: "0.2s" }}
+              >
                 Khám phá từng mô-đun để trở thành công dân số thông minh
               </p>
             </div>
