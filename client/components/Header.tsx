@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import { Shield, Menu, X } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { Link } from "react-router-dom";
-import DarkModeToggle from "@/components/DarkModeToggle";
 
 export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -14,7 +13,6 @@ export default function Header() {
             to="/"
             className="flex items-center space-x-2 group hover-caring-lift"
           >
-            <Shield className="h-6 w-6 sm:h-8 sm:w-8 text-blue-600 animate-protective-pulse group-hover:animate-heartbeat" />
             <span className="text-lg sm:text-xl font-bold text-gray-900 dark:text-white group-hover:text-blue-600 transition-colors duration-300">
               Công Dân Số An Toàn
             </span>
@@ -26,44 +24,39 @@ export default function Header() {
               to="/"
               className="text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 font-medium transition-colors duration-200"
             >
-              🏠 Trang chủ
+              Trang chủ
             </Link>
             <Link
               to="/scam-types"
               className="text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 font-medium transition-colors duration-200"
             >
-              🛡️ An toàn số
+              An toàn số
             </Link>
             <Link
               to="/digital-ethics"
               className="text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 font-medium transition-colors duration-200"
             >
-              💜 Đạo đức số
+              Đạo đức số
             </Link>
             <Link
               to="/ai-safety"
               className="text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 font-medium transition-colors duration-200"
             >
-              🤖 AI An toàn
+              AI An toàn
             </Link>
             <Link
               to="/digital-law"
               className="text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 font-medium transition-colors duration-200"
             >
-              ⚖️ Pháp luật số
+              Pháp luật số
             </Link>
             <Link
               to="/digital-skills"
               className="text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 font-medium transition-colors duration-200"
             >
-              💻 Kỹ năng số
+              Kỹ năng số
             </Link>
           </nav>
-
-          {/* Desktop Actions */}
-          <div className="hidden md:flex items-center space-x-3">
-            <DarkModeToggle />
-          </div>
 
           {/* Mobile menu button */}
           <button
@@ -95,47 +88,43 @@ export default function Header() {
               className="block px-3 py-2 text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-gray-800 font-medium rounded-md transition-all duration-200"
               onClick={() => setIsMobileMenuOpen(false)}
             >
-              ���� Trang chủ
+              Trang chủ
             </Link>
             <Link
               to="/scam-types"
               className="block px-3 py-2 text-gray-700 hover:text-blue-600 hover:bg-red-50 font-medium rounded-md transition-all duration-200"
               onClick={() => setIsMobileMenuOpen(false)}
             >
-              🛡️ An toàn số
+              An toàn số
             </Link>
             <Link
               to="/digital-ethics"
               className="block px-3 py-2 text-gray-700 hover:text-blue-600 hover:bg-purple-50 font-medium rounded-md transition-all duration-200"
               onClick={() => setIsMobileMenuOpen(false)}
             >
-              💜 Đạo đức số
+              Đạo đức số
             </Link>
             <Link
               to="/ai-safety"
               className="block px-3 py-2 text-gray-700 hover:text-blue-600 hover:bg-indigo-50 font-medium rounded-md transition-all duration-200"
               onClick={() => setIsMobileMenuOpen(false)}
             >
-              🤖 AI An toàn
+              AI An toàn
             </Link>
             <Link
               to="/digital-law"
               className="block px-3 py-2 text-gray-700 hover:text-blue-600 hover:bg-indigo-50 font-medium rounded-md transition-all duration-200"
               onClick={() => setIsMobileMenuOpen(false)}
             >
-              ⚖️ Pháp luật s���
+              Pháp luật số
             </Link>
             <Link
               to="/digital-skills"
               className="block px-3 py-2 text-gray-700 hover:text-blue-600 hover:bg-green-50 font-medium rounded-md transition-all duration-200"
               onClick={() => setIsMobileMenuOpen(false)}
             >
-              💻 Kỹ năng số
+              Kỹ năng số
             </Link>
-            <div className="px-3 py-2 flex items-center justify-between">
-              <span className="text-gray-600 font-medium">Chế độ tối:</span>
-              <DarkModeToggle />
-            </div>
           </div>
         </div>
       </div>

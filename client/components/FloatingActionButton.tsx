@@ -14,12 +14,6 @@ export default function FloatingActionButton() {
       action: () => window.open("tel:113"),
     },
     {
-      icon: AlertTriangle,
-      label: "Báo cáo lừa đảo",
-      color: "bg-orange-600 hover:bg-orange-700",
-      action: () => window.open("mailto:report@antiscam.gov.vn"),
-    },
-    {
       icon: MessageCircle,
       label: "Chat hỗ trợ",
       color: "bg-blue-600 hover:bg-blue-700",

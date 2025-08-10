@@ -1,5 +1,5 @@
 import React from "react";
-import { Share2, Facebook, Twitter, Link, Printer } from "lucide-react";
+import { Share2, Facebook, Twitter, Link } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 
@@ -35,10 +35,6 @@ export default function SocialShare({
     } catch (err) {
       console.error("Failed to copy: ", err);
     }
-  };
-
-  const printPage = () => {
-    window.print();
   };
 
   return (
@@ -83,16 +79,6 @@ export default function SocialShare({
           >
             <Link className="h-4 w-4 mr-2" />
             Sao chép link
-          </Button>
-
-          <Button
-            onClick={printPage}
-            variant="outline"
-            size="sm"
-            className="hover:bg-gray-100"
-          >
-            <Printer className="h-4 w-4 mr-2" />
-            In trang
           </Button>
         </div>
       </CardContent>

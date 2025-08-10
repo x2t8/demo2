@@ -208,9 +208,6 @@ export default function ScamAlert() {
             Hãy báo cáo ngay để cộng đồng được biết và phòng tránh
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
-            <Button className="bg-red-600 hover:bg-red-700">
-              🚨 Báo cáo lừa đảo
-            </Button>
             <Button variant="outline">📋 Kiểm tra website</Button>
             <Button variant="outline">🤖 Chat với AI</Button>
           </div>

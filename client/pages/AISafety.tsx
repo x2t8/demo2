@@ -127,7 +127,7 @@ export default function AISafety() {
       signs: [
         "Chuyển động mắt không tự nhiên",
         "Đồng bộ môi-âm thanh kém",
-        "Chất lượng ảnh không đồng đều",
+        "Chất lượng ảnh không đ���ng đều",
         "Ánh sáng và bóng đổ lạ",
         "Tóc và viền mặt mờ ảo",
       ],
@@ -383,7 +383,7 @@ export default function AISafety() {
             <Card className="border-green-200 dark:bg-gray-800 dark:border-gray-700">
               <CardHeader className="bg-green-50 dark:bg-green-900/20">
                 <CardTitle className="text-xl text-green-800 dark:text-green-200 flex items-center">
-                  <CheckCircle className="h-6 w-6 mr-2" />✅ NÊN LÀM
+                  <CheckCircle className="h-6 w-6 mr-2" />✅ N��N LÀM
                 </CardTitle>
               </CardHeader>
               <CardContent className="p-6">
@@ -871,20 +871,6 @@ export default function AISafety() {
             AI là công cụ mạnh mẽ - hãy sử dụng một cách thông minh và có trách
             nhiệm
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" variant="secondary">
-              <Bot className="h-5 w-5 mr-2" />
-              Thực hành với AI
-            </Button>
-            <Button
-              size="lg"
-              variant="outline"
-              className="border-white text-white hover:bg-white hover:text-blue-600"
-            >
-              <Shield className="h-5 w-5 mr-2" />
-              Tải cẩm nang AI
-            </Button>
-          </div>
         </div>
       </div>
       <LearningProgress currentPage="/ai-safety" />

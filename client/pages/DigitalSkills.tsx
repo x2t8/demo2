@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import {
   ArrowLeft,
   Monitor,
@@ -15,6 +16,30 @@ import {
   FileText,
   Video,
   MessageSquare,
+  BookOpen,
+  ExternalLink,
+  Brain,
+  Target,
+  Settings,
+  Accessibility,
+  Zap,
+  GraduationCap,
+  Briefcase,
+  Heart,
+  Building,
+  Star,
+  CheckCircle,
+  XCircle,
+  PlayCircle,
+  Download,
+  Eye,
+  Volume2,
+  Lightbulb,
+  Cpu,
+  Shield,
+  Coins,
+  Home,
+  BarChart3,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -25,13 +50,537 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Progress } from "@/components/ui/progress";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Label } from "@/components/ui/label";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Switch } from "@/components/ui/switch";
 import { Link } from "react-router-dom";
 import Header from "@/components/Header";
 import DisclaimerBanner from "@/components/DisclaimerBanner";
 import LearningProgress from "@/components/LearningProgress";
 import LazySection from "@/components/LazySection";
 
+interface QuizQuestion {
+  id: number;
+  question: string;
+  options: string[];
+  correctAnswer: number;
+  explanation: string;
+  category: string;
+}
+
+interface LearningResource {
+  title: string;
+  provider: string;
+  url: string;
+  type: "course" | "video" | "article" | "pdf";
+  level: "Cơ bản" | "Trung bình" | "Nâng cao";
+  duration: string;
+  free: boolean;
+  vietnamese: boolean;
+}
+
+interface IndustryProfile {
+  id: string;
+  title: string;
+  icon: React.ComponentType<{ className?: string }>;
+  description: string;
+  skills: string[];
+  tools: string[];
+  resources: LearningResource[];
+}
+
 export default function DigitalSkills() {
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+  const [selectedAnswers, setSelectedAnswers] = useState<number[]>([]);
+  const [quizCompleted, setQuizCompleted] = useState(false);
+  const [quizScore, setQuizScore] = useState(0);
+  const [selectedIndustry, setSelectedIndustry] = useState<string>("");
+  const [accessibilityMode, setAccessibilityMode] = useState(false);
+  const [fontSize, setFontSize] = useState("normal");
+  const [highContrast, setHighContrast] = useState(false);
+
+  // Sample quiz questions (in real app, would fetch from API)
+  const quizQuestions: QuizQuestion[] = [
+    {
+      id: 1,
+      question: "Cách tốt nhất để tạo mật khẩu mạnh là gì?",
+      options: [
+        "Sử dụng tên và ngày sinh",
+        "Kết hợp chữ cái, số và ký tự đặc biệt",
+        "Sử dụng từ trong từ điển",
+        "Dùng cùng mật khẩu cho tất cả tài khoản",
+      ],
+      correctAnswer: 1,
+      explanation:
+        "Mật khẩu mạnh cần kết hợp nhiều loại ký tự khác nhau và không dễ đoán.",
+      category: "Bảo mật",
+    },
+    {
+      id: 2,
+      question: "Google Sheets được sử dụng chủ yếu để làm gì?",
+      options: [
+        "Chỉnh sửa ảnh",
+        "Tạo và quản lý bảng tính",
+        "Thiết kế website",
+        "Gửi email",
+      ],
+      correctAnswer: 1,
+      explanation:
+        "Google Sheets là công cụ tạo và quản lý bảng tính trực tuyến.",
+      category: "Ứng dụng văn phòng",
+    },
+    {
+      id: 3,
+      question: "Phím tắt Ctrl+C dùng để làm gì?",
+      options: [
+        "Đóng ứng dụng",
+        "Sao chép nội dung",
+        "Tạo file mới",
+        "In tài liệu",
+      ],
+      correctAnswer: 1,
+      explanation: "Ctrl+C là phím tắt để sao chép (copy) nội dung đã chọn.",
+      category: "Kỹ năng cơ bản",
+    },
+    {
+      id: 4,
+      question: "Đâu là dấu hiệu của website an toàn?",
+      options: [
+        "URL bắt đầu bằng http://",
+        "URL bắt đầu bằng https://",
+        "Website có nhiều quảng cáo",
+        "Website yêu cầu thông tin cá nhân ngay lập tức",
+      ],
+      correctAnswer: 1,
+      explanation: "HTTPS cho biết kết nối được mã hóa và an toàn hơn HTTP.",
+      category: "An ninh mạng",
+    },
+    {
+      id: 5,
+      question: "Cloud storage có ưu điểm gì?",
+      options: [
+        "Chỉ truy cập được từ một thiết bị",
+        "Truy cập từ nhiều thiết bị, đồng bộ dữ liệu",
+        "Không cần internet",
+        "Chỉ lưu được file nhỏ",
+      ],
+      correctAnswer: 1,
+      explanation:
+        "Cloud storage cho phép truy cập và đồng bộ dữ liệu từ nhiều thiết bị qua internet.",
+      category: "Công nghệ đám mây",
+    },
+    {
+      id: 6,
+      question: "Zoom được sử dụng chủ yếu để làm gì?",
+      options: [
+        "Chỉnh sửa video",
+        "Họp video trực tuyến",
+        "Chơi game",
+        "Mua sắm online",
+      ],
+      correctAnswer: 1,
+      explanation: "Zoom là nền tảng họp video và webinar trực tuyến phổ biến.",
+      category: "Công cụ collaboration",
+    },
+    {
+      id: 7,
+      question: "AI (Trí tuệ nhân tạo) có thể giúp gì trong công việc?",
+      options: [
+        "Chỉ thay thế hoàn toàn con người",
+        "Tự động hóa tác vụ lặp lại và hỗ trợ ra quyết định",
+        "Chỉ dùng để chơi game",
+        "Không có ứng dụng thực tế",
+      ],
+      correctAnswer: 1,
+      explanation:
+        "AI giúp tự động hóa công việc lặp lại và hỗ trợ con người ra quyết định tốt hơn.",
+      category: "Công nghệ mới",
+    },
+    {
+      id: 8,
+      question: "Phishing là gì?",
+      options: [
+        "Một loại phần mềm văn phòng",
+        "Hình thức lừa đảo qua email hoặc website giả mạo",
+        "Cách thức sao lưu dữ liệu",
+        "Phương pháp tìm kiếm thông tin",
+      ],
+      correctAnswer: 1,
+      explanation:
+        "Phishing là hình thức lừa đảo bằng cách giả mạo email hoặc website để đánh cắp thông tin.",
+      category: "An ninh mạng",
+    },
+    {
+      id: 9,
+      question: "Blockchain được ứng dụng trong lĩnh vực nào?",
+      options: [
+        "Chỉ trong tiền điện tử",
+        "Tiền điện tử, bảo mật dữ liệu, hợp đồng thông minh",
+        "Chỉ trong gaming",
+        "Không có ứng dụng thực tế",
+      ],
+      correctAnswer: 1,
+      explanation:
+        "Blockchain có nhiều ứng dụng: tiền điện tử, bảo mật dữ liệu, smart contracts, truy xuất nguồn gốc.",
+      category: "Công nghệ mới",
+    },
+    {
+      id: 10,
+      question: "No-code platform giúp gì?",
+      options: [
+        "Chỉ dành cho lập trình viên",
+        "Tạo ứng dụng và website không cần biết code",
+        "Chỉ để thiết kế đồ họa",
+        "Chỉ để quản lý file",
+      ],
+      correctAnswer: 1,
+      explanation:
+        "No-code platform cho phép người không biết lập trình tạo ra ứng dụng và website.",
+      category: "Công nghệ mới",
+    },
+  ];
+
+  // Learning Resources
+  const learningResources: { [key: string]: LearningResource[] } = {
+    "Excel cơ bản": [
+      {
+        title: "Excel từ Zero đến Hero",
+        provider: "Coursera",
+        url: "https://coursera.org/excel-basics",
+        type: "course",
+        level: "Cơ bản",
+        duration: "4 tuần",
+        free: true,
+        vietnamese: true,
+      },
+      {
+        title: "Hướng dẫn Excel cơ bản",
+        provider: "YouTube - Thầy Giáo CNTT",
+        url: "https://youtube.com/excel-vietnamese",
+        type: "video",
+        level: "Cơ bản",
+        duration: "2 giờ",
+        free: true,
+        vietnamese: true,
+      },
+      {
+        title: "Excel Handbook 2024",
+        provider: "Microsoft",
+        url: "https://support.microsoft.com/excel",
+        type: "pdf",
+        level: "Cơ bản",
+        duration: "Tự học",
+        free: true,
+        vietnamese: false,
+      },
+    ],
+    "Digital Marketing": [
+      {
+        title: "Google Digital Garage",
+        provider: "Google",
+        url: "https://digitalgarage.google.com",
+        type: "course",
+        level: "Cơ bản",
+        duration: "6 tuần",
+        free: true,
+        vietnamese: true,
+      },
+      {
+        title: "Facebook Blueprint",
+        provider: "Meta",
+        url: "https://facebook.com/business/learn",
+        type: "course",
+        level: "Trung bình",
+        duration: "4 tuần",
+        free: true,
+        vietnamese: true,
+      },
+    ],
+    Cybersecurity: [
+      {
+        title: "An ninh mạng cho người mới",
+        provider: "FPT Edu",
+        url: "https://fpt.edu.vn/cybersecurity",
+        type: "video",
+        level: "Cơ bản",
+        duration: "3 giờ",
+        free: true,
+        vietnamese: true,
+      },
+      {
+        title: "BKAV Security Guide",
+        provider: "BKAV",
+        url: "https://bkav.com/security-guide",
+        type: "article",
+        level: "Trung bình",
+        duration: "1 giờ",
+        free: true,
+        vietnamese: true,
+      },
+    ],
+  };
+
+  // Industry-specific profiles
+  const industryProfiles: IndustryProfile[] = [
+    {
+      id: "teacher",
+      title: "Giáo viên",
+      icon: GraduationCap,
+      description: "Kỹ năng số thiết yếu cho giáo dục hiện đại",
+      skills: [
+        "Google Classroom",
+        "Zoom/Teams for education",
+        "Kahoot/Quizizz",
+        "PowerPoint/Canva",
+        "Quản lý điểm số điện tử",
+        "Tạo video bài giảng",
+      ],
+      tools: [
+        "Google Workspace for Education",
+        "Microsoft Teams for Education",
+        "Kahoot",
+        "Padlet",
+        "Flipgrid",
+        "Screencastify",
+      ],
+      resources: [
+        {
+          title: "Google for Education Certification",
+          provider: "Google",
+          url: "https://edu.google.com/teacher-center/",
+          type: "course",
+          level: "Cơ bản",
+          duration: "20 giờ",
+          free: true,
+          vietnamese: true,
+        },
+      ],
+    },
+    {
+      id: "office",
+      title: "Nhân viên văn phòng",
+      icon: Briefcase,
+      description: "Tối ưu hóa hiệu quả công việc văn phòng",
+      skills: [
+        "Excel nâng cao",
+        "Microsoft Teams",
+        "Project management",
+        "PowerBI/Data analysis",
+        "Automation tools",
+        "Digital documentation",
+      ],
+      tools: [
+        "Microsoft 365",
+        "Slack",
+        "Trello/Asana",
+        "Power BI",
+        "Zapier",
+        "Notion",
+      ],
+      resources: [
+        {
+          title: "Microsoft 365 Productivity",
+          provider: "Microsoft Learn",
+          url: "https://learn.microsoft.com/training/",
+          type: "course",
+          level: "Trung bình",
+          duration: "15 giờ",
+          free: true,
+          vietnamese: false,
+        },
+      ],
+    },
+    {
+      id: "business",
+      title: "Kinh doanh",
+      icon: BarChart3,
+      description: "Kỹ năng số cho doanh nghiệp và marketing",
+      skills: [
+        "Social media marketing",
+        "E-commerce platforms",
+        "CRM basics",
+        "Analytics & reporting",
+        "Digital advertising",
+        "Content creation",
+      ],
+      tools: [
+        "Facebook Ads Manager",
+        "Google Analytics",
+        "Shopify/WooCommerce",
+        "HubSpot",
+        "Canva Pro",
+        "Mailchimp",
+      ],
+      resources: [
+        {
+          title: "Digital Marketing Fundamentals",
+          provider: "Google Digital Garage",
+          url: "https://digitalgarage.google.com",
+          type: "course",
+          level: "Cơ bản",
+          duration: "40 giờ",
+          free: true,
+          vietnamese: true,
+        },
+      ],
+    },
+    {
+      id: "healthcare",
+      title: "Y tế",
+      icon: Heart,
+      description: "Công nghệ số trong chăm sóc sức khỏe",
+      skills: [
+        "Telemedicine platforms",
+        "Patient data security",
+        "Digital health records",
+        "Medical device integration",
+        "Health apps usage",
+        "HIPAA compliance",
+      ],
+      tools: [
+        "Epic/Cerner EHR",
+        "Teladoc",
+        "Zoom for Healthcare",
+        "Microsoft Healthcare Bot",
+        "Health tracking apps",
+        "Secure messaging",
+      ],
+      resources: [
+        {
+          title: "Digital Health Literacy",
+          provider: "WHO",
+          url: "https://who.int/digital-health",
+          type: "article",
+          level: "Trung bình",
+          duration: "5 giờ",
+          free: true,
+          vietnamese: false,
+        },
+      ],
+    },
+  ];
+
+  // Emerging Technologies
+  const emergingTechnologies = [
+    {
+      category: "AI Tools",
+      icon: Brain,
+      description: "Công cụ AI giúp tăng hiệu quả công việc",
+      tools: [
+        {
+          name: "ChatGPT",
+          purpose: "Hỗ trợ viết lách, brainstorming, Q&A",
+          level: "Cơ bản",
+          practical: "Viết email, tóm tắt tài liệu, ý tưởng content",
+        },
+        {
+          name: "Midjourney/DALL-E",
+          purpose: "Tạo hình ảnh từ mô tả văn bản",
+          level: "Trung bình",
+          practical: "Thiết kế poster, minh họa bài viết",
+        },
+        {
+          name: "Notion AI",
+          purpose: "AI tích hợp trong quản lý công việc",
+          level: "Trung bình",
+          practical: "Tự động hóa ghi chú, tổ chức thông tin",
+        },
+      ],
+    },
+    {
+      category: "Blockchain & Crypto",
+      icon: Coins,
+      description: "Hiểu biết cơ bản về công nghệ blockchain",
+      tools: [
+        {
+          name: "Bitcoin/Ethereum basics",
+          purpose: "Hiểu tiền điện tử và cách hoạt động",
+          level: "Cơ bản",
+          practical: "Đầu tư, thanh toán, bảo mật tài sản",
+        },
+        {
+          name: "NFT marketplace",
+          purpose: "Tạo và giao dịch tài sản số",
+          level: "Nâng cao",
+          practical: "Bán nghệ thuật số, sưu tầm",
+        },
+        {
+          name: "Smart contracts",
+          purpose: "Hợp đồng tự động thực thi",
+          level: "Nâng cao",
+          practical: "Giao dịch không qua trung gian",
+        },
+      ],
+    },
+    {
+      category: "IoT & Smart Devices",
+      icon: Home,
+      description: "Internet of Things và thiết bị thông minh",
+      tools: [
+        {
+          name: "Smart home setup",
+          purpose: "Điều khiển nhà thông minh",
+          level: "Cơ bản",
+          practical: "Tiết kiệm năng lượng, an ninh nhà",
+        },
+        {
+          name: "Wearable devices",
+          purpose: "Thiết bị đeo theo dõi sức khỏe",
+          level: "Cơ bản",
+          practical: "Theo dõi vận động, giấc ngủ",
+        },
+        {
+          name: "Industrial IoT",
+          purpose: "IoT trong sản xuất và logistics",
+          level: "Nâng cao",
+          practical: "Tối ưu quy trình sản xuất",
+        },
+      ],
+    },
+    {
+      category: "No-Code/Low-Code",
+      icon: Zap,
+      description: "Tạo ứng dụng không cần lập trình",
+      tools: [
+        {
+          name: "Bubble",
+          purpose: "Tạo web app không code",
+          level: "Trung bình",
+          practical: "Startup MVP, tool nội bộ",
+        },
+        {
+          name: "Webflow",
+          purpose: "Thiết kế website professional",
+          level: "Trung bình",
+          practical: "Website doanh nghiệp, portfolio",
+        },
+        {
+          name: "Zapier/Make",
+          purpose: "Tự động hóa workflow",
+          level: "Cơ bản",
+          practical: "Kết nối apps, tự động hóa task",
+        },
+      ],
+    },
+  ];
+
   const skillCategories = [
     {
       icon: Monitor,
@@ -364,8 +913,52 @@ export default function DigitalSkills() {
     },
   ];
 
+  // Quiz logic
+  const handleAnswerSelect = (answerIndex: number) => {
+    const newAnswers = [...selectedAnswers];
+    newAnswers[currentQuestionIndex] = answerIndex;
+    setSelectedAnswers(newAnswers);
+  };
+
+  const goToNextQuestion = () => {
+    if (currentQuestionIndex < quizQuestions.length - 1) {
+      setCurrentQuestionIndex(currentQuestionIndex + 1);
+    } else {
+      completeQuiz();
+    }
+  };
+
+  const completeQuiz = () => {
+    let score = 0;
+    selectedAnswers.forEach((answer, index) => {
+      if (answer === quizQuestions[index].correctAnswer) {
+        score++;
+      }
+    });
+    setQuizScore(score);
+    setQuizCompleted(true);
+  };
+
+  const resetQuiz = () => {
+    setCurrentQuestionIndex(0);
+    setSelectedAnswers([]);
+    setQuizCompleted(false);
+    setQuizScore(0);
+  };
+
+  // Accessibility helpers
+  const getAccessibilityClasses = () => {
+    let classes = "";
+    if (fontSize === "large") classes += " text-lg ";
+    if (fontSize === "xlarge") classes += " text-xl ";
+    if (highContrast) classes += " contrast-125 ";
+    return classes;
+  };
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-emerald-100 via-teal-50 to-blue-100">
+    <div
+      className={`min-h-screen bg-gradient-to-br from-emerald-100 via-teal-50 to-blue-100 ${getAccessibilityClasses()}`}
+    >
       <Header />
       <DisclaimerBanner />
 
@@ -382,11 +975,244 @@ export default function DigitalSkills() {
         </div>
       </div>
 
+      {/* Self-Assessment Tool */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+        <div className="max-w-4xl mx-auto">
+          {!quizCompleted &&
+          currentQuestionIndex === 0 &&
+          selectedAnswers.length === 0 ? (
+            // Initial Assessment Landing - Clean Design like Reference
+            <div className="text-center py-16">
+              <div className="bg-white rounded-2xl shadow-xl p-12 max-w-2xl mx-auto border border-gray-100">
+                <div className="w-24 h-24 mx-auto mb-8 bg-blue-50 rounded-full flex items-center justify-center">
+                  <Target className="h-12 w-12 text-blue-600" />
+                </div>
+                <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+                  Đánh Giá Trình Độ Của Bạn
+                </h2>
+                <p className="text-lg text-gray-600 mb-8 leading-relaxed max-w-lg mx-auto">
+                  Hoàn thành bài đánh giá tương tác để nhận được lộ trình học
+                  tập cá nhân hóa
+                </p>
+                <div className="mb-8">
+                  <h3 className="text-xl font-semibold text-gray-800 mb-4">
+                    Đánh Giá Kỹ Năng Số Của Bạn
+                  </h3>
+                  <p className="text-gray-600 mb-8">
+                    Trả lời 10 câu hỏi để biết trình độ digital literacy hiện
+                    tại
+                  </p>
+                  <Button
+                    size="lg"
+                    className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 text-lg rounded-lg shadow-lg transition-all duration-200 hover:shadow-xl"
+                    onClick={() => {
+                      // Start the quiz by moving to first question
+                      setCurrentQuestionIndex(0);
+                      setSelectedAnswers([]);
+                      setQuizCompleted(false);
+                    }}
+                  >
+                    Bắt đầu đánh giá
+                  </Button>
+                </div>
+              </div>
+            </div>
+          ) : (
+            // Quiz Interface
+            <Card className="mb-8 shadow-xl border border-gray-100">
+              <CardHeader className="text-center bg-gradient-to-r from-blue-50 to-indigo-50 border-b">
+                <CardTitle className="text-2xl flex items-center justify-center gap-2">
+                  <Target className="h-6 w-6" />
+                  Quiz Đánh Giá Kỹ Năng Số
+                </CardTitle>
+                <CardDescription>
+                  Hoàn thành 10 câu hỏi để biết trình độ hiện tại và lộ trình
+                  phát triển
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="p-8">
+                {!quizCompleted ? (
+                  <div>
+                    <div className="mb-6">
+                      <div className="flex justify-between items-center mb-2">
+                        <span className="text-sm text-gray-600">
+                          Câu {currentQuestionIndex + 1} /{" "}
+                          {quizQuestions.length}
+                        </span>
+                        <Badge variant="outline">
+                          {quizQuestions[currentQuestionIndex].category}
+                        </Badge>
+                      </div>
+                      <Progress
+                        value={
+                          (currentQuestionIndex / quizQuestions.length) * 100
+                        }
+                        className="h-2"
+                      />
+                    </div>
+
+                    <div className="space-y-6">
+                      <h3 className="text-xl font-semibold">
+                        {quizQuestions[currentQuestionIndex].question}
+                      </h3>
+
+                      <RadioGroup
+                        value={selectedAnswers[
+                          currentQuestionIndex
+                        ]?.toString()}
+                        onValueChange={(value) =>
+                          handleAnswerSelect(parseInt(value))
+                        }
+                      >
+                        {quizQuestions[currentQuestionIndex].options.map(
+                          (option, index) => (
+                            <div
+                              key={index}
+                              className="flex items-center space-x-2"
+                            >
+                              <RadioGroupItem
+                                value={index.toString()}
+                                id={`option-${index}`}
+                              />
+                              <Label
+                                htmlFor={`option-${index}`}
+                                className="flex-1 cursor-pointer"
+                              >
+                                {option}
+                              </Label>
+                            </div>
+                          ),
+                        )}
+                      </RadioGroup>
+
+                      <div className="flex justify-between">
+                        <Button
+                          variant="outline"
+                          onClick={() =>
+                            setCurrentQuestionIndex(
+                              Math.max(0, currentQuestionIndex - 1),
+                            )
+                          }
+                          disabled={currentQuestionIndex === 0}
+                        >
+                          Câu trước
+                        </Button>
+                        <Button
+                          onClick={goToNextQuestion}
+                          disabled={
+                            selectedAnswers[currentQuestionIndex] === undefined
+                          }
+                          className="bg-green-600 hover:bg-green-700"
+                        >
+                          {currentQuestionIndex === quizQuestions.length - 1
+                            ? "Hoàn thành"
+                            : "Câu tiếp"}
+                        </Button>
+                      </div>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="text-center space-y-6">
+                    <div className="p-8 bg-green-50 rounded-lg">
+                      <div className="text-6xl mb-4">
+                        {quizScore >= 8
+                          ? "🏆"
+                          : quizScore >= 6
+                            ? "🥉"
+                            : quizScore >= 4
+                              ? "📚"
+                              : "💪"}
+                      </div>
+                      <h3 className="text-2xl font-bold text-green-800 mb-2">
+                        Kết quả: {quizScore}/{quizQuestions.length} điểm
+                      </h3>
+                      <p className="text-green-700">
+                        {quizScore >= 8 &&
+                          "Xuất sắc! Bạn có kỹ năng số rất tốt."}
+                        {quizScore >= 6 &&
+                          quizScore < 8 &&
+                          "Tốt! Bạn đang trên đúng hướng."}
+                        {quizScore >= 4 &&
+                          quizScore < 6 &&
+                          "Khá ổn! Còn nhiều điều để học hỏi."}
+                        {quizScore < 4 &&
+                          "Đừng lo! Đây là cơ hội để phát triển kỹ năng."}
+                      </p>
+                    </div>
+
+                    <div className="text-left bg-blue-50 p-6 rounded-lg">
+                      <h4 className="font-semibold mb-3">
+                        Đề xuất lộ trình học tập:
+                      </h4>
+                      <ul className="space-y-2">
+                        {quizScore < 4 && (
+                          <>
+                            <li className="flex items-center gap-2">
+                              <CheckCircle className="h-4 w-4 text-green-500" />
+                              Bắt đầu với kỹ năng máy tính cơ bản
+                            </li>
+                            <li className="flex items-center gap-2">
+                              <CheckCircle className="h-4 w-4 text-green-500" />
+                              Học Microsoft Office/Google Workspace
+                            </li>
+                          </>
+                        )}
+                        {quizScore >= 4 && quizScore < 8 && (
+                          <>
+                            <li className="flex items-center gap-2">
+                              <CheckCircle className="h-4 w-4 text-green-500" />
+                              Tăng cường kỹ năng collaboration
+                            </li>
+                            <li className="flex items-center gap-2">
+                              <CheckCircle className="h-4 w-4 text-green-500" />
+                              Học về bảo mật và quyền riêng tư
+                            </li>
+                          </>
+                        )}
+                        {quizScore >= 8 && (
+                          <>
+                            <li className="flex items-center gap-2">
+                              <CheckCircle className="h-4 w-4 text-green-500" />
+                              Khám phá công nghệ mới như AI, Blockchain
+                            </li>
+                            <li className="flex items-center gap-2">
+                              <CheckCircle className="h-4 w-4 text-green-500" />
+                              Trở thành mentor cho người khác
+                            </li>
+                          </>
+                        )}
+                      </ul>
+                    </div>
+
+                    <div className="flex gap-4 justify-center">
+                      <Button onClick={resetQuiz} variant="outline">
+                        Làm lại quiz
+                      </Button>
+                      <Button
+                        className="bg-blue-600 hover:bg-blue-700"
+                        onClick={() => {
+                          // Scroll to skill categories
+                          document
+                            .getElementById("skill-categories")
+                            ?.scrollIntoView({ behavior: "smooth" });
+                        }}
+                      >
+                        Xem kỹ năng cốt lõi
+                      </Button>
+                    </div>
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+          )}
+        </div>
+      </div>
+
       {/* Digital Literacy Levels */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-            Đánh Giá Trình Độ Digital Literacy
+            📊 Các Cấp Độ Digital Literacy
           </h2>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
             Xác định vị trí hiện tại và lộ trình phát triển kỹ năng số
@@ -450,8 +1276,95 @@ export default function DigitalSkills() {
         </div>
       </div>
 
+      {/* Emerging Technologies */}
+      <div className="bg-gradient-to-br from-purple-50 to-pink-50 py-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+              🚀 Công Nghệ Tương Lai
+            </h2>
+            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+              Khám phá và làm quen với các công nghệ mới nổi
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {emergingTechnologies.map((category, index) => (
+              <Card key={index} className="h-full">
+                <CardHeader className="bg-gradient-to-r from-purple-50 to-pink-50">
+                  <div className="flex items-center gap-4">
+                    <category.icon className="h-8 w-8 text-purple-600" />
+                    <div>
+                      <CardTitle className="text-xl">
+                        {category.category}
+                      </CardTitle>
+                      <CardDescription>{category.description}</CardDescription>
+                    </div>
+                  </div>
+                </CardHeader>
+                <CardContent className="p-6">
+                  <div className="space-y-4">
+                    {category.tools.map((tool, toolIndex) => (
+                      <div
+                        key={toolIndex}
+                        className="border-l-4 border-purple-200 pl-4 hover:border-purple-400 transition-colors"
+                      >
+                        <div className="flex justify-between items-start mb-2">
+                          <h4 className="font-semibold text-sm">{tool.name}</h4>
+                          <Badge variant="outline" className="text-xs">
+                            {tool.level}
+                          </Badge>
+                        </div>
+                        <p className="text-sm text-gray-600 mb-2">
+                          {tool.purpose}
+                        </p>
+                        <div className="bg-purple-50 p-2 rounded text-xs">
+                          <strong>Ứng dụng thực tế:</strong> {tool.practical}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+
+          <div className="text-center mt-12">
+            <Card className="max-w-2xl mx-auto bg-gradient-to-r from-purple-100 to-pink-100">
+              <CardContent className="p-8">
+                <Lightbulb className="h-12 w-12 text-purple-600 mx-auto mb-4" />
+                <h3 className="text-xl font-bold mb-4">
+                  Tips cho việc học công nghệ mới
+                </h3>
+                <ul className="text-left space-y-2 text-sm">
+                  <li className="flex items-center gap-2">
+                    <CheckCircle className="h-4 w-4 text-green-500" />
+                    Bắt đầu với các công cụ miễn phí và dễ sử dụng
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <CheckCircle className="h-4 w-4 text-green-500" />
+                    Tham gia cộng đồng và diễn đàn thảo luận
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <CheckCircle className="h-4 w-4 text-green-500" />
+                    Thực hành thường xuyên với dự án nhỏ
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <CheckCircle className="h-4 w-4 text-green-500" />
+                    Cập nhật tin tức công nghệ định kỳ
+                  </li>
+                </ul>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </div>
+
       {/* Skill Categories */}
-      <div className="bg-gradient-to-br from-teal-50 to-emerald-50 py-20">
+      <div
+        id="skill-categories"
+        className="bg-gradient-to-br from-teal-50 to-emerald-50 py-20"
+      >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
@@ -552,52 +1465,6 @@ export default function DigitalSkills() {
         </div>
       </div>
 
-      {/* Practical Exercises */}
-      <div className="bg-gradient-to-r from-green-600 to-blue-600 text-white py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              Thử Thách Thực Hành
-            </h2>
-            <p className="text-xl opacity-90 max-w-2xl mx-auto">
-              Bài tập thực tế để nâng cao kỹ năng số của bạn
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {practicalExercises.map((exercise, index) => (
-              <Card key={index} className="bg-white text-gray-900">
-                <CardHeader>
-                  <div className="flex justify-between items-start">
-                    <CardTitle className="text-lg">{exercise.title}</CardTitle>
-                    <div className="flex gap-2">
-                      <Badge variant="outline">{exercise.time}</Badge>
-                      <Badge
-                        className={
-                          exercise.difficulty === "Cơ bản"
-                            ? "bg-green-100 text-green-800"
-                            : exercise.difficulty === "Trung bình"
-                              ? "bg-yellow-100 text-yellow-800"
-                              : "bg-red-100 text-red-800"
-                        }
-                      >
-                        {exercise.difficulty}
-                      </Badge>
-                    </div>
-                  </div>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-gray-600 mb-4">{exercise.description}</p>
-                  <Button size="sm" className="bg-green-600 hover:bg-green-700">
-                    Bắt đầu thử thách
-                  </Button>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </div>
-
       {/* Call to Action */}
       <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8 py-16">
         <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
@@ -607,15 +1474,24 @@ export default function DigitalSkills() {
           Kỹ năng số không chỉ là xu hướng - đó là yêu cầu thiết yếu của tương
           lai
         </p>
-        <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <Button size="lg" className="bg-green-600 hover:bg-green-700">
-            <Monitor className="h-5 w-5 mr-2" />
-            Đánh giá kỹ năng hiện tại
-          </Button>
-          <Button size="lg" variant="outline">
-            <Users className="h-5 w-5 mr-2" />
-            Tham gia khóa học
-          </Button>
+        <div className="flex justify-center">
+          <Dialog>
+            <DialogTrigger asChild>
+              <Button size="lg" className="bg-green-600 hover:bg-green-700">
+                <Monitor className="h-5 w-5 mr-2" />
+                Đánh giá kỹ năng hiện tại
+              </Button>
+            </DialogTrigger>
+            <DialogContent className="max-w-2xl">
+              <DialogHeader>
+                <DialogTitle>Quiz Đánh Giá Kỹ Năng Số</DialogTitle>
+                <DialogDescription>
+                  Scroll lên trên để làm bài quiz đánh giá toàn diện về kỹ năng
+                  số của bạn.
+                </DialogDescription>
+              </DialogHeader>
+            </DialogContent>
+          </Dialog>
         </div>
       </div>
       <LearningProgress currentPage="/digital-skills" />
