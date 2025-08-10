@@ -53,23 +53,23 @@ export default function ModuleCarousel({ modules }: ModuleCarouselProps) {
 
   const getModuleStyles = (position: string) => {
     const baseStyles =
-      "absolute transition-all duration-600 ease-in-out cursor-pointer";
+      "absolute transition-all duration-700 ease-in-out cursor-pointer hover:z-40";
 
     switch (position) {
       case "center":
         return `${baseStyles} left-1/2 top-0 transform -translate-x-1/2 z-30 scale-110 opacity-100`;
       case "left-1":
-        // Module 1 đè lên 1/2 module 5
-        return `${baseStyles} left-1/2 top-6 transform -translate-x-1/2 -translate-x-28 sm:-translate-x-32 lg:-translate-x-36 z-25 scale-85 opacity-95`;
+        // Mô đun bên trái gần (đè lên 1/2 mô đun 5)
+        return `${baseStyles} left-1/2 top-8 transform -translate-x-1/2 -translate-x-32 sm:-translate-x-40 lg:-translate-x-48 z-25 scale-90 opacity-95 hover:scale-95`;
       case "left-2":
-        // Module 5 đè lên 1/2 module 4 (ở xa hơn, nhỏ hơn)
-        return `${baseStyles} left-1/2 top-12 transform -translate-x-1/2 -translate-x-40 sm:-translate-x-48 lg:-translate-x-56 z-20 scale-70 opacity-75`;
+        // Mô đun 5 đè lên 1/2 mô đun 4 (xa hơn)
+        return `${baseStyles} left-1/2 top-16 transform -translate-x-1/2 -translate-x-48 sm:-translate-x-60 lg:-translate-x-72 z-20 scale-75 opacity-85 hover:scale-80`;
       case "right-1":
-        // Module 1 đè lên 1/2 module 2
-        return `${baseStyles} left-1/2 top-6 transform -translate-x-1/2 translate-x-28 sm:translate-x-32 lg:translate-x-36 z-25 scale-85 opacity-95`;
+        // Mô đun bên phải gần (đè lên 1/2 mô đun 2)
+        return `${baseStyles} left-1/2 top-8 transform -translate-x-1/2 translate-x-32 sm:translate-x-40 lg:translate-x-48 z-25 scale-90 opacity-95 hover:scale-95`;
       case "right-2":
-        // Module 2 đè lên 1/2 module 3 (ở xa hơn, nhỏ hơn)
-        return `${baseStyles} left-1/2 top-12 transform -translate-x-1/2 translate-x-40 sm:translate-x-48 lg:translate-x-56 z-20 scale-70 opacity-75`;
+        // Mô đun 2 đè lên 1/2 mô đun 3 (xa hơn)
+        return `${baseStyles} left-1/2 top-16 transform -translate-x-1/2 translate-x-48 sm:translate-x-60 lg:translate-x-72 z-20 scale-75 opacity-85 hover:scale-80`;
       default:
         return `${baseStyles} left-1/2 top-0 transform -translate-x-1/2 z-5 scale-70 opacity-0 pointer-events-none`;
     }
@@ -79,24 +79,24 @@ export default function ModuleCarousel({ modules }: ModuleCarouselProps) {
     <div className="relative px-4 sm:px-8 lg:px-16">
       {/* Desktop/Tablet View */}
       <div className="hidden sm:block">
-        <div className="relative h-80 lg:h-96 flex items-center justify-center overflow-visible">
+        <div className="relative h-96 lg:h-[28rem] flex items-center justify-center overflow-visible">
           {/* Navigation Buttons */}
           <Button
             variant="outline"
             size="icon"
             onClick={prevModule}
-            className="absolute left-4 lg:left-8 z-40 bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm hover:bg-white dark:hover:bg-gray-800 shadow-lg hover:shadow-xl transition-all"
+            className="absolute left-2 lg:left-6 z-50 bg-white/95 dark:bg-gray-800/95 backdrop-blur-md hover:bg-blue-50 dark:hover:bg-gray-700 shadow-xl hover:shadow-2xl transition-all border-blue-200/50 hover:border-blue-400/50 hover:scale-110"
           >
-            <ChevronLeft className="h-5 w-5" />
+            <ChevronLeft className="h-5 w-5 text-blue-600 dark:text-blue-400" />
           </Button>
 
           <Button
             variant="outline"
             size="icon"
             onClick={nextModule}
-            className="absolute right-4 lg:right-8 z-40 bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm hover:bg-white dark:hover:bg-gray-800 shadow-lg hover:shadow-xl transition-all"
+            className="absolute right-2 lg:right-6 z-50 bg-white/95 dark:bg-gray-800/95 backdrop-blur-md hover:bg-blue-50 dark:hover:bg-gray-700 shadow-xl hover:shadow-2xl transition-all border-blue-200/50 hover:border-blue-400/50 hover:scale-110"
           >
-            <ChevronRight className="h-5 w-5" />
+            <ChevronRight className="h-5 w-5 text-blue-600 dark:text-blue-400" />
           </Button>
 
           {/* Module Cards - Show all 5 modules */}
@@ -113,11 +113,12 @@ export default function ModuleCarousel({ modules }: ModuleCarouselProps) {
               >
                 <Card
                   className={cn(
-                    "w-48 sm:w-56 lg:w-64 bg-white/95 dark:bg-gray-800/95 backdrop-blur-sm border-0 transition-all duration-300",
+                    "w-52 sm:w-60 lg:w-72 bg-white/98 dark:bg-gray-800/98 backdrop-blur-md border border-white/20 dark:border-gray-700/30 transition-all duration-500",
                     isCenter
-                      ? "shadow-3xl ring-2 ring-education-blue/50 hover:shadow-3xl"
-                      : "shadow-lg hover:shadow-xl cursor-pointer",
-                    isFront && !isCenter && "hover:scale-110 hover:z-35",
+                      ? "shadow-2xl ring-2 ring-blue-500/30 hover:ring-blue-500/50 hover:shadow-3xl"
+                      : "shadow-xl hover:shadow-2xl cursor-pointer border-gray-200/50 dark:border-gray-600/30",
+                    isFront && !isCenter && "hover:scale-105 hover:z-35 hover:ring-2 hover:ring-blue-400/30",
+                    !isFront && !isCenter && "hover:scale-90 hover:opacity-95"
                   )}
                 >
                   <CardContent
@@ -131,7 +132,7 @@ export default function ModuleCarousel({ modules }: ModuleCarouselProps) {
                     )}
                   >
                     <div
-                      className={`inline-flex rounded-2xl ${module.color} mb-2 lg:mb-4 transition-all ${isCenter ? "p-4 lg:p-5 animate-protective-pulse" : isFront ? "p-3 lg:p-4" : "p-2 lg:p-3"}`}
+                      className={`inline-flex rounded-2xl ${module.color} mb-2 lg:mb-4 transition-all ${isCenter ? "p-4 lg:p-5 animate-pulse shadow-lg" : isFront ? "p-3 lg:p-4" : "p-2 lg:p-3"}`}
                     >
                       <module.icon
                         className={cn(
@@ -171,9 +172,9 @@ export default function ModuleCarousel({ modules }: ModuleCarouselProps) {
                         </Badge>
                         <div className="mt-4">
                           <Link to={module.link}>
-                            <Button className="bg-gradient-to-r from-education-blue to-education-purple hover:from-blue-700 hover:to-purple-700 text-white shadow-lg hover:shadow-xl transition-all w-full">
+                            <Button className="bg-gradient-to-r from-blue-600 via-purple-600 to-blue-700 hover:from-blue-700 hover:via-purple-700 hover:to-blue-800 text-white shadow-xl hover:shadow-2xl transition-all w-full hover:scale-105 group">
                               Khám phá ngay
-                              <ChevronRight className="h-4 w-4 ml-2" />
+                              <ChevronRight className="h-4 w-4 ml-2 group-hover:translate-x-1 transition-transform" />
                             </Button>
                           </Link>
                         </div>
@@ -192,7 +193,6 @@ export default function ModuleCarousel({ modules }: ModuleCarouselProps) {
                     {!isFront && !isCenter && (
                       <Badge
                         variant="outline"
-                        size="sm"
                         className={`text-xs ${module.color.split(" ")[0]} border-current opacity-80`}
                       >
                         {index + 1}

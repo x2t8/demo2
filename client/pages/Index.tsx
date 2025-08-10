@@ -30,7 +30,7 @@ import { CaringToastProvider } from "@/components/CaringToast";
 import LearningProgress from "@/components/LearningProgress";
 import ReportGuideModal from "@/components/ReportGuideModal";
 import FloatingActionButton from "@/components/FloatingActionButton";
-import ModuleCarousel from "@/components/ModuleCarousel";
+import Carousel3D from "@/components/Carousel3D";
 
 export default function Index() {
   // Initialize scroll-based animations
@@ -39,6 +39,9 @@ export default function Index() {
 
   // Modal states
   const [isReportModalOpen, setIsReportModalOpen] = React.useState(false);
+
+  // Module tracking
+  const [currentModuleIndex, setCurrentModuleIndex] = React.useState(2); // Start with AI module
   const digitalModules = [
     {
       icon: Shield,
@@ -234,7 +237,10 @@ export default function Index() {
               </p>
             </div>
 
-            <ModuleCarousel modules={digitalModules} />
+            <Carousel3D
+              modules={digitalModules}
+              onModuleChange={setCurrentModuleIndex}
+            />
 
             {/* Call to Action */}
             <div className="text-center mt-12 sm:mt-16">
