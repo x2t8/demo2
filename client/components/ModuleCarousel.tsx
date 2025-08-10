@@ -62,10 +62,10 @@ export default function ModuleCarousel({ modules }: ModuleCarouselProps) {
   };
 
   return (
-    <div className="relative">
+    <div className="relative px-4 sm:px-8 lg:px-16">
       {/* Desktop/Tablet View */}
       <div className="hidden sm:block">
-        <div className="relative h-80 lg:h-96 flex items-center justify-center overflow-hidden">
+        <div className="relative h-80 lg:h-96 flex items-center justify-center overflow-visible">
           {/* Navigation Buttons */}
           <Button
             variant="outline"
