@@ -80,13 +80,13 @@ export default function ModuleCarousel({ modules }: ModuleCarouselProps) {
       case "center":
         return `${baseStyles} left-1/2 top-0 transform -translate-x-1/2 z-30 scale-100 opacity-100`;
       case "left-1":
-        return `${baseStyles} left-1/2 top-6 transform -translate-x-1/2 -translate-x-40 sm:-translate-x-48 lg:-translate-x-56 z-20 scale-85 opacity-85`;
+        return `${baseStyles} left-1/2 top-4 transform -translate-x-1/2 -translate-x-32 sm:-translate-x-36 lg:-translate-x-40 z-25 scale-90 opacity-90`;
       case "left-2":
-        return `${baseStyles} left-1/2 top-12 transform -translate-x-1/2 -translate-x-36 sm:-translate-x-42 lg:-translate-x-48 z-10 scale-75 opacity-60`;
+        return `${baseStyles} left-1/2 top-8 transform -translate-x-1/2 -translate-x-48 sm:-translate-x-56 lg:-translate-x-64 z-20 scale-80 opacity-70`;
       case "right-1":
-        return `${baseStyles} left-1/2 top-6 transform -translate-x-1/2 translate-x-40 sm:translate-x-48 lg:translate-x-56 z-20 scale-85 opacity-85`;
+        return `${baseStyles} left-1/2 top-4 transform -translate-x-1/2 translate-x-32 sm:translate-x-36 lg:translate-x-40 z-25 scale-90 opacity-90`;
       case "right-2":
-        return `${baseStyles} left-1/2 top-12 transform -translate-x-1/2 translate-x-36 sm:translate-x-42 lg:translate-x-48 z-10 scale-75 opacity-60`;
+        return `${baseStyles} left-1/2 top-8 transform -translate-x-1/2 translate-x-48 sm:translate-x-56 lg:translate-x-64 z-20 scale-80 opacity-70`;
       default:
         return `${baseStyles} left-1/2 top-0 transform -translate-x-1/2 z-5 scale-70 opacity-0 pointer-events-none`;
     }
