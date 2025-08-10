@@ -31,6 +31,7 @@ import LearningProgress from "@/components/LearningProgress";
 import ReportGuideModal from "@/components/ReportGuideModal";
 import FloatingActionButton from "@/components/FloatingActionButton";
 import Carousel3D from "@/components/Carousel3D";
+import { digitalModules } from "./IndexModules";
 
 export default function Index() {
   // Initialize scroll-based animations
@@ -82,7 +83,7 @@ export default function Index() {
   ];
 
   const protectionTips = [
-    "Không cung cấp thông tin cá nhân qua điện thoại",
+    "Không cung cấp thông tin cá nhân qua đi���n thoại",
     "Kiểm tra kỹ nguồn gốc tin nhắn, email",
     "Không click vào link lạ trong tin nhắn",
     "Xác minh thông tin qua kênh chính thức",
@@ -131,7 +132,7 @@ export default function Index() {
                 onClick={() => setIsReportModalOpen(true)}
               >
                 <Phone className="h-5 w-5 mr-2 group-hover:animate-heartbeat" />
-                Báo cáo lừa đ���o
+                Báo cáo lừa đ����o
               </Button>
             </div>
           </div>
@@ -241,6 +242,7 @@ export default function Index() {
               modules={digitalModules}
               onModuleChange={setCurrentModuleIndex}
             />
+
 
             {/* Call to Action */}
             <div className="text-center mt-12 sm:mt-16">
@@ -354,7 +356,6 @@ export default function Index() {
         </section>
 
         <Footer />
-        <LearningProgress currentPage="/" />
 
         {/* Modals */}
         <ReportGuideModal
