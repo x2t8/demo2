@@ -261,7 +261,7 @@ export default function DigitalEthics() {
       description:
         "Đối xử với người khác trên mạng như ngoài đời thực với sự tôn trọng và lịch sự.",
       dos: [
-        "Sử dụng ngôn ngữ lịch sự, tôn trọng",
+        "S�� dụng ngôn ngữ lịch sự, tôn trọng",
         "Lắng nghe ý kiến khác biệt",
         "Thể hiện sự đồng cảm",
         "Ghi nhận đóng góp của người khác",
@@ -291,7 +291,7 @@ export default function DigitalEthics() {
       description:
         "Chia sẻ thông tin chính xác và có ích cho cộng đồng, ngăn chặn lan truyền tin giả.",
       dos: [
-        "Kiểm tra thông tin trước khi chia sẻ",
+        "Kiểm tra thông tin trư��c khi chia sẻ",
         "Trích dẫn nguồn tin đáng tin cậy",
         "Thừa nhận khi mắc lỗi",
         "Đóng góp nội dung có giá trị",
@@ -523,175 +523,193 @@ export default function DigitalEthics() {
           </div>
         </div>
 
-        {/* Navigation Bar - Desktop */}
-        <div className="bg-white shadow-sm border-b sticky top-0 z-40">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex items-center justify-between py-4">
-              <div className="flex items-center space-x-8">
-                <h2 className="text-lg font-semibold text-gray-900">
-                  Nguyên tắc đạo đức số
-                </h2>
-                <div className="flex space-x-4">
-                  {ethicsRules.map((ethics) => (
-                    <a
-                      key={ethics.id}
-                      href={`#${ethics.id}`}
-                      className="flex items-center px-3 py-2 rounded-lg hover:bg-gray-100 transition-colors"
-                    >
-                      <ethics.icon
-                        className={`h-4 w-4 mr-2 ${ethics.color.split(" ")[0]}`}
-                      />
-                      <span className="text-sm font-medium text-gray-700">
-                        {ethics.title}
-                      </span>
-                    </a>
-                  ))}
-                </div>
-              </div>
-              <div className="flex items-center space-x-4">
-                <Button variant="outline" size="sm">
-                  <Share2 className="h-4 w-4 mr-2" />
-                  Chia sẻ
-                </Button>
-                <Button size="sm" className="bg-purple-600 hover:bg-purple-700">
-                  <Heart className="h-4 w-4 mr-2" />
-                  Cam kết thực hành
-                </Button>
-              </div>
-            </div>
-          </div>
-        </div>
 
-        {/* Detailed Ethics Rules - Desktop */}
+        {/* Detailed Ethics Rules - Desktop (Zigzag Layout) */}
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-          <div className="space-y-20">
+          {/* Section Title */}
+          <div className="text-center mb-20">
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+              📖 Nguyên Tắc Đạo Đức Số
+            </h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+              6 nguyên tắc cốt lõi để xây dựng một không gian mạng văn minh, an toàn và tích cực cho tất cả mọi người
+            </p>
+            <div className="mt-6 w-24 h-1 bg-gradient-to-r from-purple-500 to-pink-500 mx-auto rounded-full"></div>
+          </div>
+
+          <div className="space-y-24">
             {ethicsRules.map((ethics, index) => (
               <div key={ethics.id} id={ethics.id} className="scroll-mt-24">
-                <Card className="overflow-hidden shadow-xl border-0">
-                  {/* Card Header with Gradient */}
-                  <div
-                    className={`bg-gradient-to-r ${ethics.gradient} text-white p-8`}
-                  >
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center space-x-6">
-                        <div className="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center backdrop-blur-sm">
-                          <ethics.icon className="h-8 w-8 text-white" />
-                        </div>
-                        <div>
-                          <h2 className="text-3xl font-bold mb-2">
-                            {ethics.title}
-                          </h2>
+                <div className={`grid grid-cols-1 lg:grid-cols-2 gap-12 items-center ${index % 2 === 1 ? 'lg:grid-flow-col-dense' : ''}`}>
+
+                  {/* Content Section */}
+                  <div className={`${index % 2 === 1 ? 'lg:col-start-2' : ''}`}>
+                    <Card className="overflow-hidden shadow-xl border-0 h-full">
+                      {/* Card Header with Gradient */}
+                      <div className={`bg-gradient-to-r ${ethics.gradient} text-white p-6`}>
+                        <div className="flex items-center justify-between mb-4">
                           <div className="flex items-center space-x-4">
-                            <Badge
-                              variant="secondary"
-                              className="bg-white/20 text-white border-white/30"
-                            >
-                              {ethics.importance}
-                            </Badge>
-                            <div className="flex items-center space-x-2">
-                              <TrendingUp className="h-4 w-4" />
-                              <span className="text-sm">
-                                Tác động: {ethics.impact}
-                              </span>
+                            <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center backdrop-blur-sm">
+                              <ethics.icon className="h-6 w-6 text-white" />
                             </div>
-                            <div className="flex items-center space-x-2">
-                              <Globe className="h-4 w-4" />
-                              <span className="text-sm">
-                                Áp dụng: {ethics.usage}
-                              </span>
+                            <div>
+                              <h2 className="text-2xl font-bold mb-1">
+                                {ethics.title}
+                              </h2>
+                              <Badge
+                                variant="secondary"
+                                className="bg-white/20 text-white border-white/30 text-xs"
+                              >
+                                {ethics.importance}
+                              </Badge>
+                            </div>
+                          </div>
+                          <div className="text-right">
+                            <div className="text-4xl font-bold text-white/30">
+                              0{index + 1}
                             </div>
                           </div>
                         </div>
-                      </div>
-                      <div className="text-right">
-                        <div className="text-6xl font-bold text-white/30">
-                          0{index + 1}
+                        <p className="text-base opacity-90 leading-relaxed">
+                          {ethics.description}
+                        </p>
+                        <div className="flex items-center space-x-4 mt-4 text-sm">
+                          <div className="flex items-center space-x-2">
+                            <TrendingUp className="h-4 w-4" />
+                            <span>Tác động: {ethics.impact}</span>
+                          </div>
+                          <div className="flex items-center space-x-2">
+                            <Globe className="h-4 w-4" />
+                            <span>Áp dụng: {ethics.usage}</span>
+                          </div>
                         </div>
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          className="text-white hover:bg-white/20"
-                          onClick={() => toggleBookmark(ethics.id)}
-                        >
-                          {bookmarkedEthics.includes(ethics.id) ? (
-                            <Heart className="h-4 w-4 fill-current" />
-                          ) : (
-                            <Bookmark className="h-4 w-4" />
-                          )}
-                        </Button>
                       </div>
-                    </div>
-                    <p className="text-lg mt-4 opacity-90 leading-relaxed max-w-4xl">
-                      {ethics.description}
-                    </p>
+
+                      <CardContent className="p-6">
+                        <div className="grid grid-cols-1 gap-6">
+                          {/* Should Do */}
+                          <div className="bg-green-50 rounded-xl p-4">
+                            <div className="flex items-center mb-3">
+                              <div className="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center mr-3">
+                                <CheckCircle className="h-4 w-4 text-green-600" />
+                              </div>
+                              <h3 className="text-lg font-bold text-green-800">
+                                NÊN LÀM
+                              </h3>
+                            </div>
+                            <ul className="space-y-2">
+                              {ethics.dos.map((item, idx) => (
+                                <li
+                                  key={idx}
+                                  className="flex items-start space-x-2 group"
+                                >
+                                  <div className="w-1.5 h-1.5 bg-green-500 rounded-full mt-2 flex-shrink-0"></div>
+                                  <span className="text-gray-700 text-sm leading-relaxed">
+                                    {item}
+                                  </span>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+
+                          {/* Should Not Do */}
+                          <div className="bg-red-50 rounded-xl p-4">
+                            <div className="flex items-center mb-3">
+                              <div className="w-8 h-8 bg-red-100 rounded-lg flex items-center justify-center mr-3">
+                                <XCircle className="h-4 w-4 text-red-600" />
+                              </div>
+                              <h3 className="text-lg font-bold text-red-800">
+                                KHÔNG NÊN LÀM
+                              </h3>
+                            </div>
+                            <ul className="space-y-2">
+                              {ethics.donts.map((item, idx) => (
+                                <li
+                                  key={idx}
+                                  className="flex items-start space-x-2 group"
+                                >
+                                  <div className="w-1.5 h-1.5 bg-red-500 rounded-full mt-2 flex-shrink-0"></div>
+                                  <span className="text-gray-700 text-sm leading-relaxed">
+                                    {item}
+                                  </span>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        </div>
+
+                        {/* Action Buttons */}
+                        <div className="mt-6 flex items-center justify-center space-x-3">
+                          <Button variant="outline" size="sm" className="flex items-center">
+                            <Share2 className="h-4 w-4 mr-2" />
+                            Chia sẻ
+                          </Button>
+                          <Button size="sm" className="bg-purple-600 hover:bg-purple-700 flex items-center"
+                            onClick={() => toggleBookmark(ethics.id)}
+                          >
+                            {bookmarkedEthics.includes(ethics.id) ? (
+                              <Heart className="h-4 w-4 mr-2 fill-current" />
+                            ) : (
+                              <Bookmark className="h-4 w-4 mr-2" />
+                            )}
+                            {bookmarkedEthics.includes(ethics.id) ? 'Đã lưu' : 'Lưu lại'}
+                          </Button>
+                        </div>
+                      </CardContent>
+                    </Card>
                   </div>
 
-                  <CardContent className="p-8">
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                      {/* Should Do */}
-                      <div className="bg-green-50 rounded-xl p-6">
-                        <div className="flex items-center mb-4">
-                          <div className="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center mr-3">
-                            <CheckCircle className="h-5 w-5 text-green-600" />
-                          </div>
-                          <h3 className="text-xl font-bold text-green-800">
-                            NÊN LÀM
-                          </h3>
-                        </div>
-                        <ul className="space-y-3">
-                          {ethics.dos.map((item, idx) => (
-                            <li
-                              key={idx}
-                              className="flex items-start space-x-3 group"
-                            >
-                              <div className="w-2 h-2 bg-green-500 rounded-full mt-2 flex-shrink-0 group-hover:bg-green-600 transition-colors"></div>
-                              <span className="text-gray-700 leading-relaxed group-hover:text-gray-900 transition-colors">
-                                {item}
-                              </span>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
+                  {/* Visual Section */}
+                  <div className={`${index % 2 === 1 ? 'lg:col-start-1' : ''}`}>
+                    <div className="relative">
+                      {/* Background decoration */}
+                      <div className={`absolute inset-0 bg-gradient-to-br ${ethics.gradient} opacity-10 rounded-3xl transform rotate-6`}></div>
+                      <div className={`absolute inset-0 bg-gradient-to-br ${ethics.gradient} opacity-5 rounded-3xl transform -rotate-3`}></div>
 
-                      {/* Should Not Do */}
-                      <div className="bg-red-50 rounded-xl p-6">
-                        <div className="flex items-center mb-4">
-                          <div className="w-10 h-10 bg-red-100 rounded-lg flex items-center justify-center mr-3">
-                            <XCircle className="h-5 w-5 text-red-600" />
-                          </div>
-                          <h3 className="text-xl font-bold text-red-800">
-                            KHÔNG NÊN LÀM
-                          </h3>
+                      {/* Main visual card */}
+                      <Card className="relative bg-white shadow-2xl border-0 p-8 text-center">
+                        <div className={`w-24 h-24 mx-auto mb-6 rounded-full bg-gradient-to-br ${ethics.gradient} flex items-center justify-center shadow-lg`}>
+                          <ethics.icon className="h-12 w-12 text-white" />
                         </div>
-                        <ul className="space-y-3">
-                          {ethics.donts.map((item, idx) => (
-                            <li
-                              key={idx}
-                              className="flex items-start space-x-3 group"
-                            >
-                              <div className="w-2 h-2 bg-red-500 rounded-full mt-2 flex-shrink-0 group-hover:bg-red-600 transition-colors"></div>
-                              <span className="text-gray-700 leading-relaxed group-hover:text-gray-900 transition-colors">
-                                {item}
-                              </span>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    </div>
 
-                    {/* Action Buttons */}
-                    <div className="mt-8 flex items-center justify-center space-x-4">
-                      <Button variant="outline" className="flex items-center">
-                        <Share2 className="h-4 w-4 mr-2" />
-                        Chia sẻ nguyên tắc này
-                      </Button>
-                      <Button className="bg-purple-600 hover:bg-purple-700 flex items-center">
-                        <Heart className="h-4 w-4 mr-2" />
-                        Cam kết thực hành
-                      </Button>
+                        <h3 className="text-xl font-bold text-gray-900 mb-4">
+                          {ethics.shortDesc}
+                        </h3>
+
+                        {/* Progress indicator */}
+                        <div className="space-y-3">
+                          <div className="flex items-center justify-between text-sm">
+                            <span className="text-gray-600">Tầm quan trọng</span>
+                            <span className="font-semibold text-purple-600">
+                              {ethics.importanceLevel}%
+                            </span>
+                          </div>
+                          <Progress
+                            value={ethics.importanceLevel}
+                            className="h-2"
+                          />
+                        </div>
+
+                        {/* Quick stats */}
+                        <div className="mt-6 grid grid-cols-2 gap-4 text-center">
+                          <div className="p-3 bg-green-50 rounded-lg">
+                            <div className="text-lg font-bold text-green-600">{ethics.dos.length}</div>
+                            <div className="text-xs text-green-600">Nên làm</div>
+                          </div>
+                          <div className="p-3 bg-red-50 rounded-lg">
+                            <div className="text-lg font-bold text-red-600">{ethics.donts.length}</div>
+                            <div className="text-xs text-red-600">Không nên</div>
+                          </div>
+                        </div>
+
+                        {/* Floating number */}
+                        <div className={`absolute -top-4 -right-4 w-12 h-12 bg-gradient-to-br ${ethics.gradient} rounded-full flex items-center justify-center text-white font-bold text-lg shadow-lg`}>
+                          {index + 1}
+                        </div>
+                      </Card>
                     </div>
-                  </CardContent>
-                </Card>
+                  </div>
+                </div>
               </div>
             ))}
           </div>
@@ -787,7 +805,7 @@ export default function DigitalEthics() {
                   ],
                 },
                 {
-                  icon: "🌱",
+                  icon: "����",
                   title: "Ý thức môi trường số",
                   description:
                     "Giảm thiểu tác động môi trường của hoạt động số",
@@ -1030,7 +1048,7 @@ export default function DigitalEthics() {
                   Cùng Xây Dựng Internet Tích Cực!
                 </h2>
                 <p className="text-xl mb-8 opacity-90 max-w-2xl mx-auto leading-relaxed">
-                  Mỗi hành động nhỏ của bạn đều góp phần tạo nên một môi trường
+                  Mỗi hành động nhỏ của bạn đều góp phần tạo nên một môi tr��ờng
                   mạng an toàn và tích cực cho tất cả mọi người
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -1382,7 +1400,7 @@ export default function DigitalEthics() {
                         </div>
                         <div className="flex-1">
                           <h3 className="font-bold text-gray-900 text-lg leading-tight mb-2">
-                            6 Nguyên tắc đạo đức
+                            6 Nguyên tắc đạo đ���c
                           </h3>
                           <p className="text-gray-600 text-base leading-relaxed mb-3">
                             Hướng dẫn ứng xử văn minh và có trách nhiệm trong
@@ -1746,7 +1764,7 @@ export default function DigitalEthics() {
                     📊 Đạo đức số trên thế giới
                   </h3>
                   <p className="text-gray-600 text-sm">
-                    Những con s��� cho thấy tầm quan trọng của đạo đ��c trong không
+                    Những con s��� cho thấy tầm quan tr��ng của đạo đ��c trong không
                     gian số
                   </p>
                 </div>
