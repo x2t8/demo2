@@ -190,7 +190,7 @@ export default function DigitalLaw() {
         "Mỗi nền tảng mạng xã hội có quy định riêng, song song với luật pháp Việt Nam về an toàn thông tin mạng.",
       dos: [
         "Đọc và tuân thủ Community Guidelines",
-        "Báo cáo nội dung vi phạm",
+        "Báo cáo n��i dung vi phạm",
         "Bảo vệ tài khoản bằng 2FA",
         "Khai báo quảng cáo có trả tiền",
         "Tôn trọng quyền riêng tư người khác",
@@ -369,6 +369,174 @@ export default function DigitalLaw() {
                   </div>
                 </div>
               </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Legal Concepts Overview */}
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+              Khái Niệm Pháp Lý Cơ Bản
+            </h2>
+            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+              Những kiến thức nền tảng về luật sở hữu trí tuệ trong thời đại số
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <Card className="text-center hover:shadow-lg transition-shadow">
+              <CardHeader>
+                <Copyright className="h-12 w-12 text-indigo-600 mx-auto mb-4" />
+                <CardTitle className="text-lg">Bản quyền (Copyright)</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm text-gray-600 mb-3">
+                  Quyền độc quyền của tác giả đối với tác phẩm do mình sáng tạo
+                </p>
+                <Badge variant="outline" className="mb-3">
+                  Tự động có từ khi tác phẩm được tạo ra, không cần đăng ký
+                </Badge>
+                <div className="text-xs text-gray-500">
+                  VD: Sách, Nhạc, Phim
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card className="text-center hover:shadow-lg transition-shadow">
+              <CardHeader>
+                <Shield className="h-12 w-12 text-indigo-600 mx-auto mb-4" />
+                <CardTitle className="text-lg">Sở hữu trí tuệ</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm text-gray-600 mb-3">
+                  Quyền pháp lý đối với các sáng tạo trí tuệ
+                </p>
+                <Badge variant="outline" className="mb-3">
+                  Bao gồm bản quyền, thương hiệu, bằng sáng chế
+                </Badge>
+                <div className="text-xs text-gray-500">
+                  VD: Logo Apple, Công thức Coca-Cola
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card className="text-center hover:shadow-lg transition-shadow">
+              <CardHeader>
+                <Users className="h-12 w-12 text-indigo-600 mx-auto mb-4" />
+                <CardTitle className="text-lg">Fair Use/Sử dụng hợp lý</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm text-gray-600 mb-3">
+                  Sử dụng tác phẩm có bản quyền mà không cần xin phép
+                </p>
+                <Badge variant="outline" className="mb-3">
+                  Giáo dục, nghiên cứu, phê bình, tin tức
+                </Badge>
+                <div className="text-xs text-gray-500">
+                  VD: Review phim, Trích dẫn luận văn
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card className="text-center hover:shadow-lg transition-shadow">
+              <CardHeader>
+                <Lock className="h-12 w-12 text-indigo-600 mx-auto mb-4" />
+                <CardTitle className="text-lg">Creative Commons</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm text-gray-600 mb-3">
+                  Hệ thống license cho phép chia sẻ có điều kiện
+                </p>
+                <Badge variant="outline" className="mb-3">
+                  Các mức độ từ attribution đến no derivatives
+                </Badge>
+                <div className="text-xs text-gray-500">
+                  VD: Wikipedia, Unsplash
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+
+        {/* Detailed Legal Rules - THIẾT KẾ KHÁC BIỆT */}
+        <div className="bg-gradient-to-br from-indigo-50 to-purple-50 py-20">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-16">
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+                📋 Quy Định Pháp Lý Chi Tiết
+              </h2>
+              <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+                Hướng dẫn chi tiết về các quy định pháp lý trong hoạt động số
+              </p>
+            </div>
+
+            {/* LAYOUT MỚI: Grid Cards thay vì Zigzag */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {legalRules.map((rule, index) => (
+                <Card key={rule.id} className="h-full hover:shadow-xl transition-shadow border-0">
+                  <CardHeader className={`bg-gradient-to-r ${rule.gradient} text-white rounded-t-lg`}>
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center space-x-3">
+                        <div className="w-10 h-10 bg-white/20 rounded-lg flex items-center justify-center">
+                          <rule.icon className="h-6 w-6 text-white" />
+                        </div>
+                        <div>
+                          <CardTitle className="text-lg">{rule.title}</CardTitle>
+                          <Badge variant="secondary" className="bg-white/20 text-white border-white/30 text-xs mt-1">
+                            {rule.importance}
+                          </Badge>
+                        </div>
+                      </div>
+                      <div className="text-2xl font-bold text-white/30">
+                        {index + 1}
+                      </div>
+                    </div>
+                  </CardHeader>
+                  <CardContent className="p-6 flex-1">
+                    <p className="text-gray-600 text-sm mb-4">{rule.description}</p>
+
+                    {/* Progress */}
+                    <div className="mb-4">
+                      <div className="flex justify-between text-xs text-gray-500 mb-1">
+                        <span>Tầm quan trọng</span>
+                        <span>{rule.importanceLevel}%</span>
+                      </div>
+                      <Progress value={rule.importanceLevel} className="h-1" />
+                    </div>
+
+                    {/* Quick Actions */}
+                    <div className="flex space-x-2 mb-4">
+                      <Button variant="outline" size="sm" className="flex-1">
+                        <CheckCircle className="h-3 w-3 mr-1" />
+                        {rule.dos.length} nên
+                      </Button>
+                      <Button variant="outline" size="sm" className="flex-1">
+                        <XCircle className="h-3 w-3 mr-1" />
+                        {rule.donts.length} không
+                      </Button>
+                    </div>
+
+                    {/* Bookmark button */}
+                    <Button
+                      size="sm"
+                      className={`w-full ${rule.gradient.includes('purple') ? 'bg-purple-600 hover:bg-purple-700' :
+                                          rule.gradient.includes('blue') ? 'bg-blue-600 hover:bg-blue-700' :
+                                          rule.gradient.includes('green') ? 'bg-green-600 hover:bg-green-700' :
+                                          rule.gradient.includes('orange') ? 'bg-orange-600 hover:bg-orange-700' :
+                                          rule.gradient.includes('indigo') ? 'bg-indigo-600 hover:bg-indigo-700' : 'bg-red-600 hover:bg-red-700'}`}
+                      onClick={() => toggleBookmark(rule.id)}
+                    >
+                      {bookmarkedItems.includes(rule.id) ? (
+                        <Heart className="h-4 w-4 mr-2 fill-current" />
+                      ) : (
+                        <Bookmark className="h-4 w-4 mr-2" />
+                      )}
+                      {bookmarkedItems.includes(rule.id) ? 'Đã lưu' : 'Tìm hiểu chi tiết'}
+                    </Button>
+                  </CardContent>
+                </Card>
+              ))}
             </div>
           </div>
         </div>
