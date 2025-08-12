@@ -356,7 +356,7 @@ export default function DigitalEthics() {
         "Bảo vệ thông tin nhạy cảm",
         "Giáo dục người thân về an toàn",
         "Sử dụng mật khẩu mạnh",
-        "Ki��m tra quyền truy cập ứng dụng",
+        "Kiểm tra quyền truy cập ứng dụng",
       ],
       donts: [
         "Đăng thông tin cá nhân nhạy cảm",
@@ -523,44 +523,6 @@ export default function DigitalEthics() {
           </div>
         </div>
 
-        {/* Navigation Bar - Desktop */}
-        <div className="bg-white shadow-sm border-b sticky top-0 z-40">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex items-center justify-between py-4">
-              <div className="flex items-center space-x-8">
-                <h2 className="text-lg font-semibold text-gray-900">
-                  Nguyên tắc đạo đức số
-                </h2>
-                <div className="flex space-x-4">
-                  {ethicsRules.map((ethics) => (
-                    <a
-                      key={ethics.id}
-                      href={`#${ethics.id}`}
-                      className="flex items-center px-3 py-2 rounded-lg hover:bg-gray-100 transition-colors"
-                    >
-                      <ethics.icon
-                        className={`h-4 w-4 mr-2 ${ethics.color.split(" ")[0]}`}
-                      />
-                      <span className="text-sm font-medium text-gray-700">
-                        {ethics.title}
-                      </span>
-                    </a>
-                  ))}
-                </div>
-              </div>
-              <div className="flex items-center space-x-4">
-                <Button variant="outline" size="sm">
-                  <Share2 className="h-4 w-4 mr-2" />
-                  Chia sẻ
-                </Button>
-                <Button size="sm" className="bg-purple-600 hover:bg-purple-700">
-                  <Heart className="h-4 w-4 mr-2" />
-                  Cam kết thực hành
-                </Button>
-              </div>
-            </div>
-          </div>
-        </div>
 
         {/* Detailed Ethics Rules - Desktop (Zigzag Layout) */}
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
@@ -808,7 +770,7 @@ export default function DigitalEthics() {
                   tips: [
                     "Tắt thông báo không cần thiết",
                     "Xóa apps gây nghiện",
-                    "Tạo không gian không có điện thoại",
+                    "Tạo không gian kh��ng có điện thoại",
                   ],
                 },
                 {
@@ -1359,7 +1321,7 @@ export default function DigitalEthics() {
                   </span>
                 </div>
                 <p className="text-sm text-purple-600 leading-relaxed">
-                  Đọc từ từ, suy ngẫm từng ý và thử áp dụng vào tình huống thực
+                  Đọc từ từ, suy ngẫm từng ý và thử áp d���ng vào tình huống thực
                   tế để ghi nhớ tốt nhất
                 </p>
               </div>
@@ -1610,7 +1572,7 @@ export default function DigitalEthics() {
                           🌟 Sẵn sàng bắt đầu hành trình học?
                         </h3>
                         <p className="text-purple-700 text-base leading-relaxed px-4">
-                          Cam kết thực hành những nguyên tắc đạo đức số và trở
+                          Cam kết th��c hành những nguyên tắc đạo đức số và trở
                           thành công dân số có trách nhiệm
                         </p>
 
