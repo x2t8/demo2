@@ -23,7 +23,6 @@ import {
 import { Badge } from "@/components/ui/badge";
 import Header from "@/components/Header";
 import DisclaimerBanner from "@/components/DisclaimerBanner";
-import LearningProgress from "@/components/LearningProgress";
 
 export default function AISafety() {
   const aiApplications = [
@@ -44,7 +43,7 @@ export default function AISafety() {
         "Vi phạm bản quyền nếu sao chép",
       ],
       tips: [
-        "Luôn kiểm tra thông tin từ AI",
+        "Luôn ki��m tra thông tin từ AI",
         "Sử dụng AI như công cụ hỗ trợ, không thay thế",
         "Không chia sẻ thông tin nhạy cảm",
         "Ghi nhận nguồn khi sử dụng AI",
@@ -373,7 +372,7 @@ export default function AISafety() {
               🎓 AI và Học Sinh/Sinh Viên
             </h2>
             <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-              Hướng dẫn sử dụng AI trong học tập một cách đúng đắn và có trách
+              Hướng dẫn sử dụng AI trong học tập một cách đúng đắn và c�� trách
               nhiệm
             </p>
           </div>
@@ -406,7 +405,7 @@ export default function AISafety() {
                         Giải thích khái niệm khó
                       </span>
                       <p className="text-sm text-gray-600 dark:text-gray-400">
-                        Hỏi AI giải thích bằng ngôn ngữ đơn giản
+                        Hỏi AI giải th��ch bằng ngôn ngữ đơn giản
                       </p>
                     </div>
                   </li>
@@ -504,7 +503,7 @@ export default function AISafety() {
               💼 AI Trong Công Việc
             </h2>
             <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-              Sử dụng AI để nâng cao hiệu quả công việc một cách an toàn và
+              Sử dụng AI để nâng cao hiệu qu��� công việc một cách an toàn và
               chuyên nghiệp
             </p>
           </div>
@@ -873,7 +872,6 @@ export default function AISafety() {
           </p>
         </div>
       </div>
-      <LearningProgress currentPage="/ai-safety" />
     </div>
   );
 }

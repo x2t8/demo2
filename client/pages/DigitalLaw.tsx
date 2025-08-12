@@ -28,7 +28,6 @@ import {
 import { Badge } from "@/components/ui/badge";
 import Header from "@/components/Header";
 import DisclaimerBanner from "@/components/DisclaimerBanner";
-import LearningProgress from "@/components/LearningProgress";
 
 export default function DigitalLaw() {
   const copyrightTypes = [
@@ -88,7 +87,7 @@ export default function DigitalLaw() {
       ],
       violations: [
         "Sử dụng nhạc làm nền video YouTube",
-        "Stream nhạc có bản quyền trái phép",
+        "Stream nhạc có b��n quyền trái phép",
         "Remix không xin phép",
         "Sử dụng trong sản phẩm thương mại",
       ],
@@ -200,7 +199,7 @@ export default function DigitalLaw() {
       violations: [
         "Phạt 10-30 triệu với cá nhân",
         "Phạt 30-100 triệu với tổ chức",
-        "Block tài khoản vĩnh viễn",
+        "Block tài kho���n vĩnh viễn",
         "Khởi kiện hình sự nếu nghiêm trọng",
       ],
     },
@@ -810,7 +809,6 @@ export default function DigitalLaw() {
           </Button>
         </div>
       </div>
-      <LearningProgress currentPage="/digital-law" />
     </div>
   );
 }

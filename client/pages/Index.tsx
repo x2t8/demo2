@@ -27,7 +27,6 @@ import DisclaimerBanner from "@/components/DisclaimerBanner";
 import Footer from "@/components/Footer";
 import { useScrollReveal, useStaggeredReveal } from "@/hooks/useScrollReveal";
 import { CaringToastProvider } from "@/components/CaringToast";
-import LearningProgress from "@/components/LearningProgress";
 import ReportGuideModal from "@/components/ReportGuideModal";
 import FloatingActionButton from "@/components/FloatingActionButton";
 import Carousel3D from "@/components/Carousel3D";

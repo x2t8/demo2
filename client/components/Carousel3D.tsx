@@ -28,31 +28,41 @@ interface Carousel3DProps {
 export default function Carousel3D({ modules, onModuleChange }: Carousel3DProps) {
   const [activeIndex, setActiveIndex] = useState(2); // Start with middle module
   const [isAnimating, setIsAnimating] = useState(false);
+  const [direction, setDirection] = useState<'left' | 'right' | null>(null);
 
   const nextModule = () => {
     if (isAnimating) return;
     setIsAnimating(true);
+    setDirection('right'); // Moving to next = sliding left
 
-    // Add stagger effect
+    // Add slide animation effect
     setTimeout(() => {
       const newIndex = (activeIndex + 1) % modules.length;
       setActiveIndex(newIndex);
       onModuleChange?.(newIndex);
 
-      setTimeout(() => setIsAnimating(false), 300);
+      setTimeout(() => {
+        setIsAnimating(false);
+        setDirection(null);
+      }, 600);
     }, 100);
   };
 
   const prevModule = () => {
     if (isAnimating) return;
     setIsAnimating(true);
+    setDirection('left'); // Moving to prev = sliding right
 
+    // Add slide animation effect
     setTimeout(() => {
       const newIndex = (activeIndex - 1 + modules.length) % modules.length;
       setActiveIndex(newIndex);
       onModuleChange?.(newIndex);
 
-      setTimeout(() => setIsAnimating(false), 300);
+      setTimeout(() => {
+        setIsAnimating(false);
+        setDirection(null);
+      }, 600);
     }, 100);
   };
 
@@ -85,22 +95,34 @@ export default function Carousel3D({ modules, onModuleChange }: Carousel3DProps)
   };
 
   const getModuleStyles = (position: number) => {
-    const baseStyles = "absolute top-1/2 transform transition-all duration-800 ease-out cursor-pointer";
-    const animatingClass = isAnimating ? "scale-95 blur-sm" : "";
+    const baseStyles = "absolute top-1/2 transform transition-all duration-700 ease-out cursor-pointer";
+
+    // Animation logic: when going next (right direction), all modules slide left
+    // When going prev (left direction), all modules slide right
+    let slideTransform = "";
+    if (isAnimating && direction) {
+      if (direction === 'right') {
+        // Next button: slide all modules left
+        slideTransform = "-translate-x-16";
+      } else if (direction === 'left') {
+        // Prev button: slide all modules right
+        slideTransform = "translate-x-16";
+      }
+    }
 
     switch (position) {
       case 0: // Center: 40-45% width with enhanced animation
-        return `${baseStyles} left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 scale-100 opacity-100 ${animatingClass}`;
+        return `${baseStyles} left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 scale-100 opacity-100 ${slideTransform}`;
       case -1: // Left adjacent: 30-35%, overlaps center by 20%
-        return `${baseStyles} left-[22%] -translate-x-1/2 -translate-y-1/2 z-40 scale-90 opacity-95 hover:scale-92 hover:opacity-100 ${animatingClass}`;
+        return `${baseStyles} left-[22%] -translate-x-1/2 -translate-y-1/2 z-40 scale-90 opacity-95 hover:scale-92 hover:opacity-100 ${slideTransform}`;
       case 1: // Right adjacent: 30-35%, overlaps center by 20%
-        return `${baseStyles} right-[22%] translate-x-1/2 -translate-y-1/2 z-40 scale-90 opacity-95 hover:scale-92 hover:opacity-100 ${animatingClass}`;
+        return `${baseStyles} right-[22%] translate-x-1/2 -translate-y-1/2 z-40 scale-90 opacity-95 hover:scale-92 hover:opacity-100 ${slideTransform}`;
       case -2: // Left outer: 25-28%, 60-70% opacity
-        return `${baseStyles} left-[5%] -translate-x-1/2 -translate-y-1/2 z-30 scale-75 opacity-65 hover:scale-78 hover:opacity-75 ${animatingClass}`;
+        return `${baseStyles} left-[5%] -translate-x-1/2 -translate-y-1/2 z-30 scale-75 opacity-65 hover:scale-78 hover:opacity-75 ${slideTransform}`;
       case 2: // Right outer: 25-28%, 60-70% opacity
-        return `${baseStyles} right-[5%] translate-x-1/2 -translate-y-1/2 z-30 scale-75 opacity-65 hover:scale-78 hover:opacity-75 ${animatingClass}`;
+        return `${baseStyles} right-[5%] translate-x-1/2 -translate-y-1/2 z-30 scale-75 opacity-65 hover:scale-78 hover:opacity-75 ${slideTransform}`;
       default:
-        return `${baseStyles} opacity-0 pointer-events-none scale-60 ${animatingClass}`;
+        return `${baseStyles} opacity-0 pointer-events-none scale-60 ${slideTransform}`;
     }
   };
 
@@ -385,38 +407,6 @@ export default function Carousel3D({ modules, onModuleChange }: Carousel3DProps)
           })}
         </div>
 
-        {/* Enhanced Indicators */}
-        <div className="flex justify-center mt-12 space-x-4">
-          {modules.map((_, index) => (
-            <button
-              key={index}
-              onClick={() => handleModuleClick(index)}
-              className={cn(
-                "relative transition-all duration-500 group",
-                index === activeIndex ? "scale-125" : "hover:scale-110"
-              )}
-            >
-              <div className={cn(
-                "w-4 h-4 rounded-full transition-all duration-500 relative",
-                index === activeIndex
-                  ? "bg-gradient-to-r from-blue-500 to-purple-500 shadow-lg shadow-blue-500/50"
-                  : "bg-gray-300 dark:bg-gray-600 group-hover:bg-gradient-to-r group-hover:from-blue-400 group-hover:to-purple-400"
-              )}>
-                {/* Glow effect for active indicator */}
-                {index === activeIndex && (
-                  <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full blur-md opacity-60 animate-pulse" />
-                )}
-              </div>
-
-              {/* Module title on hover */}
-              <div className="absolute -top-8 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
-                <div className="bg-gray-900 dark:bg-gray-100 text-white dark:text-gray-900 text-xs px-2 py-1 rounded whitespace-nowrap">
-                  {modules[index].title.replace(/[🛡️💝🤖⚖️💻]/g, '').trim()}
-                </div>
-              </div>
-            </button>
-          ))}
-        </div>
       </div>
 
     </div>

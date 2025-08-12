@@ -47,7 +47,6 @@ import {
 } from "@/components/ui/collapsible";
 import Header from "@/components/Header";
 import DisclaimerBanner from "@/components/DisclaimerBanner";
-import LearningProgress from "@/components/LearningProgress";
 
 export default function DigitalEthics() {
   const [selectedEthics, setSelectedEthics] = useState<string | null>(null);
@@ -252,7 +251,7 @@ export default function DigitalEthics() {
       id: "respect",
       icon: Heart,
       title: "Tôn trọng và lịch sự",
-      importance: "Cực kỳ quan trọng",
+      importance: "Cực k�� quan trọng",
       importanceLevel: 98,
       color: "text-pink-600 bg-pink-100",
       gradient: "from-pink-500 to-red-500",
@@ -282,7 +281,7 @@ export default function DigitalEthics() {
       id: "communication",
       icon: MessageCircle,
       title: "Giao tiếp có trách nhiệm",
-      importance: "Rất quan trọng",
+      importance: "R��t quan trọng",
       importanceLevel: 95,
       color: "text-blue-600 bg-blue-100",
       gradient: "from-blue-500 to-cyan-500",
@@ -1747,7 +1746,7 @@ export default function DigitalEthics() {
                     📊 Đạo đức số trên thế giới
                   </h3>
                   <p className="text-gray-600 text-sm">
-                    Những con số cho thấy tầm quan trọng của đạo đức trong không
+                    Những con s��� cho thấy tầm quan trọng của đạo đ��c trong không
                     gian số
                   </p>
                 </div>
@@ -2052,7 +2051,7 @@ export default function DigitalEthics() {
                     🛡️ Chống thông tin sai lệch
                   </h3>
                   <p className="text-gray-600 text-sm">
-                    Làm thế nào để nhận biết và ngăn chặn sự lan truyền thông
+                    Làm thế nào đ��� nhận biết và ngăn chặn sự lan truyền thông
                     tin sai lệch
                   </p>
                 </div>
@@ -2399,7 +2398,6 @@ export default function DigitalEthics() {
         )}
       </div>
 
-      <LearningProgress currentPage="/digital-ethics" />
     </div>
   );
 }

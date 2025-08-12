@@ -21,6 +21,9 @@ import {
   Bookmark,
   Share2,
   Info,
+  Fingerprint,
+  ShieldCheck,
+  Siren,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -36,13 +39,12 @@ import { Link } from "react-router-dom";
 import Header from "@/components/Header";
 import DisclaimerBanner from "@/components/DisclaimerBanner";
 import { useScrollReveal, useStaggeredReveal } from "@/hooks/useScrollReveal";
-import LearningProgress from "@/components/LearningProgress";
 import Statistics from "@/components/Statistics";
 import SocialShare from "@/components/SocialShare";
 import RealWorldExamples from "@/components/RealWorldExamples";
 
 export default function ScamTypes() {
-  const [selectedScam, setSelectedScam] = useState<string | null>(null);
+  const [selectedScams, setSelectedScams] = useState<string[]>([]);
   const [bookmarkedScams, setBookmarkedScams] = useState<string[]>([]);
 
   // Initialize protective animations
@@ -90,7 +92,7 @@ export default function ScamTypes() {
       icon: Phone,
       title: "Lừa đảo qua điện thoại",
       danger: "Cực kỳ nguy hiểm",
-      dangerLevel: 95,
+      dangerLevel: 92,
       color: "text-red-600 bg-red-100",
       gradient: "from-red-500 to-red-600",
       shortDesc: "Giả danh cơ quan, yêu cầu chuyển tiền",
@@ -99,807 +101,916 @@ export default function ScamTypes() {
       description:
         "Kẻ lừa đảo gọi điện giả danh cơ quan công an, ngân hàng, tòa án để lừa thông tin cá nhân và tiền bạc.",
       techniques: [
-        "Giả danh công an, kiểm sát viện",
-        "Thông báo tài khoản bị khóa",
-        "Yêu cầu chuyển tiền 'bảo toàn tài sản'",
-        "Đe dọa bắt giữ nếu không hợp tác",
-        "Tạo áp lực tâm lý cực lớn",
-        "Sử dụng thông tin cá nhân đã thu thập",
+        "Giả danh công an, ngân hàng",
+        "Tạo áp lực tâm lý",
+        "Yêu cầu chuyển tiền khẩn cấp",
+        "Đe dọa bắt giữ, phạt tiền",
       ],
-      redFlags: [
-        "Yêu cầu cung cấp mã OTP",
-        "Đe dọa, gây áp lực tâm lý",
-        "Không cho thời gian suy nghĩ",
-        "Yêu cầu chuyển tiền ngay lập tức",
-        "Không có văn bản chính thức",
-        "Từ chối gặp trực tiếp",
-      ],
-      protection: [
-        "Cúp máy ngay khi nghi ngờ",
-        "Gọi lại số hotline chính thức",
-        "Không cung cấp thông tin cá nhân",
-        "Tham khảo ý kiến người thân",
-        "Ghi âm cuộc gọi nếu có thể",
-        "Báo cáo ngay cho cơ quan chức năng",
+      prevention: [
+        "Không cung cấp thông tin qua điện thoại",
+        "Liên hệ trực tiếp cơ quan để xác minh",
+        "Không chuyển tiền theo yêu cầu",
+        "Ghi âm cuộc gọi làm bằng chứng",
       ],
     },
     {
       id: "sms",
       icon: MessageSquare,
-      title: "Lừa đảo qua SMS",
-      danger: "Nguy hiểm cao",
+      title: "Lừa đảo qua tin nhắn",
+      danger: "Rất nguy hiểm",
       dangerLevel: 78,
       color: "text-orange-600 bg-orange-100",
       gradient: "from-orange-500 to-orange-600",
-      shortDesc: "Tin nhắn trúng thưởng, link độc hại",
-      popularity: "85%",
-      avgLoss: "8 triệu VNĐ",
+      shortDesc: "Link độc hại, mã OTP giả",
+      popularity: "78%",
+      avgLoss: "12 triệu VNĐ",
       description:
-        "Tin nhắn giả mạo thông báo trúng thưởng, khuyến mãi hoặc cảnh báo tài khoản để lừa click link độc hại.",
+        "Tin nhắn chứa link độc hại hoặc yêu cầu cung cấp mã OTP, thông tin thẻ ngân hàng.",
       techniques: [
-        "Thông báo trúng thưởng khủng",
-        "Khuyến mãi hấp dẫn từ thương hiệu nổi tiếng",
-        "Cảnh báo tài khoản bị hack",
-        "Link rút gọn che giấu đích đến",
-        "Giả mạo tin nhắn ngân hàng",
-        "Tạo cảm giác khẩn cấp",
+        "Gửi link đ��c hại",
+        "Giả mạo thông báo ngân hàng",
+        "Yêu cầu mã OTP",
+        "Khuyến mại giả",
       ],
-      redFlags: [
-        "Số điện thoại lạ, không rõ nguồn gốc",
-        "Yêu cầu click link ngay lập tức",
-        "Thông tin quá hấp dẫn, không hợp lý",
-        "Lỗi chính tả, ngữ pháp",
-        "Link không chính thức",
-        "Yêu cầu chia sẻ thông tin",
-      ],
-      protection: [
-        "Không click vào link lạ",
-        "Kiểm tra tên miền website",
+      prevention: [
+        "Không click link lạ",
+        "Kiểm tra số điện thoại gửi",
+        "Không chia sẻ mã OTP",
         "Xác minh qua kênh chính thức",
-        "Sử dụng app diệt virus",
-        "Chặn số lạ",
-        "Báo cáo tin nhắn spam",
       ],
     },
     {
       id: "email",
       icon: Mail,
-      title: "Lừa đảo qua Email",
-      danger: "Nguy hiểm cao",
-      dangerLevel: 82,
+      title: "Lừa đảo qua email",
+      danger: "Nguy hiểm",
+      dangerLevel: 65,
       color: "text-yellow-600 bg-yellow-100",
-      gradient: "from-yellow-500 to-orange-500",
-      shortDesc: "Email giả mạo ngân hàng, phishing",
-      popularity: "73%",
+      gradient: "from-yellow-500 to-yellow-600",
+      shortDesc: "Phishing, đầu tư tài chính",
+      popularity: "65%",
       avgLoss: "25 triệu VNĐ",
       description:
-        "Email phishing giả mạo ngân hàng, dịch vụ online để đánh cắp thông tin đăng nhập và tài khoản.",
+        "Email giả mạo các tổ chức uy tín để lừa thông tin đăng nhập hoặc dụ dỗ đầu tư.",
       techniques: [
-        "Giả mạo email ngân hàng",
-        "Thông báo cập nhật bảo mật",
-        "Hóa đơn giả từ dịch vụ online",
-        "Đính kèm file độc hại",
-        "Clone website chính thức",
-        "Sử dụng domain tương tự",
+        "Giả mạo website ngân hàng",
+        "Lừa đầu tư forex, chứng khoán",
+        "Phishing thông tin đăng nhập",
+        "Đính kèm virus, malware",
       ],
-      redFlags: [
-        "Email từ địa chỉ lạ",
-        "Yêu cầu cập nhật thông tin khẩn cấp",
-        "Logo, thiết kế không chính thức",
-        "File đính kèm đáng ngờ",
-        "Lỗi chính tả trong email",
-        "Domain không chính thức",
-      ],
-      protection: [
+      prevention: [
         "Kiểm tra địa chỉ email gửi",
-        "Đăng nhập trực tiếp vào website",
         "Không tải file đính kèm lạ",
-        "Báo cáo email spam",
-        "Sử dụng 2FA",
-        "Cập nhật phần mềm bảo mật",
+        "Xác minh website trước khi đăng nhập",
+        "Sử dụng xác thực 2 lớp",
       ],
     },
     {
-      id: "financial",
+      id: "card",
       icon: CreditCard,
-      title: "Lừa đảo tài chính",
+      title: "Lừa đảo thẻ chính",
       danger: "Cực kỳ nguy hiểm",
-      dangerLevel: 98,
-      color: "text-purple-600 bg-purple-100",
-      gradient: "from-purple-500 to-pink-500",
-      shortDesc: "Đầu tư ma, sàn forex giả",
-      popularity: "67%",
-      avgLoss: "150 triệu VNĐ",
+      dangerLevel: 88,
+      color: "text-blue-600 bg-blue-100",
+      gradient: "from-blue-500 to-blue-600",
+      shortDesc: "Sao chép thẻ, đánh cắp PIN",
+      popularity: "45%",
+      avgLoss: "35 triệu VNĐ",
       description:
-        "Các hình thức đầu tư ma, sàn forex giả, vay tiền online với lãi suất hấp dẫn để chiếm đoạt tài sản.",
+        "Sử dụng thiết bị sao chép thẻ tại ATM hoặc cửa hàng để đánh cắp thông tin thẻ.",
       techniques: [
-        "Sàn forex, crypto giả",
-        "Đầu tư đa cấp online",
-        "Vay tiền lãi suất 0%",
-        "HYIP - lãi suất siêu cao",
-        "Ponzi scheme",
-        "Fake trading signals",
+        "Lắp thiết bị sao chép tại ATM",
+        "Camera quay lén mã PIN",
+        "Thẻ ATM giả",
+        "Máy POS giả",
       ],
-      redFlags: [
-        "Lãi suất quá cao, không hợp lý",
-        "Không có giấy phép hoạt động",
-        "Yêu cầu nạp tiền trước",
-        "Không thể rút tiền",
-        "Không có địa chỉ văn phòng",
-        "Áp lực đầu tư nhanh",
-      ],
-      protection: [
-        "Kiểm tra giấy phép kinh doanh",
-        "Tìm hiểu kỹ trước khi đầu tư",
-        "Không tin vào lời hứa lãi cao",
-        "Tham khảo chuyên gia tài chính",
-        "Đầu tư theo khả năng",
-        "Diversify portfolio",
+      prevention: [
+        "Che tay khi nhập m�� PIN",
+        "Kiểm tra ATM trước khi sử dụng",
+        "Theo dõi giao dịch thường xuyên",
+        "Báo ngay khi phát hiện bất thường",
       ],
     },
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-rose-100 via-red-50 to-orange-100">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 md:bg-white">
       <Header />
       <DisclaimerBanner />
 
-      {/* =================================== */}
-      {/* DESKTOP VERSION - Full Featured     */}
-      {/* =================================== */}
-      <div className="hidden lg:block">
-        {/* Hero Section - Desktop */}
-        <div className="relative bg-gradient-to-r from-red-600 via-red-700 to-orange-600 text-white py-20 overflow-hidden">
-          <div className="absolute inset-0 bg-black opacity-10"></div>
-          <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/20"></div>
+      {/* Desktop/Tablet: New Layout theo hình */}
+      <div className="hidden md:block">
+        {/* Hero Section - Layout như DigitalEthics */}
+        <section className="bg-gradient-to-br from-red-400 via-pink-400 to-red-500 relative overflow-hidden py-16 lg:py-20">
+          <div className="absolute inset-0">
+            <div className="absolute inset-0 bg-gradient-to-r from-black/20 to-transparent"></div>
+          </div>
 
-          <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="container mx-auto px-4 relative z-10">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-              <div>
-                <div className="flex items-center mb-6">
-                  <AlertTriangle className="h-12 w-12 mr-4 animate-pulse" />
-                  <span className="bg-red-500 text-white px-3 py-1 rounded-full text-sm font-medium">
-                    CẢNH BÁO QUAN TRỌNG
-                  </span>
+              {/* Left side - Content */}
+              <div className="text-white space-y-6">
+                <div className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-md rounded-full px-4 py-2">
+                  <Shield className="h-5 w-5" />
+                  <span className="text-sm font-medium">BẢO VỆ AN TOÀN SỐ</span>
                 </div>
-                <h1 className="text-5xl md:text-6xl font-bold mb-6 leading-tight">
-                  Các Dạng Lừa Đảo{" "}
-                  <span className="text-yellow-300">Chi Tiết</span>
-                </h1>
-                <p className="text-xl opacity-90 mb-8 leading-relaxed">
-                  Phân tích sâu từng loại lừa đảo với dữ liệu thực tế, thống kê
-                  cập nhật và hướng dẫn phòng tránh hiệu quả nhất.
-                </p>
-                <div className="flex items-center space-x-6">
+
+                <div className="space-y-4">
+                  <h1 className="text-4xl lg:text-6xl font-bold leading-tight">
+                    An Toàn Số &
+                    <span className="text-yellow-300 block">Phòng Chống</span>
+                    <span className="text-yellow-300">Lừa Đảo</span>
+                  </h1>
+
+                  <p className="text-lg lg:text-xl opacity-90 leading-relaxed max-w-lg">
+                    Học cách nhận biết, phòng tránh và bảo vệ b��n thân khỏi các
+                    hình thức lừa đảo trực tuyến trong thời đại số hiện đại.
+                  </p>
+                </div>
+
+                {/* Stats */}
+                <div className="grid grid-cols-3 gap-6 pt-6">
                   <div className="text-center">
-                    <div className="text-3xl font-bold text-yellow-300">
-                      15,000+
-                    </div>
-                    <div className="text-sm opacity-80">Vụ lừa đảo/năm</div>
+                    <div className="text-2xl lg:text-3xl font-bold">15K+</div>
+                    <div className="text-sm opacity-80">Vụ lừa đảo online</div>
                   </div>
-                  <div className="w-px h-12 bg-white/30"></div>
                   <div className="text-center">
-                    <div className="text-3xl font-bold text-yellow-300">
-                      2,500 tỷ
+                    <div className="text-2xl lg:text-3xl font-bold">
+                      2.5K tỷ
                     </div>
-                    <div className="text-sm opacity-80">VNĐ thiệt hại</div>
+                    <div className="text-sm opacity-80">Thiệt hại/năm</div>
                   </div>
-                  <div className="w-px h-12 bg-white/30"></div>
                   <div className="text-center">
-                    <div className="text-3xl font-bold text-yellow-300">
-                      68%
-                    </div>
-                    <div className="text-sm opacity-80">Qua ĐT & SMS</div>
+                    <div className="text-2xl lg:text-3xl font-bold">68%</div>
+                    <div className="text-sm opacity-80">Qua đi��n thoại</div>
                   </div>
                 </div>
               </div>
 
-              <div className="relative">
-                <div className="grid grid-cols-2 gap-4">
-                  {scamDetails.map((scam, index) => (
-                    <Card
-                      key={scam.id}
-                      className={`transform hover:scale-105 transition-all duration-300 hover:shadow-xl ${index % 2 === 1 ? "mt-8" : ""}`}
-                    >
-                      <CardContent className="p-4">
-                        <div
-                          className={`w-12 h-12 rounded-lg ${scam.color} flex items-center justify-center mb-3`}
-                        >
-                          <scam.icon className="h-6 w-6" />
-                        </div>
-                        <h3 className="font-bold text-gray-900 text-sm mb-2">
-                          {scam.title}
-                        </h3>
-                        <div className="space-y-2">
-                          <div className="flex items-center justify-between">
-                            <span className="text-xs text-gray-600">
-                              Độ nguy hiểm
-                            </span>
-                            <span className="text-xs font-semibold text-red-600">
-                              {scam.dangerLevel}%
-                            </span>
-                          </div>
-                          <Progress value={scam.dangerLevel} className="h-1" />
-                        </div>
-                      </CardContent>
-                    </Card>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Navigation Bar - Desktop */}
-        <div className="bg-white shadow-sm border-b sticky top-0 z-40">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex items-center justify-between py-4">
-              <div className="flex items-center space-x-8">
-                <h2 className="text-lg font-semibold text-gray-900">
-                  Phân loại chi tiết
-                </h2>
-                <div className="flex space-x-4">
-                  {scamDetails.map((scam) => (
-                    <a
-                      key={scam.id}
-                      href={`#${scam.id}`}
-                      className="flex items-center px-3 py-2 rounded-lg hover:bg-gray-100 transition-colors"
-                    >
-                      <scam.icon
-                        className={`h-4 w-4 mr-2 ${scam.color.split(" ")[0]}`}
-                      />
-                      <span className="text-sm font-medium text-gray-700">
-                        {scam.title}
-                      </span>
-                    </a>
-                  ))}
-                </div>
-              </div>
-              <div className="flex items-center space-x-4">
-                <Button variant="outline" size="sm">
-                  <Share2 className="h-4 w-4 mr-2" />
-                  Chia sẻ
-                </Button>
-                <Button size="sm" className="bg-red-600 hover:bg-red-700">
-                  <Phone className="h-4 w-4 mr-2" />
-                  Báo cáo: 113
-                </Button>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Detailed Scam Types - Desktop */}
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-          <div className="space-y-20">
-            {scamDetails.map((scam, index) => (
-              <div key={scam.id} id={scam.id} className="scroll-mt-24">
-                <Card className="overflow-hidden shadow-xl border-0">
-                  {/* Card Header with Gradient */}
-                  <div
-                    className={`bg-gradient-to-r ${scam.gradient} text-white p-8`}
-                  >
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center space-x-6">
-                        <div className="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center backdrop-blur-sm">
-                          <scam.icon className="h-8 w-8 text-white" />
-                        </div>
-                        <div>
-                          <h2 className="text-3xl font-bold mb-2">
-                            {scam.title}
-                          </h2>
-                          <div className="flex items-center space-x-4">
-                            <Badge
-                              variant="destructive"
-                              className="bg-white/20 text-white border-white/30"
-                            >
-                              {scam.danger}
-                            </Badge>
-                            <div className="flex items-center space-x-2">
-                              <TrendingUp className="h-4 w-4" />
-                              <span className="text-sm">
-                                Phổ biến: {scam.popularity}
-                              </span>
-                            </div>
-                            <div className="flex items-center space-x-2">
-                              <CreditCard className="h-4 w-4" />
-                              <span className="text-sm">
-                                Thiệt hại TB: {scam.avgLoss}
-                              </span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="text-right">
-                        <div className="text-6xl font-bold text-white/30">
-                          0{index + 1}
-                        </div>
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          className="text-white hover:bg-white/20"
-                          onClick={() => toggleBookmark(scam.id)}
-                        >
-                          {bookmarkedScams.includes(scam.id) ? (
-                            <Heart className="h-4 w-4 fill-current" />
-                          ) : (
-                            <Bookmark className="h-4 w-4" />
-                          )}
-                        </Button>
-                      </div>
-                    </div>
-                    <p className="text-lg mt-4 opacity-90 leading-relaxed max-w-4xl">
-                      {scam.description}
-                    </p>
-                  </div>
-
-                  <CardContent className="p-8">
-                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                      {/* Techniques */}
-                      <div className="bg-red-50 rounded-xl p-6">
-                        <div className="flex items-center mb-4">
-                          <div className="w-10 h-10 bg-red-100 rounded-lg flex items-center justify-center mr-3">
-                            <XCircle className="h-5 w-5 text-red-600" />
-                          </div>
-                          <h3 className="text-xl font-bold text-red-800">
-                            Thủ đoạn thường gặp
-                          </h3>
-                        </div>
-                        <ul className="space-y-3">
-                          {scam.techniques.map((technique, idx) => (
-                            <li
-                              key={idx}
-                              className="flex items-start space-x-3 group"
-                            >
-                              <div className="w-2 h-2 bg-red-500 rounded-full mt-2 flex-shrink-0 group-hover:bg-red-600 transition-colors"></div>
-                              <span className="text-gray-700 leading-relaxed group-hover:text-gray-900 transition-colors">
-                                {technique}
-                              </span>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-
-                      {/* Red Flags */}
-                      <div className="bg-orange-50 rounded-xl p-6">
-                        <div className="flex items-center mb-4">
-                          <div className="w-10 h-10 bg-orange-100 rounded-lg flex items-center justify-center mr-3">
-                            <Eye className="h-5 w-5 text-orange-600" />
-                          </div>
-                          <h3 className="text-xl font-bold text-orange-800">
-                            Dấu hiệu nhận biết
-                          </h3>
-                        </div>
-                        <ul className="space-y-3">
-                          {scam.redFlags.map((flag, idx) => (
-                            <li
-                              key={idx}
-                              className="flex items-start space-x-3 group"
-                            >
-                              <div className="w-2 h-2 bg-orange-500 rounded-full mt-2 flex-shrink-0 group-hover:bg-orange-600 transition-colors"></div>
-                              <span className="text-gray-700 leading-relaxed group-hover:text-gray-900 transition-colors">
-                                {flag}
-                              </span>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-
-                      {/* Protection */}
-                      <div className="bg-green-50 rounded-xl p-6">
-                        <div className="flex items-center mb-4">
-                          <div className="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center mr-3">
-                            <Shield className="h-5 w-5 text-green-600" />
-                          </div>
-                          <h3 className="text-xl font-bold text-green-800">
-                            Cách phòng tránh
-                          </h3>
-                        </div>
-                        <ul className="space-y-3">
-                          {scam.protection.map((tip, idx) => (
-                            <li
-                              key={idx}
-                              className="flex items-start space-x-3 group"
-                            >
-                              <div className="w-2 h-2 bg-green-500 rounded-full mt-2 flex-shrink-0 group-hover:bg-green-600 transition-colors"></div>
-                              <span className="text-gray-700 leading-relaxed group-hover:text-gray-900 transition-colors">
-                                {tip}
-                              </span>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    </div>
-
-                    {/* Action Buttons */}
-                    <div className="mt-8 flex items-center justify-center space-x-4">
-                      <Button variant="outline" className="flex items-center">
-                        <Share2 className="h-4 w-4 mr-2" />
-                        Chia sẻ kiến thức này
-                      </Button>
-                      <Button className="bg-red-600 hover:bg-red-700 flex items-center">
-                        <Phone className="h-4 w-4 mr-2" />
-                        Báo cáo lừa đảo
-                      </Button>
-                    </div>
-                  </CardContent>
-                </Card>
-              </div>
-            ))}
-          </div>
-
-          {/* Statistics Section */}
-          <div className="mt-20">
-            <Statistics
-              title="Thống Kê Lừa Đảo Tại Việt Nam"
-              subtitle="Những con số đáng báo động về tình trạng lừa đảo online"
-              stats={scamStatistics}
-              backgroundGradient="from-red-50 to-orange-50"
-            />
-          </div>
-
-          {/* Real World Examples */}
-          <div className="mt-20">
-            <RealWorldExamples />
-          </div>
-
-          {/* Social Share Section */}
-          <div className="mt-20">
-            <SocialShare
-              title="Bảo vệ bản thân khỏi lừa đảo - Kiến thức cần thiết cho mọi người"
-              description="Tìm hiểu các dạng lừa đảo phổ biến và cách phòng tránh hiệu quả. Chia sẻ để bảo vệ cộng đồng!"
-            />
-          </div>
-        </div>
-      </div>
-
-      {/* =================================== */}
-      {/* MOBILE VERSION - Compact & Clean   */}
-      {/* =================================== */}
-      <div className="lg:hidden">
-        {/* Mobile Header */}
-        <div className="bg-gradient-to-r from-red-600 to-orange-600 text-white py-8">
-          <div className="px-4 text-center">
-            <AlertTriangle className="h-10 w-10 mx-auto mb-3 animate-pulse" />
-            <h1 className="text-xl font-bold mb-1">Lừa Đảo Online</h1>
-            <p className="text-sm opacity-90">Nhận biết & Phòng tránh</p>
-
-            {/* Quick Stats Mobile */}
-            <div className="flex justify-center space-x-4 mt-4 text-xs">
-              <div className="text-center">
-                <div className="font-bold">15K+</div>
-                <div className="opacity-80">vụ/năm</div>
-              </div>
-              <div className="text-center">
-                <div className="font-bold">2.5K tỷ</div>
-                <div className="opacity-80">thiệt hại</div>
-              </div>
-              <div className="text-center">
-                <div className="font-bold">68%</div>
-                <div className="opacity-80">qua ĐT</div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Mobile Content */}
-        <div className="px-4 py-6 space-y-4">
-          {!selectedScam ? (
-            /* Scam Types List - Mobile */
-            <>
-              <div className="text-center mb-6">
-                <h2 className="text-lg font-bold text-gray-900 mb-2">
-                  🛡️ Chọn loại để tìm hiểu
-                </h2>
-                <p className="text-gray-600 text-sm">
-                  Tap vào card để xem chi tiết phòng tránh
-                </p>
-              </div>
-
-              <div className="space-y-3">
-                {scamDetails.map((scam, index) => (
+              {/* Right side - Cards (DigitalEthics style - Simple Grid 2x2) */}
+              <div className="grid grid-cols-2 gap-4">
+                {[
+                  {
+                    icon: Phone,
+                    title: "Lừa đảo điện thoại",
+                    subtitle: "Giả danh cơ quan",
+                    value: "92%",
+                    color: "bg-white",
+                    textColor: "text-red-600",
+                  },
+                  {
+                    icon: MessageSquare,
+                    title: "Lừa đảo SMS",
+                    subtitle: "Link độc hại",
+                    value: "78%",
+                    color: "bg-white/90",
+                    textColor: "text-orange-600",
+                  },
+                  {
+                    icon: Mail,
+                    title: "Lừa đảo Email",
+                    subtitle: "Phishing tài khoản",
+                    value: "65%",
+                    color: "bg-white/80",
+                    textColor: "text-yellow-600",
+                  },
+                  {
+                    icon: CreditCard,
+                    title: "Lừa đảo thẻ",
+                    subtitle: "Sao chép thông tin",
+                    value: "45%",
+                    color: "bg-white/70",
+                    textColor: "text-blue-600",
+                  },
+                ].map((item, index) => (
                   <Card
-                    key={scam.id}
-                    className="cursor-pointer active:scale-95 transition-transform duration-150 border-l-4 border-red-400 hover:shadow-lg"
-                    onClick={() => setSelectedScam(scam.id)}
+                    key={index}
+                    className={`${item.color} border-0 hover:scale-105 transition-transform duration-300 cursor-pointer shadow-lg`}
                   >
                     <CardContent className="p-4">
-                      <div className="flex items-center space-x-3">
+                      <div className="flex items-center gap-3 mb-3">
                         <div
-                          className={`w-12 h-12 rounded-xl ${scam.color} flex items-center justify-center flex-shrink-0`}
+                          className={`w-10 h-10 ${
+                            item.textColor === "text-red-600"
+                              ? "bg-red-100"
+                              : item.textColor === "text-orange-600"
+                                ? "bg-orange-100"
+                                : item.textColor === "text-yellow-600"
+                                  ? "bg-yellow-100"
+                                  : "bg-blue-100"
+                          } rounded-lg flex items-center justify-center`}
                         >
-                          <scam.icon className="h-6 w-6" />
+                          <item.icon className={`h-5 w-5 ${item.textColor}`} />
                         </div>
-                        <div className="flex-1 min-w-0">
-                          <div className="flex items-center justify-between mb-1">
-                            <h3 className="font-bold text-gray-900 text-sm truncate">
-                              {scam.title}
-                            </h3>
-                            <ChevronRight className="h-4 w-4 text-gray-400 flex-shrink-0" />
-                          </div>
-                          <p className="text-xs text-gray-600 mb-2 line-clamp-2">
-                            {scam.shortDesc}
-                          </p>
-                          <div className="flex items-center justify-between">
-                            <Badge
-                              variant="destructive"
-                              className="text-xs px-2 py-0.5"
-                            >
-                              {scam.danger}
-                            </Badge>
-                            <div className="flex items-center space-x-3 text-xs text-gray-500">
-                              <span>📊 {scam.popularity}</span>
-                              <span>💰 {scam.avgLoss}</span>
-                            </div>
-                          </div>
-                        </div>
+                      </div>
+                      <h3 className="font-bold text-gray-900 text-sm mb-1">
+                        {item.title}
+                      </h3>
+                      <p className="text-gray-600 text-xs mb-2">
+                        {item.subtitle}
+                      </p>
+                      <div className="flex items-center justify-between">
+                        <span className="text-xs text-gray-500">Tỷ lệ gặp</span>
+                        <span className={`font-bold text-sm ${item.textColor}`}>
+                          {item.value}
+                        </span>
+                      </div>
+                      <div className="mt-2 w-full bg-gray-200 rounded-full h-1.5">
+                        <div
+                          className={`h-1.5 rounded-full transition-all duration-1000 ${
+                            item.textColor === "text-red-600"
+                              ? "bg-red-500"
+                              : item.textColor === "text-orange-600"
+                                ? "bg-orange-500"
+                                : item.textColor === "text-yellow-600"
+                                  ? "bg-yellow-500"
+                                  : "bg-blue-500"
+                          }`}
+                          style={{ width: item.value }}
+                        ></div>
                       </div>
                     </CardContent>
                   </Card>
                 ))}
               </div>
+            </div>
+          </div>
+        </section>
 
-              {/* Quick Actions - Mobile */}
-              <div className="mt-6 space-y-3">
-                <Card className="bg-red-50 border-red-200">
-                  <CardContent className="p-4">
-                    <h3 className="font-bold text-red-800 mb-3 text-center flex items-center justify-center">
-                      <AlertTriangle className="h-4 w-4 mr-2" />
-                      🚨 Khẩn cấp?
-                    </h3>
-                    <div className="space-y-2">
-                      <Button
-                        className="w-full bg-red-600 hover:bg-red-700 text-sm py-2"
-                        onClick={() => window.open("tel:113")}
-                      >
-                        <Phone className="h-4 w-4 mr-2" />
-                        Gọi 113 - Công an
-                      </Button>
-                      <Button
-                        variant="outline"
-                        className="w-full text-sm py-2"
-                        onClick={() => window.open("tel:19001080")}
-                      >
-                        <MessageSquare className="h-4 w-4 mr-2" />
-                        Hotline chống lừa đảo
-                      </Button>
-                    </div>
-                  </CardContent>
-                </Card>
-
-                {/* Quick Tips */}
-                <Card className="bg-blue-50 border-blue-200">
-                  <CardContent className="p-4">
-                    <h3 className="font-bold text-blue-800 mb-3 text-center">
-                      💡 Tips nhanh
-                    </h3>
-                    <div className="space-y-2 text-sm text-gray-700">
-                      <div className="flex items-start space-x-2">
-                        <span className="text-blue-600">•</span>
-                        <span>Không bao giờ cung cấp mã OTP</span>
-                      </div>
-                      <div className="flex items-start space-x-2">
-                        <span className="text-blue-600">•</span>
-                        <span>Luôn xác minh qua kênh chính thức</span>
-                      </div>
-                      <div className="flex items-start space-x-2">
-                        <span className="text-blue-600">•</span>
-                        <span>Cúp máy khi nghi ngờ</span>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
+        {/* Desktop Scam Cards - New Design */}
+        <section className="px-4 py-16 bg-gray-50">
+          <div className="container mx-auto max-w-6xl">
+            <h2 className="text-2xl font-bold text-center mb-3 text-gray-900">
+              Phân loại chi tiết
+            </h2>
+            <div className="flex justify-center gap-6 mb-12 text-sm flex-wrap">
+              <div className="flex items-center gap-2">
+                <Phone className="w-4 h-4 text-red-500" />
+                <span>Lừa đảo qua điện thoại</span>
               </div>
-            </>
-          ) : (
-            /* Scam Detail View - Mobile */
-            <>
-              {(() => {
-                const scam = scamDetails.find((s) => s.id === selectedScam);
-                if (!scam) return null;
+              <div className="flex items-center gap-2">
+                <MessageSquare className="w-4 h-4 text-orange-500" />
+                <span>Lừa đảo qua SMS</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <Mail className="w-4 h-4 text-yellow-500" />
+                <span>Lừa đảo qua Email</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <CreditCard className="w-4 h-4 text-blue-500" />
+                <span>Lừa đảo thẻ chính</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <Share2 className="w-4 h-4 text-gray-500" />
+                <span>Chia sẻ</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <Bookmark className="w-4 h-4 text-gray-500" />
+                <span>Đáo Cầu Trợ</span>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {scamDetails.map((scam, index) => {
+                const cardColors = [
+                  {
+                    bg: "bg-red-100",
+                    icon: "text-red-600",
+                    progress: "bg-red-500",
+                    border: "border-red-200",
+                  },
+                  {
+                    bg: "bg-orange-100",
+                    icon: "text-orange-600",
+                    progress: "bg-orange-500",
+                    border: "border-orange-200",
+                  },
+                  {
+                    bg: "bg-yellow-100",
+                    icon: "text-yellow-600",
+                    progress: "bg-yellow-500",
+                    border: "border-yellow-200",
+                  },
+                  {
+                    bg: "bg-blue-100",
+                    icon: "text-blue-600",
+                    progress: "bg-blue-500",
+                    border: "border-blue-200",
+                  },
+                ];
+                const colors = cardColors[index % 4];
 
                 return (
-                  <div className="space-y-4">
-                    {/* Back Button */}
-                    <div className="flex items-center justify-between mb-4">
-                      <Button
-                        variant="ghost"
-                        size="sm"
-                        onClick={() => setSelectedScam(null)}
-                        className="p-2"
-                      >
-                        <ArrowLeft className="h-4 w-4 mr-2" />
-                        Quay lại
-                      </Button>
-                      <Button
-                        variant="ghost"
-                        size="sm"
-                        onClick={() => toggleBookmark(scam.id)}
-                        className="p-2"
-                      >
-                        {bookmarkedScams.includes(scam.id) ? (
-                          <Heart className="h-4 w-4 fill-current text-red-500" />
-                        ) : (
-                          <Bookmark className="h-4 w-4" />
-                        )}
-                      </Button>
-                    </div>
-
-                    {/* Scam Header Mobile */}
-                    <Card
-                      className={`bg-gradient-to-r ${scam.gradient} text-white border-0`}
-                    >
-                      <CardContent className="p-4">
-                        <div className="flex items-center space-x-3 mb-3">
-                          <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center backdrop-blur-sm">
-                            <scam.icon className="h-6 w-6 text-white" />
-                          </div>
-                          <div className="flex-1">
-                            <h2 className="text-lg font-bold mb-1">
-                              {scam.title}
-                            </h2>
-                            <Badge
-                              variant="destructive"
-                              className="bg-white/20 text-white border-white/30 text-xs"
-                            >
-                              {scam.danger}
-                            </Badge>
-                          </div>
-                        </div>
-
-                        <p className="text-sm opacity-90 leading-relaxed mb-3">
-                          {scam.description}
-                        </p>
-
-                        <div className="grid grid-cols-2 gap-4 text-xs">
-                          <div className="bg-white/10 rounded-lg p-2 text-center">
-                            <div className="font-bold">{scam.popularity}</div>
-                            <div className="opacity-80">Phổ biến</div>
-                          </div>
-                          <div className="bg-white/10 rounded-lg p-2 text-center">
-                            <div className="font-bold">{scam.avgLoss}</div>
-                            <div className="opacity-80">Thiệt hại TB</div>
-                          </div>
-                        </div>
-                      </CardContent>
-                    </Card>
-
-                    {/* Danger Level */}
-                    <Card className="border-l-4 border-red-400">
-                      <CardContent className="p-4">
-                        <div className="flex items-center justify-between mb-2">
-                          <span className="text-sm font-medium text-gray-700">
-                            Mức độ nguy hiểm
-                          </span>
-                          <span className="text-sm font-bold text-red-600">
-                            {scam.dangerLevel}%
-                          </span>
-                        </div>
-                        <Progress value={scam.dangerLevel} className="h-2" />
-                      </CardContent>
-                    </Card>
-
-                    {/* Mobile Info Sections */}
-                    <div className="space-y-4">
-                      {/* Techniques */}
-                      <Card className="bg-red-50 border-red-200">
-                        <CardContent className="p-4">
-                          <h3 className="font-bold text-red-800 mb-3 flex items-center text-sm">
-                            <XCircle className="h-4 w-4 mr-2" />
-                            Thủ đoạn thường gặp
-                          </h3>
-                          <div className="space-y-2">
-                            {scam.techniques
-                              .slice(0, 4)
-                              .map((technique, idx) => (
-                                <div
-                                  key={idx}
-                                  className="flex items-start space-x-2"
-                                >
-                                  <span className="w-1.5 h-1.5 bg-red-500 rounded-full mt-1.5 flex-shrink-0"></span>
-                                  <span className="text-sm text-gray-700 leading-relaxed">
-                                    {technique}
-                                  </span>
-                                </div>
-                              ))}
-                            {scam.techniques.length > 4 && (
-                              <div className="text-xs text-red-600 font-medium">
-                                +{scam.techniques.length - 4} thủ đoạn khác...
-                              </div>
-                            )}
-                          </div>
-                        </CardContent>
-                      </Card>
-
-                      {/* Red Flags */}
-                      <Card className="bg-orange-50 border-orange-200">
-                        <CardContent className="p-4">
-                          <h3 className="font-bold text-orange-800 mb-3 flex items-center text-sm">
-                            <Eye className="h-4 w-4 mr-2" />
-                            Dấu hiệu nhận biết
-                          </h3>
-                          <div className="space-y-2">
-                            {scam.redFlags.slice(0, 4).map((flag, idx) => (
-                              <div
-                                key={idx}
-                                className="flex items-start space-x-2"
-                              >
-                                <span className="w-1.5 h-1.5 bg-orange-500 rounded-full mt-1.5 flex-shrink-0"></span>
-                                <span className="text-sm text-gray-700 leading-relaxed">
-                                  {flag}
-                                </span>
-                              </div>
-                            ))}
-                            {scam.redFlags.length > 4 && (
-                              <div className="text-xs text-orange-600 font-medium">
-                                +{scam.redFlags.length - 4} dấu hiệu khác...
-                              </div>
-                            )}
-                          </div>
-                        </CardContent>
-                      </Card>
-
-                      {/* Protection */}
-                      <Card className="bg-green-50 border-green-200">
-                        <CardContent className="p-4">
-                          <h3 className="font-bold text-green-800 mb-3 flex items-center text-sm">
-                            <Shield className="h-4 w-4 mr-2" />
-                            Cách phòng tránh
-                          </h3>
-                          <div className="space-y-2">
-                            {scam.protection.slice(0, 4).map((tip, idx) => (
-                              <div
-                                key={idx}
-                                className="flex items-start space-x-2"
-                              >
-                                <span className="w-1.5 h-1.5 bg-green-500 rounded-full mt-1.5 flex-shrink-0"></span>
-                                <span className="text-sm text-gray-700 leading-relaxed">
-                                  {tip}
-                                </span>
-                              </div>
-                            ))}
-                            {scam.protection.length > 4 && (
-                              <div className="text-xs text-green-600 font-medium">
-                                +{scam.protection.length - 4} cách khác...
-                              </div>
-                            )}
-                          </div>
-                        </CardContent>
-                      </Card>
-                    </div>
-
-                    {/* Action Buttons Mobile */}
-                    <div className="space-y-2 pt-4">
-                      <Button
-                        className="w-full bg-red-600 hover:bg-red-700"
-                        onClick={() => window.open("tel:113")}
-                      >
-                        <Phone className="h-4 w-4 mr-2" />
-                        Báo cáo ngay - 113
-                      </Button>
-                      <div className="grid grid-cols-2 gap-2">
-                        <Button
-                          variant="outline"
-                          size="sm"
-                          onClick={() => setSelectedScam(null)}
+                  <Card
+                    key={scam.id}
+                    className={`group cursor-pointer transition-all duration-300 hover:shadow-lg border-2 ${colors.bg} ${colors.border}`}
+                    onClick={() => {
+                      setSelectedScams((prev) =>
+                        prev.includes(scam.id)
+                          ? prev.filter((id) => id !== scam.id)
+                          : [...prev, scam.id],
+                      );
+                    }}
+                  >
+                    <CardContent className="p-6 text-center">
+                      <div className="flex justify-center mb-4">
+                        <div
+                          className={`w-16 h-16 rounded-2xl ${colors.bg} border-2 border-white shadow-sm flex items-center justify-center`}
                         >
-                          📚 Xem loại khác
-                        </Button>
-                        <Button variant="outline" size="sm">
-                          <Share2 className="h-3 w-3 mr-1" />
-                          Chia sẻ
-                        </Button>
+                          <scam.icon className={`h-8 w-8 ${colors.icon}`} />
+                        </div>
                       </div>
-                    </div>
-                  </div>
+
+                      <h3 className="font-bold text-gray-900 mb-2 text-sm leading-tight">
+                        {scam.title}
+                      </h3>
+
+                      <p className="text-gray-600 text-xs mb-3 leading-relaxed">
+                        {scam.shortDesc}
+                      </p>
+
+                      <div className="space-y-2 mb-4">
+                        <div className="flex justify-between items-center text-xs">
+                          <span className="text-gray-600">Tỷ lệ gặp phải</span>
+                          <span className={`font-semibold ${colors.icon}`}>
+                            {scam.popularity}
+                          </span>
+                        </div>
+                        <div className="w-full bg-gray-200 rounded-full h-2">
+                          <div
+                            className={`h-2 rounded-full ${colors.progress} transition-all duration-1000`}
+                            style={{ width: scam.popularity }}
+                          ></div>
+                        </div>
+
+                        <div className="flex justify-between items-center text-xs mt-2">
+                          <span className="text-gray-600">Avg thiệt hại</span>
+                          <span className={`font-semibold ${colors.icon}`}>
+                            {scam.avgLoss}
+                          </span>
+                        </div>
+                        <div className="w-full bg-gray-200 rounded-full h-2">
+                          <div
+                            className={`h-2 rounded-full ${colors.progress} transition-all duration-1000`}
+                            style={{ width: `${scam.dangerLevel}%` }}
+                          ></div>
+                        </div>
+                      </div>
+
+                      {/* Expanded Details */}
+                      {selectedScams.includes(scam.id) && (
+                        <div className="mt-4 pt-4 border-t text-left">
+                          <div className="grid grid-cols-1 gap-4">
+                            <div className="bg-red-50 rounded-lg p-3 border border-red-200">
+                              <h4 className="font-semibold text-red-700 mb-2 flex items-center gap-1 text-xs">
+                                <XCircle className="h-3 w-3" />
+                                Thủ đoạn
+                              </h4>
+                              <div className="space-y-1">
+                                {scam.techniques
+                                  .slice(0, 2)
+                                  .map((technique, idx) => (
+                                    <div
+                                      key={idx}
+                                      className="flex items-start gap-1 text-xs"
+                                    >
+                                      <span className="text-red-500 mt-0.5">
+                                        •
+                                      </span>
+                                      <span className="text-gray-700">
+                                        {technique}
+                                      </span>
+                                    </div>
+                                  ))}
+                              </div>
+                            </div>
+
+                            <div className="bg-green-50 rounded-lg p-3 border border-green-200">
+                              <h4 className="font-semibold text-green-700 mb-2 flex items-center gap-1 text-xs">
+                                <CheckCircle className="h-3 w-3" />
+                                Phòng chống
+                              </h4>
+                              <div className="space-y-1">
+                                {scam.prevention
+                                  .slice(0, 2)
+                                  .map((prevention, idx) => (
+                                    <div
+                                      key={idx}
+                                      className="flex items-start gap-1 text-xs"
+                                    >
+                                      <span className="text-green-500 mt-0.5">
+                                        ✓
+                                      </span>
+                                      <span className="text-gray-700">
+                                        {prevention}
+                                      </span>
+                                    </div>
+                                  ))}
+                              </div>
+                            </div>
+                          </div>
+
+                          <div className="flex gap-2 mt-3">
+                            <Button
+                              size="sm"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                toggleBookmark(scam.id);
+                              }}
+                              variant={
+                                bookmarkedScams.includes(scam.id)
+                                  ? "default"
+                                  : "outline"
+                              }
+                              className="flex-1 text-xs h-7"
+                            >
+                              <Bookmark
+                                className={`h-3 w-3 mr-1 ${bookmarkedScams.includes(scam.id) ? "fill-current" : ""}`}
+                              />
+                              {bookmarkedScams.includes(scam.id)
+                                ? "Đã lưu"
+                                : "Lưu"}
+                            </Button>
+                            <Button
+                              size="sm"
+                              variant="outline"
+                              onClick={(e) => e.stopPropagation()}
+                              className="text-xs h-7 px-2"
+                            >
+                              <Share2 className="h-3 w-3" />
+                            </Button>
+                          </div>
+                        </div>
+                      )}
+                    </CardContent>
+                  </Card>
                 );
-              })()}
-            </>
-          )}
-        </div>
+              })}
+            </div>
+          </div>
+        </section>
+
+        {/* Desktop Statistics */}
+        <Statistics
+          stats={scamStatistics.map((stat) => ({
+            value: stat.value,
+            label: stat.label,
+            trend: "+35%",
+            color: stat.color,
+          }))}
+          title="📊 Thống kê lừa đảo 2024"
+          subtitle="Dữ liệu từ Bộ Công An Việt Nam"
+        />
+
+        <RealWorldExamples />
+        <SocialShare />
       </div>
 
-      <LearningProgress currentPage="/scam-types" />
+      {/* Mobile Only: Clean Red Theme Design */}
+      <div className="md:hidden min-h-screen bg-red-50">
+        {/* Mobile Hero Section */}
+        <section className="bg-gradient-to-br from-red-500 to-red-600 px-4 py-6 text-white">
+          <div className="max-w-sm mx-auto text-center">
+            {/* Shield Icon - More Friendly */}
+            <div className="w-16 h-16 mx-auto bg-white/20 rounded-full flex items-center justify-center mb-3">
+              <Shield className="w-8 h-8 text-white" />
+            </div>
+
+            {/* Hero Title - Shorter & Cleaner */}
+            <h1 className="text-xl font-bold mb-1">🛡️ An Toàn Số</h1>
+            <p className="text-red-100 text-sm mb-5">
+              Bảo vệ bản thân khỏi lừa đảo
+            </p>
+
+            {/* Quick Stats - Smaller */}
+            <div className="grid grid-cols-3 gap-3 text-center">
+              <div className="bg-white/20 rounded-lg p-2.5">
+                <div className="font-bold text-base">15K+</div>
+                <div className="text-xs text-red-100">vụ/năm</div>
+              </div>
+              <div className="bg-white/20 rounded-lg p-2.5">
+                <div className="font-bold text-base">2.5K tỷ</div>
+                <div className="text-xs text-red-100">thiệt hại</div>
+              </div>
+              <div className="bg-white/20 rounded-lg p-2.5">
+                <div className="font-bold text-base">68%</div>
+                <div className="text-xs text-red-100">qua ĐT</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Mobile Scam Types */}
+        <section className="px-4 py-8">
+          <div className="max-w-sm mx-auto">
+            <h2 className="text-base font-bold text-gray-900 mb-2 text-center">
+              🔍 Các loại lừa đảo
+            </h2>
+            <p className="text-gray-600 text-xs mb-6 text-center">
+              Chạm vào thẻ để xem chi tiết
+            </p>
+
+            <div className="space-y-3">
+              {scamDetails.map((scam, index) => (
+                <Card
+                  key={scam.id}
+                  className="bg-white border border-red-200 shadow-sm hover:shadow-md transition-all duration-200 cursor-pointer"
+                  onClick={() => {
+                    setSelectedScams((prev) =>
+                      prev.includes(scam.id)
+                        ? prev.filter((id) => id !== scam.id)
+                        : [...prev, scam.id],
+                    );
+                  }}
+                >
+                  <CardContent className="p-3">
+                    <div className="flex items-start gap-3">
+                      {/* Icon */}
+                      <div
+                        className={`w-9 h-9 rounded-lg ${scam.color} flex items-center justify-center flex-shrink-0`}
+                      >
+                        <scam.icon className="w-4 h-4" />
+                      </div>
+
+                      <div className="flex-1 min-w-0">
+                        {/* Title */}
+                        <h3 className="font-semibold text-gray-900 text-sm mb-1 leading-tight">
+                          {scam.title}
+                        </h3>
+
+                        {/* Description */}
+                        <p className="text-gray-600 text-xs mb-2 leading-relaxed">
+                          {scam.shortDesc}
+                        </p>
+
+                        {/* Stats */}
+                        <div className="flex items-center justify-between text-xs">
+                          <div className="flex items-center gap-2">
+                            <span className="text-red-600 font-medium">
+                              📈 {scam.popularity}
+                            </span>
+                            <span className="text-orange-600 font-medium">
+                              💰 {scam.avgLoss}
+                            </span>
+                          </div>
+                          <ChevronRight
+                            className={`w-3 h-3 text-gray-400 transition-transform duration-200 ${selectedScams.includes(scam.id) ? "rotate-90" : ""}`}
+                          />
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Expanded Details */}
+                    {selectedScams.includes(scam.id) && (
+                      <div className="mt-3 pt-3 border-t border-red-100">
+                        {/* Warning Badge */}
+                        <div className="flex justify-center mb-3">
+                          <Badge className="bg-red-100 text-red-700 border border-red-200 text-xs">
+                            Nguy hiểm: {scam.dangerLevel}%
+                          </Badge>
+                        </div>
+
+                        {/* Techniques */}
+                        <div className="mb-3">
+                          <h4 className="font-medium text-red-700 text-xs mb-1.5 flex items-center gap-1">
+                            <XCircle className="w-3 h-3" />
+                            Thủ đoạn
+                          </h4>
+                          <div className="bg-red-50 rounded-lg p-2.5 space-y-1">
+                            {scam.techniques.map((technique, idx) => (
+                              <div
+                                key={idx}
+                                className="flex items-start gap-1.5 text-xs"
+                              >
+                                <span className="text-red-500 mt-0.5">•</span>
+                                <span className="text-gray-700">
+                                  {technique}
+                                </span>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+
+                        {/* Prevention */}
+                        <div className="mb-3">
+                          <h4 className="font-medium text-green-700 text-xs mb-1.5 flex items-center gap-1">
+                            <CheckCircle className="w-3 h-3" />
+                            Phòng chống
+                          </h4>
+                          <div className="bg-green-50 rounded-lg p-2.5 space-y-1">
+                            {scam.prevention.map((prevention, idx) => (
+                              <div
+                                key={idx}
+                                className="flex items-start gap-1.5 text-xs"
+                              >
+                                <span className="text-green-500 mt-0.5">✓</span>
+                                <span className="text-gray-700">
+                                  {prevention}
+                                </span>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+
+                        {/* Action Buttons */}
+                        <div className="flex gap-2">
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            className="flex-1 border-red-200 text-red-600 hover:bg-red-50 text-xs h-8"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              toggleBookmark(scam.id);
+                            }}
+                          >
+                            <Bookmark
+                              className={`w-3 h-3 mr-1 ${bookmarkedScams.includes(scam.id) ? "fill-current" : ""}`}
+                            />
+                            {bookmarkedScams.includes(scam.id)
+                              ? "Đã lưu"
+                              : "Lưu"}
+                          </Button>
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            className="border-red-200 text-red-600 hover:bg-red-50 text-xs h-8 px-3"
+                            onClick={(e) => e.stopPropagation()}
+                          >
+                            <Share2 className="w-3 h-3" />
+                          </Button>
+                        </div>
+                      </div>
+                    )}
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Mobile Statistics */}
+        <section className="px-4 py-6 bg-gray-50">
+          <div className="max-w-sm mx-auto">
+            <h2 className="text-base font-bold text-center text-gray-900 mb-4">
+              📊 Thống kê 2024
+            </h2>
+
+            <div className="grid grid-cols-2 gap-2.5">
+              {scamStatistics.map((stat, index) => (
+                <Card
+                  key={index}
+                  className="bg-white border border-gray-200 text-center"
+                >
+                  <CardContent className="p-2.5">
+                    <div className="text-lg font-bold text-red-600 mb-0.5">
+                      {stat.value}
+                    </div>
+                    <div className="text-xs text-gray-600 leading-tight">
+                      {stat.label}
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Mobile Emergency Contact */}
+        <section className="px-4 py-5">
+          <div className="max-w-sm mx-auto">
+            <Card className="bg-red-600 border-0 text-center text-white">
+              <CardContent className="p-4">
+                <div className="w-10 h-10 mx-auto bg-white rounded-full flex items-center justify-center mb-2">
+                  <Phone className="w-5 h-5 text-red-600" />
+                </div>
+                <h3 className="font-semibold text-sm mb-1">SOS Khẩn cấp</h3>
+                <p className="text-red-100 text-xs mb-3">
+                  Bị lừa đảo? Gọi ngay
+                </p>
+                <Button className="bg-white text-red-600 hover:bg-red-50 font-semibold w-full text-sm h-9">
+                  📞 Hotline: 113
+                </Button>
+              </CardContent>
+            </Card>
+          </div>
+        </section>
+
+        {/* Mobile Real World Examples */}
+        <section className="px-4 py-6 bg-gray-50">
+          <div className="max-w-md mx-auto">
+            <h2 className="text-lg font-bold text-center text-gray-900 mb-2">
+              📖 Tình Huống Minh Họa
+            </h2>
+            <p className="text-center text-gray-600 text-sm mb-6">
+              Câu chuyện thực tế để bạn nhận biết thủ đoạn
+            </p>
+
+            {/* Real World Examples for Mobile */}
+            <div className="space-y-4">
+              {[
+                {
+                  title: "Lừa đảo 'Công an gọi điện'",
+                  type: "Điện thoại",
+                  icon: Phone,
+                  story:
+                    "Một người nhận cuộc gọi từ số lạ tự xưng là Công an, nói tài khoản liên quan đến vụ rửa tiền. Kẻ lừa đảo yêu cầu chuyển tiền để 'bảo toàn tài sản'.",
+                  damage: "45 triệu VNĐ",
+                  redFlags: [
+                    "Gọi từ số di động",
+                    "Yêu cầu chuyển tiền ngay",
+                    "Đe dọa bắt giữ",
+                  ],
+                  prevention: [
+                    "Cúp máy và gọi lại 113",
+                    "Công an không yêu cầu chuyển tiền",
+                    "Thông báo cho gia đình",
+                  ],
+                },
+                {
+                  title: "Lừa đảo đầu tư Forex",
+                  type: "Mạng xã hội",
+                  icon: TrendingUp,
+                  story:
+                    "Một người được bạn Zalo giới thiệu sàn đầu tư Forex với lãi suất bất thường. Sau khi nạp tiền, họ không thể rút tiền và bị chặn liên lạc.",
+                  damage: "100 triệu VNĐ",
+                  redFlags: [
+                    "Lãi suất quá cao (30%/tháng)",
+                    "Không có giấy phép",
+                    "Khuyến khích nạp tiền liên tục",
+                  ],
+                  prevention: [
+                    "Kiểm tra giấy phép trên website SBV",
+                    "Không tin lời hứa lãi cao",
+                    "Tham khảo chuyên gia",
+                  ],
+                },
+                {
+                  title: "Lừa đảo 'Trúng thưởng' SMS",
+                  type: "Tin nhắn",
+                  icon: MessageSquare,
+                  story:
+                    "Một người nhận SMS thông báo trúng thưởng lớn từ ngân hàng. Để nhận thưởng, họ được yêu cầu nộp 'phí thuế' trước.",
+                  damage: "5 triệu VNĐ",
+                  redFlags: [
+                    "Không tham gia nhưng trúng thưởng",
+                    "Yêu cầu nộp phí trước",
+                    "Số điện thoại lạ",
+                  ],
+                  prevention: [
+                    "Liên hệ trực tiếp ngân hàng",
+                    "Không chuyển tiền phí",
+                    "Chặn số spam",
+                  ],
+                },
+              ].map((example, index) => (
+                <Card key={index} className="bg-white border border-gray-200">
+                  <CardContent className="p-4">
+                    {/* Header */}
+                    <div className="flex items-start gap-3 mb-3">
+                      <div className="w-10 h-10 bg-red-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                        <example.icon className="w-5 h-5 text-red-600" />
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <h3 className="font-semibold text-gray-900 text-sm leading-tight">
+                          {example.title}
+                        </h3>
+                        <div className="flex items-center gap-2 mt-1">
+                          <Badge variant="outline" className="text-xs">
+                            {example.type}
+                          </Badge>
+                          <span className="text-xs text-red-600 font-medium">
+                            -{example.damage}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Story */}
+                    <div className="bg-yellow-50 border-l-2 border-yellow-400 rounded-r p-3 mb-3">
+                      <p className="text-xs text-gray-700 leading-relaxed">
+                        📖 {example.story}
+                      </p>
+                    </div>
+
+                    {/* Red Flags */}
+                    <div className="mb-3">
+                      <h4 className="font-medium text-red-700 text-xs mb-2">
+                        🚩 Dấu hiệu lừa đảo:
+                      </h4>
+                      <div className="bg-red-50 rounded p-2 space-y-1">
+                        {example.redFlags.map((flag, idx) => (
+                          <div
+                            key={idx}
+                            className="flex items-start gap-1 text-xs"
+                          >
+                            <span className="text-red-500 mt-0.5">•</span>
+                            <span className="text-gray-700">{flag}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Prevention */}
+                    <div>
+                      <h4 className="font-medium text-green-700 text-xs mb-2">
+                        ✅ Cách phòng tránh:
+                      </h4>
+                      <div className="bg-green-50 rounded p-2 space-y-1">
+                        {example.prevention.map((tip, idx) => (
+                          <div
+                            key={idx}
+                            className="flex items-start gap-1 text-xs"
+                          >
+                            <span className="text-green-500 mt-0.5">✓</span>
+                            <span className="text-gray-700">{tip}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+
+            {/* Warning Note */}
+            <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 mt-6">
+              <p className="text-xs text-blue-800 text-center">
+                <strong>Lưu ý:</strong> Đây là tình huống minh họa nhằm mục đích
+                giáo dục. Thông tin chính thức tại{" "}
+                <a
+                  href="https://canhbao.anbinhduong.vn/"
+                  className="underline font-medium"
+                >
+                  trang cảnh báo chính thức
+                </a>
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* Mobile Social Share */}
+        <section className="px-4 py-6">
+          <div className="max-w-md mx-auto">
+            <Card className="bg-gradient-to-r from-red-50 to-pink-50 border border-red-200">
+              <CardContent className="p-4 text-center">
+                <h3 className="font-semibold text-gray-900 mb-2 flex items-center justify-center text-sm">
+                  <Share2 className="w-4 h-4 mr-2" />
+                  Chia Sẻ Kiến Thức
+                </h3>
+                <p className="text-gray-600 text-xs mb-4">
+                  Giúp bạn bè và gia đình tránh bị lừa đảo
+                </p>
+
+                <div className="grid grid-cols-3 gap-2">
+                  <Button
+                    size="sm"
+                    className="bg-blue-600 hover:bg-blue-700 text-white text-xs"
+                    onClick={() => {
+                      const url = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}`;
+                      window.open(url, "_blank", "width=600,height=400");
+                    }}
+                  >
+                    Facebook
+                  </Button>
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    className="border-red-200 text-red-600 hover:bg-red-50 text-xs"
+                    onClick={() => {
+                      navigator.clipboard.writeText(window.location.href);
+                      alert("Đã sao chép link!");
+                    }}
+                  >
+                    Copy link
+                  </Button>
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    className="border-red-200 text-red-600 hover:bg-red-50 text-xs"
+                  >
+                    Zalo
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </section>
+
+        {/* Mobile Back Button */}
+        <section className="px-4 pb-6">
+          <div className="max-w-md mx-auto">
+            <Link to="/">
+              <Button
+                variant="outline"
+                className="border-red-200 text-red-600 hover:bg-red-50 w-full"
+              >
+                <ArrowLeft className="w-4 h-4 mr-2" />
+                Về trang chủ
+              </Button>
+            </Link>
+          </div>
+        </section>
+      </div>
     </div>
   );
 }
