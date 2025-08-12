@@ -295,7 +295,7 @@ export default function DigitalLaw() {
                   <span className="text-yellow-300">Bản Quyền</span>
                 </h1>
                 <p className="text-xl opacity-90 mb-8 leading-relaxed">
-                  Hiểu biết về luật pháp, bảo vệ bản quyền và sử dụng công nghệ 
+                  Hiểu biết về luật pháp, bảo vệ bản quyền và sử dụng công nghệ
                   một cách hợp pháp trong thời đ���i số.
                 </p>
                 <div className="flex items-center space-x-6">
@@ -303,9 +303,7 @@ export default function DigitalLaw() {
                     <div className="text-3xl font-bold text-yellow-300">
                       89%
                     </div>
-                    <div className="text-sm opacity-80">
-                      Vi phạm không cố ý
-                    </div>
+                    <div className="text-sm opacity-80">Vi phạm không cố ý</div>
                   </div>
                   <div className="w-px h-12 bg-white/30"></div>
                   <div className="text-center">
@@ -331,40 +329,51 @@ export default function DigitalLaw() {
                 <div className="text-center">
                   <div className="relative inline-block">
                     <Scale className="h-48 w-48 mx-auto text-yellow-300 drop-shadow-2xl cursor-pointer hover:scale-105 transition-transform duration-300" />
-                    
+
                     {/* Bên trái cân: Pháp luật số - TO HƠN */}
                     <div className="absolute -left-24 top-12">
-                      <Button 
+                      <Button
                         className="bg-white/20 backdrop-blur-sm rounded-2xl p-6 border border-white/30 hover:bg-white/30 transition-all duration-300 h-auto flex-col"
                         variant="ghost"
                       >
                         <div className="text-center">
                           <Gavel className="h-12 w-12 mx-auto mb-3 text-white" />
-                          <div className="text-lg font-bold text-white">Pháp Luật Số</div>
-                          <div className="text-sm opacity-90 text-white">Quy định & Luật lệ</div>
+                          <div className="text-lg font-bold text-white">
+                            Pháp Luật Số
+                          </div>
+                          <div className="text-sm opacity-90 text-white">
+                            Quy định & Luật lệ
+                          </div>
                         </div>
                       </Button>
                     </div>
 
                     {/* Bên phải cân: Bản quyền - TO HƠN */}
                     <div className="absolute -right-24 top-12">
-                      <Button 
+                      <Button
                         className="bg-white/20 backdrop-blur-sm rounded-2xl p-6 border border-white/30 hover:bg-white/30 transition-all duration-300 h-auto flex-col"
                         variant="ghost"
                       >
                         <div className="text-center">
                           <Copyright className="h-12 w-12 mx-auto mb-3 text-white" />
-                          <div className="text-lg font-bold text-white">Bản Quyền</div>
-                          <div className="text-sm opacity-90 text-white">Sở hữu trí tuệ</div>
+                          <div className="text-lg font-bold text-white">
+                            Bản Quyền
+                          </div>
+                          <div className="text-sm opacity-90 text-white">
+                            Sở hữu trí tuệ
+                          </div>
                         </div>
                       </Button>
                     </div>
                   </div>
-                  
+
                   <div className="mt-12 text-center">
-                    <h3 className="text-2xl font-bold mb-3">Cân Bằng Công Lý</h3>
+                    <h3 className="text-2xl font-bold mb-3">
+                      Cân Bằng Công Lý
+                    </h3>
                     <p className="text-lg opacity-90">
-                      Sự kết hợp hoàn hảo giữa tuân thủ pháp luật và bảo vệ quyền sáng tạo
+                      Sự kết hợp hoàn hảo giữa tuân thủ pháp luật và bảo vệ
+                      quyền sáng tạo
                     </p>
                   </div>
                 </div>
@@ -424,7 +433,9 @@ export default function DigitalLaw() {
             <Card className="text-center hover:shadow-lg transition-shadow">
               <CardHeader>
                 <Users className="h-12 w-12 text-indigo-600 mx-auto mb-4" />
-                <CardTitle className="text-lg">Fair Use/Sử dụng hợp lý</CardTitle>
+                <CardTitle className="text-lg">
+                  Fair Use/Sử dụng hợp lý
+                </CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-sm text-gray-600 mb-3">
@@ -474,19 +485,29 @@ export default function DigitalLaw() {
             {/* LAYOUT MỚI: Grid Cards thay vì Zigzag - ĐỘC ĐÁO */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {legalRules.map((rule, index) => (
-                <Card key={rule.id} className="h-full hover:shadow-xl transition-all duration-300 border-0 group">
-                  <CardHeader className={`bg-gradient-to-r ${rule.gradient} text-white rounded-t-lg relative overflow-hidden`}>
+                <Card
+                  key={rule.id}
+                  className="h-full hover:shadow-xl transition-all duration-300 border-0 group"
+                >
+                  <CardHeader
+                    className={`bg-gradient-to-r ${rule.gradient} text-white rounded-t-lg relative overflow-hidden`}
+                  >
                     {/* Decorative background */}
                     <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full transform translate-x-16 -translate-y-16"></div>
-                    
+
                     <div className="relative flex items-center justify-between">
                       <div className="flex items-center space-x-3">
                         <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center backdrop-blur-sm group-hover:scale-110 transition-transform duration-300">
                           <rule.icon className="h-6 w-6 text-white" />
                         </div>
                         <div>
-                          <CardTitle className="text-lg font-bold">{rule.title}</CardTitle>
-                          <Badge variant="secondary" className="bg-white/20 text-white border-white/30 text-xs mt-1">
+                          <CardTitle className="text-lg font-bold">
+                            {rule.title}
+                          </CardTitle>
+                          <Badge
+                            variant="secondary"
+                            className="bg-white/20 text-white border-white/30 text-xs mt-1"
+                          >
                             {rule.importance}
                           </Badge>
                         </div>
@@ -496,10 +517,12 @@ export default function DigitalLaw() {
                       </div>
                     </div>
                   </CardHeader>
-                  
+
                   <CardContent className="p-6 flex-1 flex flex-col">
-                    <p className="text-gray-600 text-sm mb-4 leading-relaxed">{rule.description}</p>
-                    
+                    <p className="text-gray-600 text-sm mb-4 leading-relaxed">
+                      {rule.description}
+                    </p>
+
                     {/* Impact & Usage */}
                     <div className="flex items-center space-x-4 mb-4 text-xs">
                       <div className="flex items-center space-x-1">
@@ -511,12 +534,14 @@ export default function DigitalLaw() {
                         <span className="text-gray-500">{rule.usage}</span>
                       </div>
                     </div>
-                    
+
                     {/* Progress */}
                     <div className="mb-6">
                       <div className="flex justify-between text-xs text-gray-500 mb-2">
                         <span>Tầm quan trọng</span>
-                        <span className="font-semibold">{rule.importanceLevel}%</span>
+                        <span className="font-semibold">
+                          {rule.importanceLevel}%
+                        </span>
                       </div>
                       <Progress value={rule.importanceLevel} className="h-2" />
                     </div>
@@ -527,28 +552,46 @@ export default function DigitalLaw() {
                         <div>
                           <div className="flex items-center space-x-1 mb-2">
                             <CheckCircle className="h-3 w-3 text-green-500" />
-                            <span className="font-semibold text-green-700">Nên làm</span>
+                            <span className="font-semibold text-green-700">
+                              Nên làm
+                            </span>
                           </div>
                           <ul className="space-y-1">
                             {rule.dos.slice(0, 2).map((item, idx) => (
-                              <li key={idx} className="text-gray-600 line-clamp-1">• {item}</li>
+                              <li
+                                key={idx}
+                                className="text-gray-600 line-clamp-1"
+                              >
+                                • {item}
+                              </li>
                             ))}
                             {rule.dos.length > 2 && (
-                              <li className="text-gray-400">... và {rule.dos.length - 2} mục khác</li>
+                              <li className="text-gray-400">
+                                ... và {rule.dos.length - 2} mục khác
+                              </li>
                             )}
                           </ul>
                         </div>
                         <div>
                           <div className="flex items-center space-x-1 mb-2">
                             <XCircle className="h-3 w-3 text-red-500" />
-                            <span className="font-semibold text-red-700">Không nên</span>
+                            <span className="font-semibold text-red-700">
+                              Không nên
+                            </span>
                           </div>
                           <ul className="space-y-1">
                             {rule.donts.slice(0, 2).map((item, idx) => (
-                              <li key={idx} className="text-gray-600 line-clamp-1">• {item}</li>
+                              <li
+                                key={idx}
+                                className="text-gray-600 line-clamp-1"
+                              >
+                                • {item}
+                              </li>
                             ))}
                             {rule.donts.length > 2 && (
-                              <li className="text-gray-400">... và {rule.donts.length - 2} mục khác</li>
+                              <li className="text-gray-400">
+                                ... và {rule.donts.length - 2} mục khác
+                              </li>
                             )}
                           </ul>
                         </div>
@@ -557,22 +600,27 @@ export default function DigitalLaw() {
 
                     {/* Action buttons */}
                     <div className="mt-auto space-y-2">
-                      <Button
-                        size="sm"
-                        variant="outline"
-                        className="w-full"
-                      >
+                      <Button size="sm" variant="outline" className="w-full">
                         <Eye className="h-4 w-4 mr-2" />
-                        Xem chi tiết ({rule.dos.length + rule.donts.length} quy tắc)
+                        Xem chi tiết ({rule.dos.length + rule.donts.length} quy
+                        tắc)
                       </Button>
-                      
+
                       <Button
                         size="sm"
-                        className={`w-full transition-all duration-300 ${rule.gradient.includes('purple') ? 'bg-purple-600 hover:bg-purple-700' : 
-                                    rule.gradient.includes('blue') ? 'bg-blue-600 hover:bg-blue-700' :
-                                    rule.gradient.includes('green') ? 'bg-green-600 hover:bg-green-700' :
-                                    rule.gradient.includes('orange') ? 'bg-orange-600 hover:bg-orange-700' :
-                                    rule.gradient.includes('indigo') ? 'bg-indigo-600 hover:bg-indigo-700' : 'bg-red-600 hover:bg-red-700'}`}
+                        className={`w-full transition-all duration-300 ${
+                          rule.gradient.includes("purple")
+                            ? "bg-purple-600 hover:bg-purple-700"
+                            : rule.gradient.includes("blue")
+                              ? "bg-blue-600 hover:bg-blue-700"
+                              : rule.gradient.includes("green")
+                                ? "bg-green-600 hover:bg-green-700"
+                                : rule.gradient.includes("orange")
+                                  ? "bg-orange-600 hover:bg-orange-700"
+                                  : rule.gradient.includes("indigo")
+                                    ? "bg-indigo-600 hover:bg-indigo-700"
+                                    : "bg-red-600 hover:bg-red-700"
+                        }`}
                         onClick={() => toggleBookmark(rule.id)}
                       >
                         {bookmarkedItems.includes(rule.id) ? (
@@ -580,7 +628,9 @@ export default function DigitalLaw() {
                         ) : (
                           <Bookmark className="h-4 w-4 mr-2" />
                         )}
-                        {bookmarkedItems.includes(rule.id) ? 'Đã lưu' : 'Lưu để học sau'}
+                        {bookmarkedItems.includes(rule.id)
+                          ? "Đã lưu"
+                          : "Lưu để học sau"}
                       </Button>
                     </div>
                   </CardContent>
@@ -634,7 +684,7 @@ export default function DigitalLaw() {
                 Cùng Xây Dựng Không Gian Số Hợp Pháp!
               </h2>
               <p className="text-xl mb-8 opacity-90 max-w-2xl mx-auto leading-relaxed">
-                Hiểu biết pháp luật giúp bạn sáng tạo tự do và bảo vệ quyền lợi 
+                Hiểu biết pháp luật giúp bạn sáng tạo tự do và bảo vệ quyền lợi
                 của bản thân cũng như người khác
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -667,14 +717,15 @@ export default function DigitalLaw() {
         {/* Mobile Header */}
         <div className="bg-gradient-to-r from-indigo-600 via-blue-600 to-purple-600 text-white relative overflow-hidden">
           <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent"></div>
-          
+
           <div className="relative px-6 py-12 text-center">
             <Scale className="h-14 w-14 mx-auto mb-6 animate-pulse drop-shadow-lg" />
             <h1 className="text-3xl font-bold mb-3 tracking-wide leading-tight">
               Pháp Luật Số & Bản Quyền
             </h1>
             <p className="text-base opacity-95 mb-8 leading-relaxed px-4">
-              Hiểu biết pháp luật để sử dụng công nghệ một cách hợp pháp và an toàn
+              Hiểu biết pháp luật để sử dụng công nghệ một cách hợp pháp và an
+              toàn
             </p>
 
             {/* Quick Stats Mobile */}
@@ -736,15 +787,25 @@ export default function DigitalLaw() {
               <Card
                 key={rule.id}
                 className="cursor-pointer transition-all duration-200 border-l-4 hover:shadow-lg"
-                style={{ borderLeftColor: rule.gradient.includes('purple') ? '#8b5cf6' : 
-                         rule.gradient.includes('blue') ? '#3b82f6' :
-                         rule.gradient.includes('green') ? '#10b981' :
-                         rule.gradient.includes('orange') ? '#f59e0b' :
-                         rule.gradient.includes('indigo') ? '#6366f1' : '#ef4444' }}
+                style={{
+                  borderLeftColor: rule.gradient.includes("purple")
+                    ? "#8b5cf6"
+                    : rule.gradient.includes("blue")
+                      ? "#3b82f6"
+                      : rule.gradient.includes("green")
+                        ? "#10b981"
+                        : rule.gradient.includes("orange")
+                          ? "#f59e0b"
+                          : rule.gradient.includes("indigo")
+                            ? "#6366f1"
+                            : "#ef4444",
+                }}
               >
                 <CardContent className="p-6">
                   <div className="flex items-center space-x-4">
-                    <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${rule.gradient} flex items-center justify-center shadow-sm`}>
+                    <div
+                      className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${rule.gradient} flex items-center justify-center shadow-sm`}
+                    >
                       <rule.icon className="h-8 w-8 text-white" />
                     </div>
                     <div className="flex-1">
@@ -761,7 +822,9 @@ export default function DigitalLaw() {
                         </div>
                         <div className="flex items-center space-x-1 text-green-600">
                           <CheckCircle className="h-3 w-3" />
-                          <span>{rule.dos.length + rule.donts.length} quy tắc</span>
+                          <span>
+                            {rule.dos.length + rule.donts.length} quy tắc
+                          </span>
                         </div>
                       </div>
                     </div>
