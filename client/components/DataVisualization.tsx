@@ -75,7 +75,7 @@ export default function DataVisualization() {
           <AlertTriangle className="h-6 w-6 text-yellow-600 dark:text-yellow-400 mt-0.5 flex-shrink-0" />
           <div>
             <h3 className="font-bold text-yellow-800 dark:text-yellow-200 mb-2">
-              ⚠��� QUAN TRỌNG: Dữ liệu minh họa
+              ⚠️ QUAN TRỌNG: Dữ liệu minh họa
             </h3>
             <p className="text-sm text-yellow-700 dark:text-yellow-300 leading-relaxed">
               <strong>Tất cả số liệu dưới đây đều là GIẢ</strong> - chỉ nhằm mục

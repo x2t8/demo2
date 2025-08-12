@@ -34,8 +34,8 @@ export default function AISafety() {
       benefits: [
         "Hỗ trợ học tập và nghiên cứu",
         "Viết và chỉnh sửa văn bản",
-        "Giải đáp thắc mắc nhanh ch��ng",
-        "Brainstorming �� tưởng",
+        "Giải đáp thắc mắc nhanh chóng", // Sửa "nhanh ch��ng"
+        "Brainstorming ý tưởng",         // Sửa "�� tưởng"
       ],
       risks: [
         "Thông tin có thể không chính xác",
@@ -67,7 +67,7 @@ export default function AISafety() {
         "Nhầm lẫn thật-giả",
       ],
       tips: [
-        "Kiểm tra nguồn g��c hình ảnh",
+        "Kiểm tra nguồn gốc hình ảnh",   // Sửa "nguồn g��c"
         "Sử dụng watermark khi cần",
         "Không tạo hình ảnh có hại",
         "Tôn trọng quyền riêng tư người khác",
@@ -114,7 +114,7 @@ export default function AISafety() {
       ],
       tips: [
         "So sánh nhiều nguồn thông tin",
-        "Tìm hiểu cách AI hoạt đ��ng",
+        "Tìm hiểu cách AI hoạt động",    // Sửa "hoạt đ��ng"
         "Đặt câu hỏi phản biện",
         "Giữ thói quen suy nghĩ độc lập",
       ],
@@ -127,7 +127,7 @@ export default function AISafety() {
       signs: [
         "Chuyển động mắt không tự nhiên",
         "Đồng bộ môi-âm thanh kém",
-        "Chất lượng ảnh không đ���ng đều",
+        "Chất lượng ảnh không đồng đều", // Sửa "không đ���ng đều"
         "Ánh sáng và bóng đổ lạ",
         "Tóc và viền mặt mờ ảo",
       ],
@@ -149,7 +149,7 @@ export default function AISafety() {
         "Thiếu cá tính, cảm xúc cá nhân",
         "Lặp lại cấu trúc câu",
         "Thông tin chung chung, mơ hồ",
-        "Không c�� trải nghiệm cụ thể",
+        "Không có trải nghiệm cụ thể",   // Sửa "Không c��"
       ],
     },
   ];
@@ -167,7 +167,7 @@ export default function AISafety() {
     },
     {
       icon: Eye,
-      title: "Nh��n biết AI-generated content",
+      title: "Nhận biết AI-generated content", // Sửa "Nh��n biết"
       principles: [
         "Luôn kiểm tra nguồn gốc",
         "Tìm hiểu các dấu hiệu AI",
@@ -331,7 +331,7 @@ export default function AISafety() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-            Đạo Đức AI & Sử D��ng Có Trách Nhiệm
+            Đạo Đức AI & Sử Dụng Có Trách Nhiệm // Sửa "Sử D��ng"
           </h2>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
             Nguyên tắc đạo đức khi tương tác với công nghệ AI
@@ -383,7 +383,7 @@ export default function AISafety() {
             <Card className="border-green-200 dark:bg-gray-800 dark:border-gray-700">
               <CardHeader className="bg-green-50 dark:bg-green-900/20">
                 <CardTitle className="text-xl text-green-800 dark:text-green-200 flex items-center">
-                  <CheckCircle className="h-6 w-6 mr-2" />✅ N��N LÀM
+                  <CheckCircle className="h-6 w-6 mr-2" />✅ NÊN LÀM // Sửa "N��N"
                 </CardTitle>
               </CardHeader>
               <CardContent className="p-6">

@@ -79,7 +79,7 @@ export default function DigitalLaw() {
       icon: Music,
       title: "Âm nhạc & Audio",
       description: "Bài hát, nhạc nền, podcast, sound effects",
-      protectionTime: "50-70 năm t��� khi phát hành",
+      protectionTime: "50-70 năm từ khi phát hành",
       examples: [
         "Bài hát pop",
         "Nhạc phim",
@@ -301,7 +301,7 @@ export default function DigitalLaw() {
       steps: [
         "Liên hệ Cục Bản quyền tác giả (CPTA)",
         "Nộp đơn khiếu nại kèm bằng chứng",
-        "Phối h��p điều tra khi được yêu cầu",
+        "Phối hợp điều tra khi được yêu cầu",
         "Tham gia hòa giải nếu có thể",
         "Khởi kiện ra tòa nếu cần thiết",
       ],
@@ -415,7 +415,7 @@ export default function DigitalLaw() {
             Khái Niệm Pháp Lý Cơ Bản
           </h2>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Những kiến thức nền tảng về luật sở hữu trí tu�� trong thời đ���i số
+            Những kiến thức nền tảng về luật sở hữu trí tuệ trong thời đại số
           </p>
         </div>
 
@@ -542,10 +542,10 @@ export default function DigitalLaw() {
                 <CardTitle className="text-xl">{guide.title}</CardTitle>
               </CardHeader>
               <CardContent>
-                <ol className="space-y-3 text-left">
+                <ol className="space-y-3">
                   {guide.steps.map((step, idx) => (
                     <li key={idx} className="flex items-start space-x-3">
-                      <span className="flex-shrink-0 w-6 h-6 bg-indigo-100 text-indigo-600 rounded-full flex items-center justify-center text-sm font-bold">
+                      <span className="flex-shrink-0 w-6 h-6 bg-red-100 text-red-600 rounded-full flex items-center justify-center text-sm font-bold">
                         {idx + 1}
                       </span>
                       <span className="text-sm text-gray-700">{step}</span>
@@ -709,7 +709,7 @@ export default function DigitalLaw() {
               💰 Hậu Quả Pháp Lý
             </h2>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              Mức phạt và trách nhiệm pháp lý khi vi phạm luật về b���n quyền và
+              Mức phạt và trách nhiệm pháp lý khi vi phạm luật về bản quyền và
               thông tin mạng
             </p>
           </div>

@@ -42,7 +42,7 @@ const ageGroups: AgeGroup[] = [
     ],
     specificTips: [
       '🎯 Không tin vào "kiếm tiền dễ dàng" trên TikTok/YouTube',
-      "💸 Chỉ đầu tư số tiền có thể mất mà không ảnh hưởng cuộc s���ng",
+      "💸 Chỉ đầu tư số tiền có thể mất mà không ảnh hưởng cuộc sống",
       "📱 Kiểm tra kỹ app trước khi tải, đọc review thật",
       "👥 Không chia sẻ thông tin cá nhân với người lạ online",
       '🎮 Cẩn thận với các game "pay-to-earn" hứa hẹn lời to',
@@ -70,7 +70,7 @@ const ageGroups: AgeGroup[] = [
     specificTips: [
       "💼 Xác minh mọi thông tin tài chính qua kênh chính thức",
       "🏦 Ngân hàng không bao giờ yêu cầu mật khẩu qua điện thoại",
-      "📧 Kiểm tra email sender c��n thận, đặc biệt email công việc",
+      "📧 Kiểm tra email sender cẩn thận, đặc biệt email công việc",
       "🏠 Gặp trực tiếp khi giao dịch BĐS giá trị lớn",
       "💰 Không vay tiền/đầu tư theo quảng cáo Facebook",
       "📋 Đọc kỹ hợp đồng trước khi ký",
@@ -278,7 +278,7 @@ export default function AgeSpecificGuidance() {
                     <Button className="bg-orange-600 hover:bg-orange-700">
                       👴👵 Hướng dẫn cơ bản
                     </Button>
-                    <Button variant="outline">��� Nhờ con cháu hỗ trợ</Button>
+                    <Button variant="outline">📱 Nhờ con cháu hỗ trợ</Button>
                   </>
                 )}
               </div>

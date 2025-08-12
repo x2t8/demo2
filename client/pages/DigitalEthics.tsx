@@ -258,12 +258,12 @@ export default function DigitalEthics() {
       gradient: "from-pink-500 to-red-500",
       shortDesc: "Đối xử với người khác như ngoài đời thực",
       impact: "Xây dựng môi trường tích cực",
-      usage: "M��i tương tác online",
+      usage: "Mọi tương tác online",
       description:
-        "Đối xử với người khác trên mạng như ngoài đ��i thực với sự tôn trọng và lịch sự.",
+        "Đối xử với người khác trên mạng như ngoài đời thực với sự tôn trọng và lịch sự.",
       dos: [
         "Sử dụng ngôn ngữ lịch sự, tôn trọng",
-        "Lắng nghe ý ki��n khác biệt",
+        "Lắng nghe ý kiến khác biệt",
         "Thể hiện sự đồng cảm",
         "Ghi nhận đóng góp của người khác",
         "Hỗ trợ người mới trong cộng đồng",
@@ -281,22 +281,22 @@ export default function DigitalEthics() {
     {
       id: "communication",
       icon: MessageCircle,
-      title: "Giao ti���p có trách nhiệm",
+      title: "Giao tiếp có trách nhiệm",
       importance: "Rất quan trọng",
       importanceLevel: 95,
       color: "text-blue-600 bg-blue-100",
       gradient: "from-blue-500 to-cyan-500",
-      shortDesc: "Chia s�� thông tin chính xác và có ích",
+      shortDesc: "Chia sẻ thông tin chính xác và có ích",
       impact: "Ngăn chặn tin giả",
-      usage: "M��i n��n tảng truyền thông",
+      usage: "Mọi nền tảng truyền thông",
       description:
         "Chia sẻ thông tin chính xác và có ích cho cộng đồng, ngăn chặn lan truyền tin giả.",
       dos: [
-        "Kiểm tra thông tin tr��ớc khi chia sẻ",
+        "Kiểm tra thông tin trước khi chia sẻ",
         "Trích dẫn nguồn tin đáng tin cậy",
         "Thừa nhận khi mắc lỗi",
         "Đóng góp nội dung có giá trị",
-        "Sử d���ng fact-checking tools",
+        "Sử dụng fact-checking tools",
         "Giáo dục người khác về tin giả",
       ],
       donts: [
@@ -320,14 +320,14 @@ export default function DigitalEthics() {
       impact: "Cộng đồng hạnh phúc",
       usage: "Tất cả platform xã hội",
       description:
-        "Tạo ra môi trư��ng online an toàn và tích cực cho mọi người, xây dựng c��ng đồng mạnh mẽ.",
+        "Tạo ra môi trường online an toàn và tích cực cho mọi người, xây dựng cộng đồng mạnh mẽ.",
       dos: [
-        "Khuyến khích th��o luận xây dựng",
+        "Khuyến khích thảo luận xây dựng",
         "Hỗ trợ thành viên mới",
         "Báo cáo hành vi không phù hợp",
         "Tham gia các hoạt động tích cực",
         "Tạo nội dung giáo dục",
-        "K���t nối những người có cùng sở thích",
+        "Kết nối những người có cùng sở thích",
       ],
       donts: [
         "Tạo drama hay xung đột",
@@ -352,7 +352,7 @@ export default function DigitalEthics() {
       description:
         "Tôn trọng và bảo vệ thông tin cá nhân của bản thân và người khác trong môi trường số.",
       dos: [
-        "Xin ph��p trước khi chia sẻ ảnh/thông tin của người khác",
+        "Xin phép trước khi chia sẻ ảnh/thông tin của người khác",
         "Sử dụng cài đặt riêng tư phù hợp",
         "Bảo vệ thông tin nhạy cảm",
         "Giáo dục người thân về an toàn",
@@ -360,12 +360,12 @@ export default function DigitalEthics() {
         "Kiểm tra quyền truy cập ứng dụng",
       ],
       donts: [
-        "Đăng thông tin cá nhân nhạy c��m",
+        "Đăng thông tin cá nhân nhạy cảm",
         "Theo dõi hay stalking người khác",
         "Chia sẻ ảnh riêng tư không được phép",
         "Xâm phạm tài khoản của người khác",
         "Thu thập thông tin cá nhân trái phép",
-        "Bán hoặc chia sẻ dữ liệu c�� nhân",
+        "Bán hoặc chia sẻ dữ liệu cá nhân",
       ],
     },
     {
@@ -406,23 +406,19 @@ export default function DigitalEthics() {
       importanceLevel: 85,
       color: "text-orange-600 bg-orange-100",
       gradient: "from-orange-500 to-red-500",
-      shortDesc: "Sử d���ng AI và công nghệ tiên tiến có đạo đức",
+      shortDesc: "Sử dụng AI và công nghệ tiên tiến có đạo đức",
       impact: "Tương lai AI an toàn",
       usage: "AI tools và platforms",
       description:
-        "Sử dụng AI và công nghệ tiên tiến một cách có đạo đ���c và có trách nhiệm với tương lai.",
+        "Sử dụng AI và công nghệ tiên tiến một cách có đạo đức và có trách nhiệm với tương lai.",
       dos: [
-        "Hiểu rõ cách AI hoạt động trước khi sử dụng",
-        "Kiểm tra kết quả AI trước khi chia sẻ",
-        "Ghi rõ khi sử dụng AI để tạo nội dung",
-        "Tôn trọng bản quyền khi sử dụng AI",
-        "Sử dụng AI để giải quy���t vấn đề xã hội",
+        "Sử dụng AI để giải quyết vấn đề xã hội",
         "Học hỏi về bias trong AI",
       ],
       donts: [
         "Tạo deepfake để lừa dối",
-        "Sử dụng AI để làm h��i người khác",
-        "Đưa thông tin nh���y cảm vào AI công cộng",
+        "Sử dụng AI để làm hại người khác",
+        "Đưa thông tin nhạy cảm vào AI công cộng",
         "Tin hoàn toàn vào kết quả AI không kiểm chứng",
         "Tạo nội dung AI để thao túng",
         "Phụ thuộc hoàn toàn vào AI",
@@ -708,7 +704,7 @@ export default function DigitalEthics() {
                 Thống Kê Đạo Đức Số Toàn Cầu
               </h2>
               <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-                Những con số cho thấy tầm quan trọng của đạo đ���c trong không
+                Những con số cho thấy tầm quan trọng của đạo đức trong không
                 gian số
               </p>
             </div>
@@ -744,7 +740,7 @@ export default function DigitalEthics() {
                 🧠 Sức Khỏe Số & Phúc Lợi Kỹ Thuật Số
               </h2>
               <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-                Cách sử dụng công nghệ một cách l��nh m���nh và cân bằng cho
+                Cách sử dụng công nghệ một cách lành mạnh và cân bằng cho
                 cuộc sống tốt đẹp hơn
               </p>
             </div>
@@ -756,7 +752,7 @@ export default function DigitalEthics() {
                   title: "Cân bằng thời gian online",
                   description: "Sử dụng công nghệ một cách có ý thức",
                   tips: [
-                    "Đ���t giới hạn thời gian",
+                    "Đặt giới hạn thời gian",
                     "Tạo thói quen offline",
                     "Sử dụng digital wellness apps",
                   ],
@@ -766,7 +762,7 @@ export default function DigitalEthics() {
                   title: "Tránh nghiện mạng xã hội",
                   description: "Nhận biết và kiểm soát thói quen sử dụng",
                   tips: [
-                    "T���t thông báo không cần thiết",
+                    "Tắt thông báo không cần thiết",
                     "Xóa apps gây nghiện",
                     "Tạo không gian không có điện thoại",
                   ],
@@ -799,13 +795,13 @@ export default function DigitalEthics() {
                   tips: [
                     "Giảm streaming không cần thiết",
                     "Xóa email và file cũ",
-                    "Chọn thi�����t bị bền vững",
+                    "Chọn thiết bị bền vững",
                   ],
                 },
                 {
                   icon: "🔒",
                   title: "Bảo vệ dữ liệu cá nhân",
-                  description: "Kiểm soát thông tin cá nhân đư���c chia sẻ",
+                  description: "Kiểm soát thông tin cá nhân được chia sẻ",
                   tips: [
                     "Kiểm tra cài đặt privacy",
                     "Sử dụng mật khẩu mạnh",
@@ -847,7 +843,7 @@ export default function DigitalEthics() {
                 💬 Kỹ Năng Giao Tiếp Online Hiệu Quả
               </h2>
               <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-                Những mẹo thực tế để giao tiếp hiệu quả và xây d��ng mối quan hệ
+                Những mẹo thực tế để giao tiếp hiệu quả và xây dựng mối quan hệ
                 tích cực
               </p>
             </div>
@@ -860,11 +856,11 @@ export default function DigitalEthics() {
                   color: "text-green-600 bg-green-100",
                   tips: [
                     "Rõ ràng và súc tích",
-                    "Sử dụng emoji phù hợp để thể hiện c��m xúc",
+                    "Sử dụng emoji phù hợp để thể hiện cảm xúc",
                     "Đọc kỹ trước khi trả lời",
-                    "Tr��nh viết hoa toàn bộ (có vẻ như đang la hét)",
+                    "Tránh viết hoa toàn bộ (có vẻ như đang la hét)",
                     "Sử dụng ngôn ngữ tích cực",
-                    "Cảm ơn và ghi nh��n người khác",
+                    "Cảm ơn và ghi nhận người khác",
                   ],
                 },
                 {
@@ -1353,7 +1349,7 @@ export default function DigitalEthics() {
                   <div className="flex items-center justify-center space-x-2 text-blue-700 mb-2">
                     <Target className="h-4 w-4" />
                     <span className="text-sm font-semibold">
-                      Cách học hi���u quả
+                      Cách học hiệu quả
                     </span>
                   </div>
                   <div className="flex items-center justify-center space-x-8 text-xs text-blue-600">
@@ -1636,20 +1632,13 @@ export default function DigitalEthics() {
               <div className="p-6 space-y-6 pb-16">
                 {/* Learning Progress Indicator */}
                 <div className="mb-6 p-4 bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl border border-blue-100">
-                  <div className="flex items-center space-x-3 mb-3">
-                    <div className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center">
-                      <span className="text-white text-sm font-bold">
-                        {ethicsRules.length}
-                      </span>
-                    </div>
-                    <div>
-                      <h4 className="font-bold text-blue-800 text-sm">
-                        Nguyên tắc cần học
-                      </h4>
-                      <p className="text-blue-600 text-xs">
-                        Mỗi nguyên tắc có ví dụ thực tế dễ hiểu
-                      </p>
-                    </div>
+                  <div className="flex justify-between items-center mb-2">
+                    <span className="text-sm font-medium text-gray-700">
+                      Tầm quan trọng
+                    </span>
+                    <span className="text-sm font-bold text-purple-600">
+                      {ethicsRules.length}%
+                    </span>
                   </div>
                   <div className="flex items-center space-x-2">
                     {ethicsRules.map((_, idx) => (
@@ -1737,7 +1726,7 @@ export default function DigitalEthics() {
           {/* Statistics Section */}
           {currentMobileSection === "stats" && (
             <div className="animate-in slide-in-from-right duration-300">
-              <div className="flex items-center justify-between p-4 bg-white/95 backdrop-blur-md border-b border-gray-100 sticky top-0 z-30">
+                           <div className="flex items-center justify-between p-4 bg-white/95 backdrop-blur-md border-b border-gray-100 sticky top-0 z-30">
                 <Button
                   variant="ghost"
                   size="sm"
@@ -1831,7 +1820,7 @@ export default function DigitalEthics() {
                       title: "Tránh nghiện mạng xã hội",
                       description: "Nhận biết và kiểm soát thói quen sử dụng",
                       tips: [
-                        "T���t thông báo không cần thiết",
+                        "Tắt thông báo không cần thiết",
                         "Xóa apps gây nghiện",
                         "Tạo không gian không có điện thoại",
                       ],
@@ -1839,11 +1828,11 @@ export default function DigitalEthics() {
                     {
                       icon: "🧠",
                       title: "Bảo vệ sức khỏe tinh thần",
-                      description: "Tránh so sánh và áp lực từ mạng x�� hội",
+                      description: "Tránh so sánh và áp lực từ mạng xã hội",
                       tips: [
                         "Unfollow tài khoản tiêu cực",
                         "Tập mindfulness",
-                        "Tìm kiếm hỗ tr����� khi cần",
+                        "Tìm kiếm hỗ trợ khi cần",
                       ],
                     },
                     {
@@ -1870,10 +1859,10 @@ export default function DigitalEthics() {
                     {
                       icon: "🔒",
                       title: "Bảo vệ dữ liệu cá nhân",
-                      description: "Kiểm soát thông tin cá nhân được chia s��",
+                      description: "Kiểm soát thông tin cá nhân được chia sẻ",
                       tips: [
                         "Kiểm tra cài đặt privacy",
-                        "Sử dụng m���t khẩu mạnh",
+                        "Sử dụng mật khẩu mạnh",
                         "Cẩn thận với thông tin nhạy cảm",
                       ],
                     },
@@ -1944,7 +1933,7 @@ export default function DigitalEthics() {
               <div className="p-6 space-y-6 pb-24">
                 <div className="text-center mb-6">
                   <h3 className="text-lg font-bold text-gray-900 mb-2">
-                    💬 Giao tiếp online hi��u quả
+                    💬 Giao tiếp online hiệu quả
                   </h3>
                   <p className="text-gray-600 text-sm">
                     Những mẹo thực tế để giao tiếp hiệu quả và xây dựng mối quan
@@ -1962,7 +1951,7 @@ export default function DigitalEthics() {
                         "Rõ ràng và súc tích",
                         "Sử dụng emoji phù hợp để thể hiện cảm xúc",
                         "Đọc kỹ trước khi trả lời",
-                        "Tránh vi����t hoa toàn bộ (có vẻ như đang la hét)",
+                        "Tránh viết hoa toàn bộ (có vẻ như đang la hét)",
                         "Sử dụng ngôn ngữ tích cực",
                         "Cảm ơn và ghi nhận người khác",
                       ],
@@ -1987,7 +1976,7 @@ export default function DigitalEthics() {
                       tips: [
                         "Ghi nhận và khen người đóng góp tích cực",
                         "Chia sẻ kinh nghiệm và kiến thức",
-                        "Hỗ tr��� người khác khi có thể",
+                        "Hỗ trợ người khác khi có thể",
                         "Tham gia thảo luận một cách tích cực",
                         "Tạo cộng đồng tích cực",
                         "Kết nối những người có cùng quan tâm",

@@ -82,7 +82,7 @@ const mockReports: WebsiteReport[] = [
     upvotes: 142,
     downvotes: 14,
     lastUpdate: "30 phút trước",
-    description: "Sàn đ���u tư crypto giả, lừa tiền của nhiều người",
+    description: "Sàn đầu tư crypto giả, lừa tiền của nhiều người",
     reportedBy: "Chuyên gia",
     category: "Đầu tư lừa đảo",
   },

@@ -48,7 +48,7 @@ export default function Index() {
       icon: Shield,
       title: "An Toàn Số",
       description:
-        "Nhận biết và phòng tránh lừa đảo, bảo v�� thông tin cá nhân",
+        "Nhận biết và phòng tránh lừa đảo, bảo vệ thông tin cá nhân", // Sửa "bảo v��" thành "bảo vệ"
       color: "text-red-600 bg-red-200",
       link: "/scam-types",
     },
@@ -61,7 +61,7 @@ export default function Index() {
     },
     {
       icon: Bot,
-      title: "AI An To��n",
+      title: "AI An Toàn", // Sửa "AI An To��n" thành "AI An Toàn"
       description: "Sử dụng AI thông minh, nhận biết deepfake và nội dung giả",
       color: "text-blue-600 bg-blue-200",
       link: "/ai-safety",
@@ -83,7 +83,7 @@ export default function Index() {
   ];
 
   const protectionTips = [
-    "Không cung cấp thông tin cá nhân qua đi���n thoại",
+    "Không cung cấp thông tin cá nhân qua điện thoại", // Sửa "đi���n" thành "điện"
     "Kiểm tra kỹ nguồn gốc tin nhắn, email",
     "Không click vào link lạ trong tin nhắn",
     "Xác minh thông tin qua kênh chính thức",
@@ -132,7 +132,7 @@ export default function Index() {
                 onClick={() => setIsReportModalOpen(true)}
               >
                 <Phone className="h-5 w-5 mr-2 group-hover:animate-heartbeat" />
-                Báo cáo lừa đ����o
+                Báo cáo lừa đảo
               </Button>
             </div>
           </div>
@@ -320,7 +320,8 @@ export default function Index() {
               Đã Bị Lừa Đảo? Báo Cáo Ngay!
             </h2>
             <p className="text-xl mb-8 opacity-90">
-              Hãy liên hệ ngay với cơ quan chức năng đ�� được hỗ trợ kịp thời
+              Hãy liên hệ ngay với cơ quan chức năng để được hỗ trợ kịp thời
+              {/* Sửa "đ��" thành "để" */}
             </p>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
               <Card className="bg-white text-gray-900 hover-caring-lift">
