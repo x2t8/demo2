@@ -356,7 +356,7 @@ export default function DigitalEthics() {
         "Bảo vệ thông tin nhạy cảm",
         "Giáo dục người thân về an toàn",
         "Sử dụng mật khẩu mạnh",
-        "Kiểm tra quyền truy cập ứng dụng",
+        "Ki��m tra quyền truy cập ứng dụng",
       ],
       donts: [
         "Đăng thông tin cá nhân nhạy cảm",
@@ -625,7 +625,7 @@ export default function DigitalEthics() {
                               </h3>
                             </div>
                             <ul className="space-y-2">
-                              {ethics.dos.slice(0, 3).map((item, idx) => (
+                              {ethics.dos.map((item, idx) => (
                                 <li
                                   key={idx}
                                   className="flex items-start space-x-2 group"
@@ -650,7 +650,7 @@ export default function DigitalEthics() {
                               </h3>
                             </div>
                             <ul className="space-y-2">
-                              {ethics.donts.slice(0, 3).map((item, idx) => (
+                              {ethics.donts.map((item, idx) => (
                                 <li
                                   key={idx}
                                   className="flex items-start space-x-2 group"
