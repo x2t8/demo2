@@ -327,37 +327,43 @@ export default function DigitalLaw() {
               </div>
 
               <div className="relative">
-                {/* Biểu tượng cân công lý với phân chia rõ ràng */}
+                {/* Biểu tượng cân công lý lớn làm button */}
                 <div className="text-center">
                   <div className="relative inline-block">
-                    <Scale className="h-32 w-32 mx-auto text-yellow-300 drop-shadow-lg" />
-                    
-                    {/* Bên trái cân: Pháp luật số */}
-                    <div className="absolute -left-16 top-8">
-                      <div className="bg-white/20 backdrop-blur-sm rounded-xl p-4 border border-white/30">
+                    <Scale className="h-48 w-48 mx-auto text-yellow-300 drop-shadow-2xl cursor-pointer hover:scale-105 transition-transform duration-300" />
+
+                    {/* Bên trái cân: Pháp luật số - TO HƠN */}
+                    <div className="absolute -left-24 top-12">
+                      <Button
+                        className="bg-white/20 backdrop-blur-sm rounded-2xl p-6 border border-white/30 hover:bg-white/30 transition-all duration-300 h-auto flex-col"
+                        variant="ghost"
+                      >
                         <div className="text-center">
-                          <Gavel className="h-8 w-8 mx-auto mb-2 text-white" />
-                          <div className="text-sm font-semibold">Pháp Luật Số</div>
-                          <div className="text-xs opacity-80">Quy định & Luật lệ</div>
+                          <Gavel className="h-12 w-12 mx-auto mb-3 text-white" />
+                          <div className="text-lg font-bold text-white">Pháp Luật Số</div>
+                          <div className="text-sm opacity-90 text-white">Quy định & Luật lệ</div>
                         </div>
-                      </div>
+                      </Button>
                     </div>
 
-                    {/* Bên phải cân: Bản quyền */}
-                    <div className="absolute -right-16 top-8">
-                      <div className="bg-white/20 backdrop-blur-sm rounded-xl p-4 border border-white/30">
+                    {/* Bên phải cân: Bản quyền - TO HƠN */}
+                    <div className="absolute -right-24 top-12">
+                      <Button
+                        className="bg-white/20 backdrop-blur-sm rounded-2xl p-6 border border-white/30 hover:bg-white/30 transition-all duration-300 h-auto flex-col"
+                        variant="ghost"
+                      >
                         <div className="text-center">
-                          <Copyright className="h-8 w-8 mx-auto mb-2 text-white" />
-                          <div className="text-sm font-semibold">Bản Quyền</div>
-                          <div className="text-xs opacity-80">Sở hữu trí tuệ</div>
+                          <Copyright className="h-12 w-12 mx-auto mb-3 text-white" />
+                          <div className="text-lg font-bold text-white">Bản Quyền</div>
+                          <div className="text-sm opacity-90 text-white">Sở hữu trí tuệ</div>
                         </div>
-                      </div>
+                      </Button>
                     </div>
                   </div>
-                  
-                  <div className="mt-8 text-center">
-                    <h3 className="text-xl font-semibold mb-2">Cân Bằng Công Lý</h3>
-                    <p className="text-sm opacity-90">
+
+                  <div className="mt-12 text-center">
+                    <h3 className="text-2xl font-bold mb-3">Cân Bằng Công Lý</h3>
+                    <p className="text-lg opacity-90">
                       Sự kết hợp hoàn hảo giữa tuân thủ pháp luật và bảo vệ quyền sáng tạo
                     </p>
                   </div>
