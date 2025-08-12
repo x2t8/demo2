@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import {
   Bot,
   Brain,
@@ -6,11 +7,20 @@ import {
   AlertTriangle,
   CheckCircle,
   XCircle,
-  Zap,
   Camera,
   Mic,
-  FileText,
   Search,
+  Zap,
+  Sparkles,
+  Play,
+  Pause,
+  RotateCcw,
+  Star,
+  Cpu,
+  Network,
+  Code,
+  Lightbulb,
+  Target,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -21,856 +31,400 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Progress } from "@/components/ui/progress";
 import Header from "@/components/Header";
 import DisclaimerBanner from "@/components/DisclaimerBanner";
 
 export default function AISafety() {
-  const aiApplications = [
-    {
-      icon: Bot,
-      title: "Chatbot & AI Assistant",
-      description: "ChatGPT, Gemini, Claude - Trợ lý AI thông minh",
-      benefits: [
-        "Hỗ trợ học tập và nghiên cứu",
-        "Viết và chỉnh sửa văn bản",
-        "Giải đáp thắc mắc nhanh chóng", // Sửa "nhanh ch��ng"
-        "Brainstorming ý tưởng",         // Sửa "�� tưởng"
-      ],
-      risks: [
-        "Thông tin có thể không chính xác",
-        "Thiếu suy nghĩ phản biện",
-        "Phụ thuộc quá mức vào AI",
-        "Vi phạm bản quyền nếu sao chép",
-      ],
-      tips: [
-        "Luôn ki��m tra thông tin từ AI",
-        "Sử dụng AI như công cụ hỗ trợ, không thay thế",
-        "Không chia sẻ thông tin nhạy cảm",
-        "Ghi nhận nguồn khi sử dụng AI",
-      ],
-    },
-    {
-      icon: Camera,
-      title: "AI Tạo Hình Ảnh",
-      description: "Midjourney, DALL-E, Stable Diffusion",
-      benefits: [
-        "Tạo artwork và illustration",
-        "Design đồ họa nhanh chóng",
-        "Concept art và prototype",
-        "Giáo dục và giải trí",
-      ],
-      risks: [
-        "Deepfake và hình ảnh giả",
-        "Vi phạm bản quyền hình ảnh",
-        "Nội dung không phù hợp",
-        "Nhầm lẫn thật-giả",
-      ],
-      tips: [
-        "Kiểm tra nguồn gốc hình ảnh",   // Sửa "nguồn g��c"
-        "Sử dụng watermark khi cần",
-        "Không tạo hình ảnh có hại",
-        "Tôn trọng quyền riêng tư người khác",
-      ],
-    },
-    {
-      icon: Mic,
-      title: "AI Giọng Nói",
-      description: "Text-to-speech, voice cloning, audio AI",
-      benefits: [
-        "Hỗ trợ người khuyết tật",
-        "Tạo nội dung audio",
-        "Học ngoại ngữ",
-        "Chatbot có giọng nói",
-      ],
-      risks: [
-        "Voice deepfake lừa đảo",
-        "Giả mạo giọng nói người khác",
-        "Tin tức giả với âm thanh",
-        "Quấy rối qua giọng nói AI",
-      ],
-      tips: [
-        "Xác thực qua nhiều kênh",
-        "Nghi ngờ cuộc gọi lạ",
-        "Không tin hoàn toàn vào giọng nói",
-        "Báo cáo nếu gặp voice deepfake",
-      ],
-    },
-    {
-      icon: Search,
-      title: "AI Tìm Kiếm & Phân Tích",
-      description: "AI-powered search, data analysis",
-      benefits: [
-        "Tìm kiếm thông tin chính xác",
-        "Phân tích dữ liệu phức tạp",
-        "Tóm tắt nội dung dài",
-        "Dịch thuật tự động",
-      ],
-      risks: [
-        "Bias trong kết quả tìm kiếm",
-        "Thông tin thiên lệch",
-        "Filter bubble effect",
-        "Mất khả năng tư duy độc lập",
-      ],
-      tips: [
-        "So sánh nhiều nguồn thông tin",
-        "Tìm hiểu cách AI hoạt động",    // Sửa "hoạt đ��ng"
-        "Đặt câu hỏi phản biện",
-        "Giữ thói quen suy nghĩ độc lập",
-      ],
-    },
-  ];
+  const [activeDemo, setActiveDemo] = useState<string | null>(null);
+  const [isAnimating, setIsAnimating] = useState(false);
+  const [aiChatVisible, setAiChatVisible] = useState(false);
+  const [selectedTopic, setSelectedTopic] = useState(0);
 
-  const deepfakeDetection = [
-    {
-      type: "Video Deepfake",
-      signs: [
-        "Chuyển động mắt không tự nhiên",
-        "Đồng bộ môi-âm thanh kém",
-        "Chất lượng ảnh không đồng đều", // Sửa "không đ���ng đều"
-        "Ánh sáng và bóng đổ lạ",
-        "Tóc và viền mặt mờ ảo",
-      ],
-    },
-    {
-      type: "Audio Deepfake",
-      signs: [
-        "Giọng nói máy móc, thiếu cảm xúc",
-        "Tốc độ nói không nhất quán",
-        "Âm thanh nền bất thường",
-        "Phát âm một số từ kỳ lạ",
-        "Chất lượng âm thanh khác biệt",
-      ],
-    },
-    {
-      type: "Text AI-Generated",
-      signs: [
-        "Văn phong quá hoàn hảo",
-        "Thiếu cá tính, cảm xúc cá nhân",
-        "Lặp lại cấu trúc câu",
-        "Thông tin chung chung, mơ hồ",
-        "Không có trải nghiệm cụ thể",   // Sửa "Không c��"
-      ],
-    },
-  ];
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setIsAnimating(true);
+      setTimeout(() => setIsAnimating(false), 2000);
+    }, 4000);
+    return () => clearInterval(interval);
+  }, []);
 
-  const aiEthics = [
+  const aiTopics = [
     {
-      icon: Shield,
-      title: "Sử dụng AI có trách nhiệm",
-      principles: [
-        "Minh bạch về việc sử dụng AI",
-        "Không tạo nội dung có hại",
-        "Tôn trọng quyền riêng tư",
-        "Không phân biệt đối xử",
-      ],
+      id: "future",
+      icon: Sparkles,
+      title: "Tương Lai AI",
+      subtitle: "2024-2030",
+      color: "from-cyan-400 to-blue-500",
+      gradient: "bg-gradient-to-br from-cyan-100 to-blue-100",
+      description: "AI sẽ thay đổi thế giới như thế nào?",
+      stats: ["95% tự động hóa", "2.1 tỷ job mới", "45% GDP tăng"],
     },
     {
-      icon: Eye,
-      title: "Nhận biết AI-generated content", // Sửa "Nh��n biết"
-      principles: [
-        "Luôn kiểm tra nguồn gốc",
-        "Tìm hiểu các dấu hiệu AI",
-        "Sử dụng công cụ detection",
-        "Giáo dục người khác",
-      ],
-    },
-    {
+      id: "brain",
       icon: Brain,
-      title: "Giữ tư duy phản biện",
-      principles: [
-        "Đặt câu hỏi về thông tin AI",
-        "So sánh nhiều nguồn",
-        "Phát triển critical thinking",
-        "Không phụ thuộc hoàn toàn vào AI",
-      ],
+      title: "AI & Trí Tuệ",
+      subtitle: "Cognitive AI",
+      color: "from-purple-400 to-pink-500",
+      gradient: "bg-gradient-to-br from-purple-100 to-pink-100",
+      description: "Máy móc có thể suy nghĩ như con người?",
+      stats: ["IQ 200+", "0.01s phản xạ", "∞ bộ nhớ"],
+    },
+    {
+      id: "ethics",
+      icon: Shield,
+      title: "Đạo Đức AI",
+      subtitle: "Responsible AI",
+      color: "from-green-400 to-emerald-500",
+      gradient: "bg-gradient-to-br from-green-100 to-emerald-100",
+      description: "Sử dụng AI một cách có trách nhiệm",
+      stats: ["100% minh bạch", "0 bias", "∞ công bằng"],
+    },
+    {
+      id: "risks",
+      icon: AlertTriangle,
+      title: "Rủi Ro AI",
+      subtitle: "AI Threats",
+      color: "from-red-400 to-orange-500",
+      gradient: "bg-gradient-to-br from-red-100 to-orange-100",
+      description: "Những nguy hiểm tiềm ẩn từ AI",
+      stats: ["40% deepfake", "15% job loss", "∞ monitoring"],
     },
   ];
+
+  const aiDemos = [
+    {
+      id: "chat",
+      title: "AI Chat Demo",
+      description: "Trò chuyện với AI thông minh",
+      icon: Bot,
+      active: false,
+    },
+    {
+      id: "image",
+      title: "AI Image Generator",
+      description: "Tạo hình ảnh từ văn bản",
+      icon: Camera,
+      active: false,
+    },
+    {
+      id: "voice",
+      title: "AI Voice Clone",
+      description: "Nhân bản giọng nói AI",
+      icon: Mic,
+      active: false,
+    },
+  ];
+
+  const toggleDemo = (demoId: string) => {
+    setActiveDemo(activeDemo === demoId ? null : demoId);
+  };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-100 via-indigo-50 to-purple-100">
+    <div className="min-h-screen bg-black relative overflow-hidden">
       <Header />
       <DisclaimerBanner />
 
-      {/* Page Header */}
-      <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <Bot className="h-16 w-16 mx-auto mb-6" />
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">
-            AI An Toàn & Ứng Dụng Thông Minh
-          </h1>
-          <p className="text-xl opacity-90 max-w-2xl mx-auto">
-            Khám phá ứng dụng AI trong cuộc sống và cách sử dụng an toàn, hiệu
-            quả, có trách nhiệm
-          </p>
+      {/* Animated Background */}
+      <div className="fixed inset-0 z-0">
+        <div className="absolute inset-0 bg-gradient-to-br from-black via-gray-900 to-black"></div>
+        <div className={`absolute inset-0 opacity-30 transition-all duration-2000 ${isAnimating ? 'scale-110' : 'scale-100'}`}>
+          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-500/20 rounded-full blur-3xl animate-pulse"></div>
+          <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-500/20 rounded-full blur-3xl animate-pulse delay-1000"></div>
+          <div className="absolute top-1/2 left-1/2 w-64 h-64 bg-cyan-500/20 rounded-full blur-3xl animate-pulse delay-2000"></div>
+        </div>
+        {/* Circuit Pattern */}
+        <div className="absolute inset-0 opacity-10">
+          <svg className="w-full h-full" viewBox="0 0 400 400">
+            <defs>
+              <pattern id="circuit" x="0" y="0" width="100" height="100" patternUnits="userSpaceOnUse">
+                <path d="M 10 10 L 90 10 L 90 90 L 10 90 Z" fill="none" stroke="currentColor" strokeWidth="1"/>
+                <circle cx="10" cy="10" r="2" fill="currentColor"/>
+                <circle cx="90" cy="90" r="2" fill="currentColor"/>
+              </pattern>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#circuit)" className="text-cyan-500"/>
+          </svg>
         </div>
       </div>
 
-      {/* AI Applications */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-            Ứng Dụng AI Phổ Biến Hiện Nay
-          </h2>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Khám phá lợi ích, rủi ro và cách sử dụng an toàn các công nghệ AI
-          </p>
-        </div>
+      {/* Main Content */}
+      <div className="relative z-10">
+        {/* Futuristic Hero Section */}
+        <section className="min-h-screen flex items-center justify-center px-4 py-20">
+          <div className="max-w-7xl mx-auto text-center">
+            {/* Floating AI Icon */}
+            <div className="relative mb-8">
+              <div className={`inline-flex items-center justify-center w-32 h-32 rounded-full bg-gradient-to-r from-cyan-500 to-blue-500 shadow-2xl transition-all duration-1000 ${isAnimating ? 'rotate-12 scale-110' : 'rotate-0 scale-100'}`}>
+                <Bot className="w-16 h-16 text-white" />
+              </div>
+              <div className="absolute -inset-4 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-full blur-xl opacity-30 animate-pulse"></div>
+            </div>
 
-        <div className="space-y-12">
-          {aiApplications.map((app, index) => (
-            <Card key={index} className="overflow-hidden">
-              <CardHeader className="bg-gradient-to-r from-blue-50 to-purple-50 border-b">
-                <div className="flex items-center space-x-4">
-                  <div className="p-4 rounded-full bg-white shadow-sm">
-                    <app.icon className="h-8 w-8 text-blue-600" />
+            {/* Holographic Title */}
+            <div className="mb-8">
+              <h1 className="text-6xl md:text-8xl font-black mb-4 bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent animate-pulse">
+                AI SAFETY
+              </h1>
+              <h2 className="text-2xl md:text-4xl font-bold text-white mb-6">
+                <span className="text-cyan-400">Artificial</span>{" "}
+                <span className="text-blue-400">Intelligence</span>{" "}
+                <span className="text-purple-400">Security</span>
+              </h2>
+              <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
+                Khám phá tương lai của AI trong thế giới số hiện đại. Học cách sử dụng công nghệ một cách an toàn và thông minh.
+              </p>
+            </div>
+
+            {/* Interactive Topic Selector */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+              {aiTopics.map((topic, index) => (
+                <div
+                  key={topic.id}
+                  className={`group cursor-pointer transition-all duration-500 hover:scale-105 ${selectedTopic === index ? 'scale-105' : ''}`}
+                  onClick={() => setSelectedTopic(index)}
+                >
+                  <Card className={`border-0 bg-gradient-to-br ${topic.gradient} backdrop-blur-sm shadow-2xl hover:shadow-cyan-500/25`}>
+                    <CardContent className="p-6 text-center">
+                      <div className={`w-16 h-16 mx-auto mb-4 rounded-2xl bg-gradient-to-r ${topic.color} flex items-center justify-center shadow-lg group-hover:shadow-xl group-hover:shadow-cyan-500/50 transition-all duration-300`}>
+                        <topic.icon className="w-8 h-8 text-white" />
+                      </div>
+                      <h3 className="font-bold text-gray-800 mb-1">{topic.title}</h3>
+                      <p className="text-sm text-gray-600 mb-3">{topic.subtitle}</p>
+                      <div className="space-y-1">
+                        {topic.stats.map((stat, idx) => (
+                          <div key={idx} className="text-xs text-gray-700 bg-white/50 rounded-full px-2 py-1">
+                            {stat}
+                          </div>
+                        ))}
+                      </div>
+                    </CardContent>
+                  </Card>
+                </div>
+              ))}
+            </div>
+
+            {/* Live Demo Area */}
+            <div className="bg-gradient-to-r from-gray-900/80 to-black/80 backdrop-blur-xl rounded-3xl p-8 border border-cyan-500/30">
+              <h3 className="text-2xl font-bold text-white mb-6 flex items-center justify-center">
+                <Zap className="w-6 h-6 mr-2 text-yellow-400" />
+                AI Interactive Demo
+              </h3>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                {aiDemos.map((demo) => (
+                  <Button
+                    key={demo.id}
+                    onClick={() => toggleDemo(demo.id)}
+                    className={`h-auto p-6 transition-all duration-300 ${
+                      activeDemo === demo.id
+                        ? 'bg-gradient-to-r from-cyan-500 to-blue-500 shadow-lg shadow-cyan-500/50'
+                        : 'bg-gray-800/50 hover:bg-gray-700/50 border border-gray-600'
+                    }`}
+                    variant="outline"
+                  >
+                    <div className="text-center">
+                      <demo.icon className={`w-8 h-8 mx-auto mb-2 ${activeDemo === demo.id ? 'text-white' : 'text-cyan-400'}`} />
+                      <div className={`font-bold ${activeDemo === demo.id ? 'text-white' : 'text-white'}`}>
+                        {demo.title}
+                      </div>
+                      <div className={`text-sm mt-1 ${activeDemo === demo.id ? 'text-cyan-100' : 'text-gray-400'}`}>
+                        {demo.description}
+                      </div>
+                    </div>
+                  </Button>
+                ))}
+              </div>
+              
+              {/* Demo Content Area */}
+              {activeDemo && (
+                <div className="mt-8 p-6 bg-black/50 rounded-2xl border border-cyan-500/20">
+                  <div className="text-center text-white">
+                    <div className="animate-pulse mb-4">
+                      <div className="w-4 h-4 bg-green-500 rounded-full mx-auto mb-2"></div>
+                      <p className="text-sm text-green-400">Demo đang chạy...</p>
+                    </div>
+                    <div className="bg-gray-900/50 rounded-lg p-4 text-left">
+                      <div className="text-cyan-400 text-sm mb-2">AI Response:</div>
+                      <div className="text-gray-300">
+                        {activeDemo === 'chat' && "Xin chào! Tôi là AI assistant. Tôi có thể giúp bạn tìm hiểu về an toàn AI..."}
+                        {activeDemo === 'image' && "Đang tạo hình ảnh từ mô tả: 'Một robot thông minh trong tương lai'..."}
+                        {activeDemo === 'voice' && "Đang phân tích mẫu giọng nói và tạo bản sao AI..."}
+                      </div>
+                    </div>
                   </div>
-                  <div>
-                    <CardTitle className="text-2xl">{app.title}</CardTitle>
-                    <CardDescription className="text-lg mt-2">
-                      {app.description}
-                    </CardDescription>
+                </div>
+              )}
+            </div>
+          </div>
+        </section>
+
+        {/* AI Knowledge Matrix */}
+        <section className="py-20 px-4">
+          <div className="max-w-7xl mx-auto">
+            <div className="text-center mb-16">
+              <h2 className="text-4xl font-bold text-white mb-4">
+                <span className="bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent">
+                  AI Knowledge Matrix
+                </span>
+              </h2>
+              <p className="text-xl text-gray-300">Khám phá các khía cạnh của trí tuệ nhân tạo</p>
+            </div>
+
+            {/* Hexagonal Grid Layout */}
+            <div className="relative">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {[
+                  { icon: Brain, title: "Machine Learning", desc: "Thuật toán học máy tiên tiến", level: 95 },
+                  { icon: Eye, title: "Computer Vision", desc: "Nhận diện hình ảnh thông minh", level: 88 },
+                  { icon: Mic, title: "Speech AI", desc: "Xử lý ngôn ngữ tự nhiên", level: 92 },
+                  { icon: Shield, title: "AI Security", desc: "Bảo mật hệ thống AI", level: 78 },
+                  { icon: Network, title: "Neural Networks", desc: "Mạng nơ-ron sâu", level: 90 },
+                  { icon: Code, title: "AI Programming", desc: "Lập trình AI và robotics", level: 85 }
+                ].map((item, index) => (
+                  <Card key={index} className="group bg-gradient-to-br from-gray-900/80 to-black/80 border-cyan-500/30 hover:border-cyan-400 transition-all duration-500 hover:scale-105 backdrop-blur-xl">
+                    <CardContent className="p-8">
+                      <div className="text-center">
+                        <div className="relative mb-6">
+                          <div className="w-20 h-20 mx-auto bg-gradient-to-r from-cyan-500 to-blue-500 rounded-2xl flex items-center justify-center group-hover:shadow-2xl group-hover:shadow-cyan-500/50 transition-all duration-300">
+                            <item.icon className="w-10 h-10 text-white" />
+                          </div>
+                          <div className="absolute -inset-2 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-2xl blur-lg opacity-0 group-hover:opacity-30 transition-all duration-300"></div>
+                        </div>
+                        
+                        <h3 className="text-xl font-bold text-white mb-2">{item.title}</h3>
+                        <p className="text-gray-300 mb-4 text-sm">{item.desc}</p>
+                        
+                        <div className="space-y-2">
+                          <div className="flex justify-between text-sm">
+                            <span className="text-gray-400">Progress</span>
+                            <span className="text-cyan-400 font-bold">{item.level}%</span>
+                          </div>
+                          <div className="w-full bg-gray-700 rounded-full h-2 overflow-hidden">
+                            <div 
+                              className="h-full bg-gradient-to-r from-cyan-500 to-blue-500 rounded-full transition-all duration-1000 ease-out"
+                              style={{ width: `${item.level}%` }}
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* AI Timeline */}
+        <section className="py-20 px-4 bg-gradient-to-r from-gray-900/50 to-black/50">
+          <div className="max-w-7xl mx-auto">
+            <div className="text-center mb-16">
+              <h2 className="text-4xl font-bold text-white mb-4">
+                AI Evolution Timeline
+              </h2>
+              <p className="text-xl text-gray-300">Hành trình phát triển của trí tuệ nhân tạo</p>
+            </div>
+
+            <div className="relative">
+              {/* Timeline Line */}
+              <div className="absolute left-1/2 transform -translate-x-1/2 w-1 h-full bg-gradient-to-b from-cyan-500 via-blue-500 to-purple-500"></div>
+              
+              <div className="space-y-16">
+                {[
+                  { year: "2024", title: "AI Chatbots Mainstream", desc: "ChatGPT, Claude thay đổi cách làm việc", side: "left" },
+                  { year: "2025", title: "AI in Everything", desc: "AI tích hợp vào mọi thiết bị", side: "right" },
+                  { year: "2027", title: "AGI Breakthrough", desc: "AI đạt trí tuệ tổng quát", side: "left" },
+                  { year: "2030", title: "AI Society", desc: "Xã hội hoàn toàn tự động hóa", side: "right" }
+                ].map((event, index) => (
+                  <div key={index} className={`flex items-center ${event.side === 'right' ? 'flex-row-reverse' : ''}`}>
+                    <div className={`w-1/2 ${event.side === 'right' ? 'pl-8' : 'pr-8'}`}>
+                      <Card className="bg-gradient-to-br from-gray-800/80 to-gray-900/80 border-cyan-500/30 backdrop-blur-xl">
+                        <CardContent className="p-6">
+                          <div className="text-cyan-400 text-2xl font-bold mb-2">{event.year}</div>
+                          <h3 className="text-white text-xl font-bold mb-2">{event.title}</h3>
+                          <p className="text-gray-300">{event.desc}</p>
+                        </CardContent>
+                      </Card>
+                    </div>
+                    
+                    {/* Timeline Node */}
+                    <div className="relative z-10">
+                      <div className="w-6 h-6 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-full border-4 border-black shadow-lg"></div>
+                      <div className="absolute -inset-2 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-full blur-sm opacity-50"></div>
+                    </div>
+                    
+                    <div className="w-1/2"></div>
                   </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* CTA Section */}
+        <section className="py-20 px-4">
+          <div className="max-w-4xl mx-auto text-center">
+            <Card className="bg-gradient-to-r from-cyan-900/80 to-blue-900/80 border-cyan-500/50 backdrop-blur-xl">
+              <CardContent className="p-12">
+                <div className="mb-8">
+                  <Sparkles className="w-16 h-16 mx-auto text-cyan-400 animate-pulse" />
                 </div>
-              </CardHeader>
-
-              <CardContent className="p-8">
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                  {/* Benefits */}
-                  <div>
-                    <h3 className="text-xl font-semibold mb-4 flex items-center text-green-700">
-                      <CheckCircle className="h-6 w-6 mr-2" />
-                      Lợi ích
-                    </h3>
-                    <ul className="space-y-3">
-                      {app.benefits.map((benefit, idx) => (
-                        <li key={idx} className="flex items-start space-x-3">
-                          <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
-                          <span className="text-gray-700">{benefit}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-
-                  {/* Risks */}
-                  <div>
-                    <h3 className="text-xl font-semibold mb-4 flex items-center text-red-700">
-                      <AlertTriangle className="h-6 w-6 mr-2" />
-                      Rủi ro
-                    </h3>
-                    <ul className="space-y-3">
-                      {app.risks.map((risk, idx) => (
-                        <li key={idx} className="flex items-start space-x-3">
-                          <AlertTriangle className="h-5 w-5 text-red-500 mt-0.5 flex-shrink-0" />
-                          <span className="text-gray-700">{risk}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-
-                  {/* Safety Tips */}
-                  <div>
-                    <h3 className="text-xl font-semibold mb-4 flex items-center text-blue-700">
-                      <Shield className="h-6 w-6 mr-2" />
-                      Cách sử dụng an toàn
-                    </h3>
-                    <ul className="space-y-3">
-                      {app.tips.map((tip, idx) => (
-                        <li key={idx} className="flex items-start space-x-3">
-                          <Shield className="h-5 w-5 text-blue-500 mt-0.5 flex-shrink-0" />
-                          <span className="text-gray-700">{tip}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
-      </div>
-
-      {/* Deepfake Detection */}
-      <div className="bg-gradient-to-br from-indigo-50 to-purple-50 py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              Nhận Biết Deepfake & Nội Dung AI
-            </h2>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              Các d��u hiệu để phát hiện nội dung được tạo bởi AI
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {deepfakeDetection.map((detection, index) => (
-              <Card key={index} className="h-full">
-                <CardHeader className="text-center">
-                  <Badge variant="destructive" className="mb-4 mx-auto">
-                    {detection.type}
-                  </Badge>
-                  <CardTitle className="text-xl">Dấu hiệu nhận biết</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <ul className="space-y-3">
-                    {detection.signs.map((sign, idx) => (
-                      <li key={idx} className="flex items-start space-x-3">
-                        <Eye className="h-4 w-4 text-orange-500 mt-1 flex-shrink-0" />
-                        <span className="text-gray-700 text-sm">{sign}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      {/* AI Ethics */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-            Đạo Đức AI & Sử Dụng Có Trách Nhiệm // Sửa "Sử D��ng"
-          </h2>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Nguyên tắc đạo đức khi tương tác với công nghệ AI
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {aiEthics.map((ethics, index) => (
-            <Card
-              key={index}
-              className="text-center hover:shadow-lg transition-shadow"
-            >
-              <CardHeader>
-                <ethics.icon className="h-12 w-12 text-purple-600 mx-auto mb-4" />
-                <CardTitle className="text-xl">{ethics.title}</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <ul className="space-y-3">
-                  {ethics.principles.map((principle, idx) => (
-                    <li key={idx} className="flex items-start space-x-3">
-                      <Zap className="h-4 w-4 text-purple-500 mt-1 flex-shrink-0" />
-                      <span className="text-gray-700 text-sm text-left">
-                        {principle}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
-      </div>
-
-      {/* AI for Students Section */}
-      <div className="bg-gradient-to-br from-green-50 to-blue-50 dark:from-green-900/20 dark:to-blue-900/20 py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
-              🎓 AI và Học Sinh/Sinh Viên
-            </h2>
-            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-              Hướng dẫn sử dụng AI trong học tập một cách đúng đắn và c�� trách
-              nhiệm
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            {/* Should Do */}
-            <Card className="border-green-200 dark:bg-gray-800 dark:border-gray-700">
-              <CardHeader className="bg-green-50 dark:bg-green-900/20">
-                <CardTitle className="text-xl text-green-800 dark:text-green-200 flex items-center">
-                  <CheckCircle className="h-6 w-6 mr-2" />✅ NÊN LÀM // Sửa "N��N"
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="p-6">
-                <ul className="space-y-4">
-                  <li className="flex items-start space-x-3">
-                    <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
-                    <div>
-                      <span className="font-medium text-gray-900 dark:text-white">
-                        Brainstorming ý tưởng
-                      </span>
-                      <p className="text-sm text-gray-600 dark:text-gray-400">
-                        Dùng AI để khám phá các góc nhìn mới cho bài tập
-                      </p>
-                    </div>
-                  </li>
-                  <li className="flex items-start space-x-3">
-                    <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
-                    <div>
-                      <span className="font-medium text-gray-900 dark:text-white">
-                        Giải thích khái niệm khó
-                      </span>
-                      <p className="text-sm text-gray-600 dark:text-gray-400">
-                        Hỏi AI giải th��ch bằng ngôn ngữ đơn giản
-                      </p>
-                    </div>
-                  </li>
-                  <li className="flex items-start space-x-3">
-                    <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
-                    <div>
-                      <span className="font-medium text-gray-900 dark:text-white">
-                        Luyện tập ngôn ngữ
-                      </span>
-                      <p className="text-sm text-gray-600 dark:text-gray-400">
-                        Chat với AI để cải thiện kỹ năng giao tiếp
-                      </p>
-                    </div>
-                  </li>
-                  <li className="flex items-start space-x-3">
-                    <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
-                    <div>
-                      <span className="font-medium text-gray-900 dark:text-white">
-                        Kiểm tra ngữ pháp
-                      </span>
-                      <p className="text-sm text-gray-600 dark:text-gray-400">
-                        Nhờ AI sửa lỗi chính tả và ngữ pháp
-                      </p>
-                    </div>
-                  </li>
-                </ul>
-              </CardContent>
-            </Card>
-
-            {/* Should Not Do */}
-            <Card className="border-red-200 dark:bg-gray-800 dark:border-gray-700">
-              <CardHeader className="bg-red-50 dark:bg-red-900/20">
-                <CardTitle className="text-xl text-red-800 dark:text-red-200 flex items-center">
-                  <XCircle className="h-6 w-6 mr-2" />❌ KHÔNG NÊN LÀM
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="p-6">
-                <ul className="space-y-4">
-                  <li className="flex items-start space-x-3">
-                    <XCircle className="h-5 w-5 text-red-500 mt-0.5 flex-shrink-0" />
-                    <div>
-                      <span className="font-medium text-gray-900 dark:text-white">
-                        Copy nguyên văn bài AI viết
-                      </span>
-                      <p className="text-sm text-gray-600 dark:text-gray-400">
-                        Vi phạm quy tắc học thuật và bản quyền
-                      </p>
-                    </div>
-                  </li>
-                  <li className="flex items-start space-x-3">
-                    <XCircle className="h-5 w-5 text-red-500 mt-0.5 flex-shrink-0" />
-                    <div>
-                      <span className="font-medium text-gray-900 dark:text-white">
-                        Làm bài tập hoàn toàn bằng AI
-                      </span>
-                      <p className="text-sm text-gray-600 dark:text-gray-400">
-                        Mất đi cơ hội học hỏi và phát triển tư duy
-                      </p>
-                    </div>
-                  </li>
-                  <li className="flex items-start space-x-3">
-                    <XCircle className="h-5 w-5 text-red-500 mt-0.5 flex-shrink-0" />
-                    <div>
-                      <span className="font-medium text-gray-900 dark:text-white">
-                        Nộp bài không ghi nguồn AI
-                      </span>
-                      <p className="text-sm text-gray-600 dark:text-gray-400">
-                        Thiếu trung thực trong học thuật
-                      </p>
-                    </div>
-                  </li>
-                  <li className="flex items-start space-x-3">
-                    <XCircle className="h-5 w-5 text-red-500 mt-0.5 flex-shrink-0" />
-                    <div>
-                      <span className="font-medium text-gray-900 dark:text-white">
-                        Tin hoàn toàn vào thông tin AI
-                      </span>
-                      <p className="text-sm text-gray-600 dark:text-gray-400">
-                        AI có thể đưa ra thông tin sai hoặc lỗi thời
-                      </p>
-                    </div>
-                  </li>
-                </ul>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
-      </div>
-
-      {/* AI in Workplace Section */}
-      <div className="bg-white dark:bg-gray-900 py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
-              💼 AI Trong Công Việc
-            </h2>
-            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-              Sử dụng AI để nâng cao hiệu qu��� công việc một cách an toàn và
-              chuyên nghiệp
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            {/* Safe Uses */}
-            <Card className="border-blue-200 dark:bg-gray-800 dark:border-gray-700">
-              <CardHeader className="bg-blue-50 dark:bg-blue-900/20 text-center">
-                <div className="w-16 h-16 bg-blue-100 dark:bg-blue-800 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Shield className="h-8 w-8 text-blue-600 dark:text-blue-400" />
-                </div>
-                <CardTitle className="text-xl text-blue-800 dark:text-blue-200">
-                  AN TOÀN
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="p-6">
-                <ul className="space-y-3">
-                  <li className="flex items-start space-x-3">
-                    <CheckCircle className="h-4 w-4 text-green-500 mt-1 flex-shrink-0" />
-                    <span className="text-sm text-gray-700 dark:text-gray-300">
-                      Viết email draft chuyên nghiệp
-                    </span>
-                  </li>
-                  <li className="flex items-start space-x-3">
-                    <CheckCircle className="h-4 w-4 text-green-500 mt-1 flex-shrink-0" />
-                    <span className="text-sm text-gray-700 dark:text-gray-300">
-                      Tóm tắt meeting notes
-                    </span>
-                  </li>
-                  <li className="flex items-start space-x-3">
-                    <CheckCircle className="h-4 w-4 text-green-500 mt-1 flex-shrink-0" />
-                    <span className="text-sm text-gray-700 dark:text-gray-300">
-                      Phân tích dữ liệu cơ bản
-                    </span>
-                  </li>
-                  <li className="flex items-start space-x-3">
-                    <CheckCircle className="h-4 w-4 text-green-500 mt-1 flex-shrink-0" />
-                    <span className="text-sm text-gray-700 dark:text-gray-300">
-                      Dịch tài liệu nhanh
-                    </span>
-                  </li>
-                  <li className="flex items-start space-x-3">
-                    <CheckCircle className="h-4 w-4 text-green-500 mt-1 flex-shrink-0" />
-                    <span className="text-sm text-gray-700 dark:text-gray-300">
-                      Tạo presentation outline
-                    </span>
-                  </li>
-                </ul>
-              </CardContent>
-            </Card>
-
-            {/* Risks */}
-            <Card className="border-orange-200 dark:bg-gray-800 dark:border-gray-700">
-              <CardHeader className="bg-orange-50 dark:bg-orange-900/20 text-center">
-                <div className="w-16 h-16 bg-orange-100 dark:bg-orange-800 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <AlertTriangle className="h-8 w-8 text-orange-600 dark:text-orange-400" />
-                </div>
-                <CardTitle className="text-xl text-orange-800 dark:text-orange-200">
-                  RỦI RO
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="p-6">
-                <ul className="space-y-3">
-                  <li className="flex items-start space-x-3">
-                    <XCircle className="h-4 w-4 text-red-500 mt-1 flex-shrink-0" />
-                    <span className="text-sm text-gray-700 dark:text-gray-300">
-                      Chia sẻ thông tin công ty với AI public
-                    </span>
-                  </li>
-                  <li className="flex items-start space-x-3">
-                    <XCircle className="h-4 w-4 text-red-500 mt-1 flex-shrink-0" />
-                    <span className="text-sm text-gray-700 dark:text-gray-300">
-                      Tin hoàn toàn vào AI analysis
-                    </span>
-                  </li>
-                  <li className="flex items-start space-x-3">
-                    <XCircle className="h-4 w-4 text-red-500 mt-1 flex-shrink-0" />
-                    <span className="text-sm text-gray-700 dark:text-gray-300">
-                      Thay thế hoàn toàn tư duy con người
-                    </span>
-                  </li>
-                  <li className="flex items-start space-x-3">
-                    <XCircle className="h-4 w-4 text-red-500 mt-1 flex-shrink-0" />
-                    <span className="text-sm text-gray-700 dark:text-gray-300">
-                      Không kiểm tra kết quả AI
-                    </span>
-                  </li>
-                  <li className="flex items-start space-x-3">
-                    <XCircle className="h-4 w-4 text-red-500 mt-1 flex-shrink-0" />
-                    <span className="text-sm text-gray-700 dark:text-gray-300">
-                      Upload dữ liệu nhạy cảm lên AI
-                    </span>
-                  </li>
-                </ul>
-              </CardContent>
-            </Card>
-
-            {/* Best Practices */}
-            <Card className="border-purple-200 dark:bg-gray-800 dark:border-gray-700">
-              <CardHeader className="bg-purple-50 dark:bg-purple-900/20 text-center">
-                <div className="w-16 h-16 bg-purple-100 dark:bg-purple-800 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Brain className="h-8 w-8 text-purple-600 dark:text-purple-400" />
-                </div>
-                <CardTitle className="text-xl text-purple-800 dark:text-purple-200">
-                  THỰC HÀNH TỐT
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="p-6">
-                <ul className="space-y-3">
-                  <li className="flex items-start space-x-3">
-                    <Zap className="h-4 w-4 text-purple-500 mt-1 flex-shrink-0" />
-                    <span className="text-sm text-gray-700 dark:text-gray-300">
-                      Xin phép trước khi dùng AI
-                    </span>
-                  </li>
-                  <li className="flex items-start space-x-3">
-                    <Zap className="h-4 w-4 text-purple-500 mt-1 flex-shrink-0" />
-                    <span className="text-sm text-gray-700 dark:text-gray-300">
-                      Luôn review và edit kết quả AI
-                    </span>
-                  </li>
-                  <li className="flex items-start space-x-3">
-                    <Zap className="h-4 w-4 text-purple-500 mt-1 flex-shrink-0" />
-                    <span className="text-sm text-gray-700 dark:text-gray-300">
-                      Sử dụng AI nội bộ công ty
-                    </span>
-                  </li>
-                  <li className="flex items-start space-x-3">
-                    <Zap className="h-4 w-4 text-purple-500 mt-1 flex-shrink-0" />
-                    <span className="text-sm text-gray-700 dark:text-gray-300">
-                      Ghi rõ khi sử dụng AI
-                    </span>
-                  </li>
-                  <li className="flex items-start space-x-3">
-                    <Zap className="h-4 w-4 text-purple-500 mt-1 flex-shrink-0" />
-                    <span className="text-sm text-gray-700 dark:text-gray-300">
-                      Học cách prompt hiệu quả
-                    </span>
-                  </li>
-                </ul>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
-      </div>
-
-      {/* AI Detection Infographic */}
-      <div className="bg-gradient-to-br from-gray-50 to-blue-50 dark:from-gray-800 dark:to-gray-700 py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
-              👁️ Nhận Biết Nội Dung AI
-            </h2>
-            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-              So sánh đặc điểm giữa nội dung do con người và AI tạo ra
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            {/* Human Content */}
-            <Card className="border-green-200 dark:bg-gray-800 dark:border-gray-700">
-              <CardHeader className="bg-green-50 dark:bg-green-900/20 text-center">
-                <div className="w-20 h-20 bg-green-100 dark:bg-green-800 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span className="text-3xl">👤</span>
-                </div>
-                <CardTitle className="text-2xl text-green-800 dark:text-green-200">
-                  HUMAN CONTENT
-                </CardTitle>
-                <p className="text-green-600 dark:text-green-400">
-                  Nội dung do con người tạo
+                <h2 className="text-4xl font-bold text-white mb-6">
+                  Sẵn Sàng Khám Phá Tương Lai AI?
+                </h2>
+                <p className="text-xl text-cyan-100 mb-8 max-w-2xl mx-auto">
+                  Tham gia cùng chúng tôi trong hành trình khám phá và sử dụng AI một cách an toàn, thông minh
                 </p>
-              </CardHeader>
-              <CardContent className="p-6">
-                <div className="space-y-4">
-                  <div className="flex items-start space-x-3">
-                    <div className="w-2 h-2 bg-green-500 rounded-full mt-2"></div>
-                    <div>
-                      <span className="font-medium text-gray-900 dark:text-white">
-                        Cảm xúc tự nhiên
-                      </span>
-                      <p className="text-sm text-gray-600 dark:text-gray-400">
-                        Thể hiện cảm xúc chân thực, có chiều sâu
-                      </p>
-                    </div>
-                  </div>
-                  <div className="flex items-start space-x-3">
-                    <div className="w-2 h-2 bg-green-500 rounded-full mt-2"></div>
-                    <div>
-                      <span className="font-medium text-gray-900 dark:text-white">
-                        Chi tiết cá nhân
-                      </span>
-                      <p className="text-sm text-gray-600 dark:text-gray-400">
-                        Có trải nghiệm và câu chuyện riêng
-                      </p>
-                    </div>
-                  </div>
-                  <div className="flex items-start space-x-3">
-                    <div className="w-2 h-2 bg-green-500 rounded-full mt-2"></div>
-                    <div>
-                      <span className="font-medium text-gray-900 dark:text-white">
-                        Lỗi nhỏ bình thường
-                      </span>
-                      <p className="text-sm text-gray-600 dark:text-gray-400">
-                        Có thể có lỗi chính tả, ngữ pháp nhỏ
-                      </p>
-                    </div>
-                  </div>
-                  <div className="flex items-start space-x-3">
-                    <div className="w-2 h-2 bg-green-500 rounded-full mt-2"></div>
-                    <div>
-                      <span className="font-medium text-gray-900 dark:text-white">
-                        Phong cách nhất quán
-                      </span>
-                      <p className="text-sm text-gray-600 dark:text-gray-400">
-                        Giữ được tính cách và style riêng
-                      </p>
-                    </div>
-                  </div>
-                  <div className="flex items-start space-x-3">
-                    <div className="w-2 h-2 bg-green-500 rounded-full mt-2"></div>
-                    <div>
-                      <span className="font-medium text-gray-900 dark:text-white">
-                        Context phù hợp
-                      </span>
-                      <p className="text-sm text-gray-600 dark:text-gray-400">
-                        Hiểu rõ bối cảnh và văn hóa
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* AI Content */}
-            <Card className="border-orange-200 dark:bg-gray-800 dark:border-gray-700">
-              <CardHeader className="bg-orange-50 dark:bg-orange-900/20 text-center">
-                <div className="w-20 h-20 bg-orange-100 dark:bg-orange-800 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Bot className="h-10 w-10 text-orange-600 dark:text-orange-400" />
-                </div>
-                <CardTitle className="text-2xl text-orange-800 dark:text-orange-200">
-                  AI GENERATED
-                </CardTitle>
-                <p className="text-orange-600 dark:text-orange-400">
-                  Nội dung do AI tạo ra
-                </p>
-              </CardHeader>
-              <CardContent className="p-6">
-                <div className="space-y-4">
-                  <div className="flex items-start space-x-3">
-                    <div className="w-2 h-2 bg-orange-500 rounded-full mt-2"></div>
-                    <div>
-                      <span className="font-medium text-gray-900 dark:text-white">
-                        Cảm xúc giả tạo
-                      </span>
-                      <p className="text-sm text-gray-600 dark:text-gray-400">
-                        Cảm xúc có vẻ được lập trình
-                      </p>
-                    </div>
-                  </div>
-                  <div className="flex items-start space-x-3">
-                    <div className="w-2 h-2 bg-orange-500 rounded-full mt-2"></div>
-                    <div>
-                      <span className="font-medium text-gray-900 dark:text-white">
-                        Thông tin chung chung
-                      </span>
-                      <p className="text-sm text-gray-600 dark:text-gray-400">
-                        Thiếu chi tiết cá nhân cụ thể
-                      </p>
-                    </div>
-                  </div>
-                  <div className="flex items-start space-x-3">
-                    <div className="w-2 h-2 bg-orange-500 rounded-full mt-2"></div>
-                    <div>
-                      <span className="font-medium text-gray-900 dark:text-white">
-                        Quá hoàn hảo
-                      </span>
-                      <p className="text-sm text-gray-600 dark:text-gray-400">
-                        Ngữ pháp và cấu trúc quá chuẩn
-                      </p>
-                    </div>
-                  </div>
-                  <div className="flex items-start space-x-3">
-                    <div className="w-2 h-2 bg-orange-500 rounded-full mt-2"></div>
-                    <div>
-                      <span className="font-medium text-gray-900 dark:text-white">
-                        Nhảy topic đột ngột
-                      </span>
-                      <p className="text-sm text-gray-600 dark:text-gray-400">
-                        Chuyển đề không mạch lạc
-                      </p>
-                    </div>
-                  </div>
-                  <div className="flex items-start space-x-3">
-                    <div className="w-2 h-2 bg-orange-500 rounded-full mt-2"></div>
-                    <div>
-                      <span className="font-medium text-gray-900 dark:text-white">
-                        Pattern lặp lại
-                      </span>
-                      <p className="text-sm text-gray-600 dark:text-gray-400">
-                        Cấu trúc câu có xu hướng lặp
-                      </p>
-                    </div>
-                  </div>
+                <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                  <Button 
+                    size="lg" 
+                    className="bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 text-white font-bold py-4 px-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300"
+                  >
+                    <Bot className="w-5 h-5 mr-2" />
+                    Bắt Đầu Học AI
+                  </Button>
+                  <Button 
+                    size="lg" 
+                    variant="outline"
+                    className="border-cyan-500 text-cyan-400 hover:bg-cyan-500/10 font-bold py-4 px-8 rounded-2xl"
+                  >
+                    <Lightbulb className="w-5 h-5 mr-2" />
+                    Khám Phá Thêm
+                  </Button>
                 </div>
               </CardContent>
             </Card>
           </div>
-
-          {/* Quick Tips */}
-          <div className="mt-12">
-            <Card className="bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20 border-blue-200 dark:border-gray-600">
-              <CardContent className="p-8 text-center">
-                <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
-                  🔍 Mẹo Nhận Biết Nhanh
-                </h3>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
-                  <div className="flex flex-col items-center">
-                    <div className="w-12 h-12 bg-blue-100 dark:bg-blue-800 rounded-full flex items-center justify-center mb-3">
-                      <Eye className="h-6 w-6 text-blue-600 dark:text-blue-400" />
-                    </div>
-                    <span className="font-medium text-gray-900 dark:text-white">
-                      Đọc kỹ toàn bộ
-                    </span>
-                    <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
-                      Chú ý pattern và cấu trúc
-                    </p>
-                  </div>
-                  <div className="flex flex-col items-center">
-                    <div className="w-12 h-12 bg-purple-100 dark:bg-purple-800 rounded-full flex items-center justify-center mb-3">
-                      <Brain className="h-6 w-6 text-purple-600 dark:text-purple-400" />
-                    </div>
-                    <span className="font-medium text-gray-900 dark:text-white">
-                      Dùng common sense
-                    </span>
-                    <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
-                      Cảm nhận tự nhiên hay giả tạo
-                    </p>
-                  </div>
-                  <div className="flex flex-col items-center">
-                    <div className="w-12 h-12 bg-green-100 dark:bg-green-800 rounded-full flex items-center justify-center mb-3">
-                      <Search className="h-6 w-6 text-green-600 dark:text-green-400" />
-                    </div>
-                    <span className="font-medium text-gray-900 dark:text-white">
-                      Cross-check
-                    </span>
-                    <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
-                      Kiểm tra với nguồn khác
-                    </p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
+        </section>
       </div>
 
-      {/* Call to Action */}
-      <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white py-16">
-        <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl md:text-4xl font-bold mb-6">
-            Sẵn Sàng Sử Dụng AI An Toàn?
-          </h2>
-          <p className="text-xl mb-8 opacity-90">
-            AI là công cụ mạnh mẽ - hãy sử dụng một cách thông minh và có trách
-            nhiệm
-          </p>
-        </div>
+      {/* Floating AI Assistant */}
+      <div className="fixed bottom-8 right-8 z-50">
+        <Button
+          onClick={() => setAiChatVisible(!aiChatVisible)}
+          className="w-16 h-16 rounded-full bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 shadow-2xl hover:shadow-cyan-500/50 transition-all duration-300"
+        >
+          <Bot className="w-8 h-8 text-white" />
+        </Button>
+        
+        {aiChatVisible && (
+          <Card className="absolute bottom-20 right-0 w-80 bg-gray-900/95 backdrop-blur-xl border-cyan-500/30">
+            <CardHeader className="pb-2">
+              <CardTitle className="text-white text-sm flex items-center">
+                <div className="w-2 h-2 bg-green-500 rounded-full mr-2 animate-pulse"></div>
+                AI Assistant
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-2 text-sm">
+              <div className="bg-gray-800 rounded-lg p-3">
+                <p className="text-cyan-400">Xin chào! Tôi có thể giúp bạn tìm hiểu về AI an toàn.</p>
+              </div>
+              <div className="bg-blue-900/50 rounded-lg p-3">
+                <p className="text-white">Hãy hỏi tôi bất cứ điều gì về AI!</p>
+              </div>
+            </CardContent>
+          </Card>
+        )}
       </div>
     </div>
   );
