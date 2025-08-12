@@ -526,6 +526,17 @@ export default function DigitalEthics() {
 
         {/* Detailed Ethics Rules - Desktop (Zigzag Layout) */}
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+          {/* Section Title */}
+          <div className="text-center mb-20">
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+              📖 Nguyên Tắc Đạo Đức Số
+            </h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+              6 nguyên tắc cốt lõi để xây dựng một không gian mạng văn minh, an toàn và tích cực cho tất cả mọi người
+            </p>
+            <div className="mt-6 w-24 h-1 bg-gradient-to-r from-purple-500 to-pink-500 mx-auto rounded-full"></div>
+          </div>
+
           <div className="space-y-24">
             {ethicsRules.map((ethics, index) => (
               <div key={ethics.id} id={ethics.id} className="scroll-mt-24">
@@ -770,7 +781,7 @@ export default function DigitalEthics() {
                   tips: [
                     "Tắt thông báo không cần thiết",
                     "Xóa apps gây nghiện",
-                    "Tạo không gian kh��ng có điện thoại",
+                    "Tạo không gian không có điện thoại",
                   ],
                 },
                 {
@@ -794,7 +805,7 @@ export default function DigitalEthics() {
                   ],
                 },
                 {
-                  icon: "🌱",
+                  icon: "����",
                   title: "Ý thức môi trường số",
                   description:
                     "Giảm thiểu tác động môi trường của hoạt động số",
@@ -1037,7 +1048,7 @@ export default function DigitalEthics() {
                   Cùng Xây Dựng Internet Tích Cực!
                 </h2>
                 <p className="text-xl mb-8 opacity-90 max-w-2xl mx-auto leading-relaxed">
-                  Mỗi hành động nhỏ của bạn đều góp phần tạo nên một môi trường
+                  Mỗi hành động nhỏ của bạn đều góp phần tạo nên một môi tr��ờng
                   mạng an toàn và tích cực cho tất cả mọi người
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -1321,7 +1332,7 @@ export default function DigitalEthics() {
                   </span>
                 </div>
                 <p className="text-sm text-purple-600 leading-relaxed">
-                  Đọc từ từ, suy ngẫm từng ý và thử áp d���ng vào tình huống thực
+                  Đọc từ từ, suy ngẫm từng ý và thử áp dụng vào tình huống thực
                   tế để ghi nhớ tốt nhất
                 </p>
               </div>
@@ -1572,7 +1583,7 @@ export default function DigitalEthics() {
                           🌟 Sẵn sàng bắt đầu hành trình học?
                         </h3>
                         <p className="text-purple-700 text-base leading-relaxed px-4">
-                          Cam kết th��c hành những nguyên tắc đạo đức số và trở
+                          Cam kết thực hành những nguyên tắc đạo đức số và trở
                           thành công dân số có trách nhiệm
                         </p>
 
