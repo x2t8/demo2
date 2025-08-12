@@ -190,7 +190,7 @@ export default function DigitalLaw() {
         "Mỗi nền tảng mạng xã hội có quy định riêng, song song với luật pháp Việt Nam về an toàn thông tin mạng.",
       dos: [
         "Đọc và tuân thủ Community Guidelines",
-        "Báo cáo n��i dung vi phạm",
+        "Báo cáo nội dung vi phạm",
         "Bảo vệ tài khoản bằng 2FA",
         "Khai báo quảng cáo có trả tiền",
         "Tôn trọng quyền riêng tư người khác",
@@ -296,7 +296,7 @@ export default function DigitalLaw() {
                 </h1>
                 <p className="text-xl opacity-90 mb-8 leading-relaxed">
                   Hiểu biết về luật pháp, bảo vệ bản quyền và sử dụng công nghệ 
-                  một cách hợp pháp trong thời đại số.
+                  một cách hợp pháp trong thời đ���i số.
                 </p>
                 <div className="flex items-center space-x-6">
                   <div className="text-center">
@@ -327,14 +327,14 @@ export default function DigitalLaw() {
               </div>
 
               <div className="relative">
-                {/* Biểu tượng cân công lý lớn làm button */}
+                {/* Bi���u tượng cân công lý lớn làm button */}
                 <div className="text-center">
                   <div className="relative inline-block">
                     <Scale className="h-48 w-48 mx-auto text-yellow-300 drop-shadow-2xl cursor-pointer hover:scale-105 transition-transform duration-300" />
-
+                    
                     {/* Bên trái cân: Pháp luật số - TO HƠN */}
                     <div className="absolute -left-24 top-12">
-                      <Button
+                      <Button 
                         className="bg-white/20 backdrop-blur-sm rounded-2xl p-6 border border-white/30 hover:bg-white/30 transition-all duration-300 h-auto flex-col"
                         variant="ghost"
                       >
@@ -348,7 +348,7 @@ export default function DigitalLaw() {
 
                     {/* Bên phải cân: Bản quyền - TO HƠN */}
                     <div className="absolute -right-24 top-12">
-                      <Button
+                      <Button 
                         className="bg-white/20 backdrop-blur-sm rounded-2xl p-6 border border-white/30 hover:bg-white/30 transition-all duration-300 h-auto flex-col"
                         variant="ghost"
                       >
@@ -360,7 +360,7 @@ export default function DigitalLaw() {
                       </Button>
                     </div>
                   </div>
-
+                  
                   <div className="mt-12 text-center">
                     <h3 className="text-2xl font-bold mb-3">Cân Bằng Công Lý</h3>
                     <p className="text-lg opacity-90">
@@ -459,7 +459,7 @@ export default function DigitalLaw() {
           </div>
         </div>
 
-        {/* Detailed Legal Rules - THIẾT KẾ KHÁC BIỆT */}
+        {/* Legal Rules - THIẾT KẾ MỚI (khác với 2 trang kia) */}
         <div className="bg-gradient-to-br from-indigo-50 to-purple-50 py-20">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16">
@@ -471,69 +471,118 @@ export default function DigitalLaw() {
               </p>
             </div>
 
-            {/* LAYOUT MỚI: Grid Cards thay vì Zigzag */}
+            {/* LAYOUT MỚI: Grid Cards thay vì Zigzag - ĐỘC ĐÁO */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {legalRules.map((rule, index) => (
-                <Card key={rule.id} className="h-full hover:shadow-xl transition-shadow border-0">
-                  <CardHeader className={`bg-gradient-to-r ${rule.gradient} text-white rounded-t-lg`}>
-                    <div className="flex items-center justify-between">
+                <Card key={rule.id} className="h-full hover:shadow-xl transition-all duration-300 border-0 group">
+                  <CardHeader className={`bg-gradient-to-r ${rule.gradient} text-white rounded-t-lg relative overflow-hidden`}>
+                    {/* Decorative background */}
+                    <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full transform translate-x-16 -translate-y-16"></div>
+                    
+                    <div className="relative flex items-center justify-between">
                       <div className="flex items-center space-x-3">
-                        <div className="w-10 h-10 bg-white/20 rounded-lg flex items-center justify-center">
+                        <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center backdrop-blur-sm group-hover:scale-110 transition-transform duration-300">
                           <rule.icon className="h-6 w-6 text-white" />
                         </div>
                         <div>
-                          <CardTitle className="text-lg">{rule.title}</CardTitle>
+                          <CardTitle className="text-lg font-bold">{rule.title}</CardTitle>
                           <Badge variant="secondary" className="bg-white/20 text-white border-white/30 text-xs mt-1">
                             {rule.importance}
                           </Badge>
                         </div>
                       </div>
-                      <div className="text-2xl font-bold text-white/30">
+                      <div className="text-3xl font-bold text-white/20">
                         {index + 1}
                       </div>
                     </div>
                   </CardHeader>
-                  <CardContent className="p-6 flex-1">
-                    <p className="text-gray-600 text-sm mb-4">{rule.description}</p>
-
-                    {/* Progress */}
-                    <div className="mb-4">
-                      <div className="flex justify-between text-xs text-gray-500 mb-1">
-                        <span>Tầm quan trọng</span>
-                        <span>{rule.importanceLevel}%</span>
+                  
+                  <CardContent className="p-6 flex-1 flex flex-col">
+                    <p className="text-gray-600 text-sm mb-4 leading-relaxed">{rule.description}</p>
+                    
+                    {/* Impact & Usage */}
+                    <div className="flex items-center space-x-4 mb-4 text-xs">
+                      <div className="flex items-center space-x-1">
+                        <TrendingUp className="h-3 w-3 text-gray-400" />
+                        <span className="text-gray-500">{rule.impact}</span>
                       </div>
-                      <Progress value={rule.importanceLevel} className="h-1" />
+                      <div className="flex items-center space-x-1">
+                        <Globe className="h-3 w-3 text-gray-400" />
+                        <span className="text-gray-500">{rule.usage}</span>
+                      </div>
+                    </div>
+                    
+                    {/* Progress */}
+                    <div className="mb-6">
+                      <div className="flex justify-between text-xs text-gray-500 mb-2">
+                        <span>Tầm quan trọng</span>
+                        <span className="font-semibold">{rule.importanceLevel}%</span>
+                      </div>
+                      <Progress value={rule.importanceLevel} className="h-2" />
                     </div>
 
-                    {/* Quick Actions */}
-                    <div className="flex space-x-2 mb-4">
-                      <Button variant="outline" size="sm" className="flex-1">
-                        <CheckCircle className="h-3 w-3 mr-1" />
-                        {rule.dos.length} nên
-                      </Button>
-                      <Button variant="outline" size="sm" className="flex-1">
-                        <XCircle className="h-3 w-3 mr-1" />
-                        {rule.donts.length} không
-                      </Button>
+                    {/* Expandable content preview */}
+                    <div className="bg-gray-50 rounded-lg p-4 mb-4 text-xs">
+                      <div className="grid grid-cols-2 gap-3">
+                        <div>
+                          <div className="flex items-center space-x-1 mb-2">
+                            <CheckCircle className="h-3 w-3 text-green-500" />
+                            <span className="font-semibold text-green-700">Nên làm</span>
+                          </div>
+                          <ul className="space-y-1">
+                            {rule.dos.slice(0, 2).map((item, idx) => (
+                              <li key={idx} className="text-gray-600 line-clamp-1">• {item}</li>
+                            ))}
+                            {rule.dos.length > 2 && (
+                              <li className="text-gray-400">... và {rule.dos.length - 2} mục khác</li>
+                            )}
+                          </ul>
+                        </div>
+                        <div>
+                          <div className="flex items-center space-x-1 mb-2">
+                            <XCircle className="h-3 w-3 text-red-500" />
+                            <span className="font-semibold text-red-700">Không nên</span>
+                          </div>
+                          <ul className="space-y-1">
+                            {rule.donts.slice(0, 2).map((item, idx) => (
+                              <li key={idx} className="text-gray-600 line-clamp-1">• {item}</li>
+                            ))}
+                            {rule.donts.length > 2 && (
+                              <li className="text-gray-400">... và {rule.donts.length - 2} mục khác</li>
+                            )}
+                          </ul>
+                        </div>
+                      </div>
                     </div>
 
-                    {/* Bookmark button */}
-                    <Button
-                      size="sm"
-                      className={`w-full ${rule.gradient.includes('purple') ? 'bg-purple-600 hover:bg-purple-700' :
-                                          rule.gradient.includes('blue') ? 'bg-blue-600 hover:bg-blue-700' :
-                                          rule.gradient.includes('green') ? 'bg-green-600 hover:bg-green-700' :
-                                          rule.gradient.includes('orange') ? 'bg-orange-600 hover:bg-orange-700' :
-                                          rule.gradient.includes('indigo') ? 'bg-indigo-600 hover:bg-indigo-700' : 'bg-red-600 hover:bg-red-700'}`}
-                      onClick={() => toggleBookmark(rule.id)}
-                    >
-                      {bookmarkedItems.includes(rule.id) ? (
-                        <Heart className="h-4 w-4 mr-2 fill-current" />
-                      ) : (
-                        <Bookmark className="h-4 w-4 mr-2" />
-                      )}
-                      {bookmarkedItems.includes(rule.id) ? 'Đã lưu' : 'Tìm hiểu chi tiết'}
-                    </Button>
+                    {/* Action buttons */}
+                    <div className="mt-auto space-y-2">
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        className="w-full"
+                      >
+                        <Eye className="h-4 w-4 mr-2" />
+                        Xem chi tiết ({rule.dos.length + rule.donts.length} quy tắc)
+                      </Button>
+                      
+                      <Button
+                        size="sm"
+                        className={`w-full transition-all duration-300 ${rule.gradient.includes('purple') ? 'bg-purple-600 hover:bg-purple-700' : 
+                                    rule.gradient.includes('blue') ? 'bg-blue-600 hover:bg-blue-700' :
+                                    rule.gradient.includes('green') ? 'bg-green-600 hover:bg-green-700' :
+                                    rule.gradient.includes('orange') ? 'bg-orange-600 hover:bg-orange-700' :
+                                    rule.gradient.includes('indigo') ? 'bg-indigo-600 hover:bg-indigo-700' : 'bg-red-600 hover:bg-red-700'}`}
+                        onClick={() => toggleBookmark(rule.id)}
+                      >
+                        {bookmarkedItems.includes(rule.id) ? (
+                          <Heart className="h-4 w-4 mr-2 fill-current" />
+                        ) : (
+                          <Bookmark className="h-4 w-4 mr-2" />
+                        )}
+                        {bookmarkedItems.includes(rule.id) ? 'Đã lưu' : 'Lưu để học sau'}
+                      </Button>
+                    </div>
                   </CardContent>
                 </Card>
               ))}
@@ -541,264 +590,73 @@ export default function DigitalLaw() {
           </div>
         </div>
 
-        {/* Detailed Legal Rules - Desktop (Zigzag Layout) */}
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-          {/* Section Title */}
-          <div className="text-center mb-20">
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-              ⚖️ Quy Định Pháp Lý Cốt Lõi
+        {/* Legal Statistics Section */}
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+              📊 Thống Kê Pháp Lý Toàn Cầu
             </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-              6 lĩnh vực pháp lý quan trọng nhất khi hoạt động trong không gian số hiện đại
+            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+              Những con số cho thấy tầm quan trọng của tuân thủ pháp luật số
             </p>
-            <div className="mt-6 w-24 h-1 bg-gradient-to-r from-indigo-500 to-purple-500 mx-auto rounded-full"></div>
           </div>
 
-          <div className="space-y-24">
-            {legalRules.map((rule, index) => (
-              <div key={rule.id} id={rule.id} className="scroll-mt-24">
-                <div className={`grid grid-cols-1 lg:grid-cols-2 gap-12 items-center ${index % 2 === 1 ? 'lg:grid-flow-col-dense' : ''}`}>
-                  
-                  {/* Content Section */}
-                  <div className={`${index % 2 === 1 ? 'lg:col-start-2' : ''}`}>
-                    <Card className="overflow-hidden shadow-xl border-0 h-full">
-                      {/* Card Header with Gradient */}
-                      <div className={`bg-gradient-to-r ${rule.gradient} text-white p-6`}>
-                        <div className="flex items-center justify-between mb-4">
-                          <div className="flex items-center space-x-4">
-                            <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center backdrop-blur-sm">
-                              <rule.icon className="h-6 w-6 text-white" />
-                            </div>
-                            <div>
-                              <h2 className="text-2xl font-bold mb-1">
-                                {rule.title}
-                              </h2>
-                              <Badge
-                                variant="secondary"
-                                className="bg-white/20 text-white border-white/30 text-xs"
-                              >
-                                {rule.importance}
-                              </Badge>
-                            </div>
-                          </div>
-                          <div className="text-right">
-                            <div className="text-4xl font-bold text-white/30">
-                              0{index + 1}
-                            </div>
-                          </div>
-                        </div>
-                        <p className="text-base opacity-90 leading-relaxed">
-                          {rule.description}
-                        </p>
-                        <div className="flex items-center space-x-4 mt-4 text-sm">
-                          <div className="flex items-center space-x-2">
-                            <TrendingUp className="h-4 w-4" />
-                            <span>Tác động: {rule.impact}</span>
-                          </div>
-                          <div className="flex items-center space-x-2">
-                            <Globe className="h-4 w-4" />
-                            <span>Áp dụng: {rule.usage}</span>
-                          </div>
-                        </div>
-                      </div>
-
-                      <CardContent className="p-6">
-                        <div className="grid grid-cols-1 gap-6">
-                          {/* Should Do */}
-                          <div className="bg-green-50 rounded-xl p-4">
-                            <div className="flex items-center mb-3">
-                              <div className="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center mr-3">
-                                <CheckCircle className="h-4 w-4 text-green-600" />
-                              </div>
-                              <h3 className="text-lg font-bold text-green-800">
-                                NÊN LÀM
-                              </h3>
-                            </div>
-                            <ul className="space-y-2">
-                              {rule.dos.map((item, idx) => (
-                                <li
-                                  key={idx}
-                                  className="flex items-start space-x-2 group"
-                                >
-                                  <div className="w-1.5 h-1.5 bg-green-500 rounded-full mt-2 flex-shrink-0"></div>
-                                  <span className="text-gray-700 text-sm leading-relaxed">
-                                    {item}
-                                  </span>
-                                </li>
-                              ))}
-                            </ul>
-                          </div>
-
-                          {/* Should Not Do */}
-                          <div className="bg-red-50 rounded-xl p-4">
-                            <div className="flex items-center mb-3">
-                              <div className="w-8 h-8 bg-red-100 rounded-lg flex items-center justify-center mr-3">
-                                <XCircle className="h-4 w-4 text-red-600" />
-                              </div>
-                              <h3 className="text-lg font-bold text-red-800">
-                                KHÔNG NÊN LÀM
-                              </h3>
-                            </div>
-                            <ul className="space-y-2">
-                              {rule.donts.map((item, idx) => (
-                                <li
-                                  key={idx}
-                                  className="flex items-start space-x-2 group"
-                                >
-                                  <div className="w-1.5 h-1.5 bg-red-500 rounded-full mt-2 flex-shrink-0"></div>
-                                  <span className="text-gray-700 text-sm leading-relaxed">
-                                    {item}
-                                  </span>
-                                </li>
-                              ))}
-                            </ul>
-                          </div>
-                        </div>
-
-                        {/* Action Buttons */}
-                        <div className="mt-6 flex items-center justify-center space-x-3">
-                          <Button variant="outline" size="sm" className="flex items-center">
-                            <Share2 className="h-4 w-4 mr-2" />
-                            Chia sẻ
-                          </Button>
-                          <Button size="sm" className="bg-indigo-600 hover:bg-indigo-700 flex items-center"
-                            onClick={() => toggleBookmark(rule.id)}
-                          >
-                            {bookmarkedItems.includes(rule.id) ? (
-                              <Heart className="h-4 w-4 mr-2 fill-current" />
-                            ) : (
-                              <Bookmark className="h-4 w-4 mr-2" />
-                            )}
-                            {bookmarkedItems.includes(rule.id) ? 'Đã lưu' : 'Lưu lại'}
-                          </Button>
-                        </div>
-                      </CardContent>
-                    </Card>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {digitalLawStats.map((stat, index) => (
+              <Card
+                key={index}
+                className="text-center hover:shadow-lg transition-shadow"
+              >
+                <CardContent className="p-6">
+                  <div
+                    className={`w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-r ${stat.color} flex items-center justify-center`}
+                  >
+                    <span className="text-2xl font-bold text-white">
+                      {stat.value}
+                    </span>
                   </div>
-
-                  {/* Visual Section */}
-                  <div className={`${index % 2 === 1 ? 'lg:col-start-1' : ''}`}>
-                    <div className="relative">
-                      {/* Background decoration */}
-                      <div className={`absolute inset-0 bg-gradient-to-br ${rule.gradient} opacity-10 rounded-3xl transform rotate-6`}></div>
-                      <div className={`absolute inset-0 bg-gradient-to-br ${rule.gradient} opacity-5 rounded-3xl transform -rotate-3`}></div>
-                      
-                      {/* Main visual card */}
-                      <Card className="relative bg-white shadow-2xl border-0 p-8 text-center">
-                        <div className={`w-24 h-24 mx-auto mb-6 rounded-full bg-gradient-to-br ${rule.gradient} flex items-center justify-center shadow-lg`}>
-                          <rule.icon className="h-12 w-12 text-white" />
-                        </div>
-                        
-                        <h3 className="text-xl font-bold text-gray-900 mb-4">
-                          {rule.shortDesc}
-                        </h3>
-                        
-                        {/* Progress indicator */}
-                        <div className="space-y-3">
-                          <div className="flex items-center justify-between text-sm">
-                            <span className="text-gray-600">Tầm quan trọng</span>
-                            <span className="font-semibold text-indigo-600">
-                              {rule.importanceLevel}%
-                            </span>
-                          </div>
-                          <Progress
-                            value={rule.importanceLevel}
-                            className="h-2"
-                          />
-                        </div>
-
-                        {/* Quick stats */}
-                        <div className="mt-6 grid grid-cols-2 gap-4 text-center">
-                          <div className="p-3 bg-green-50 rounded-lg">
-                            <div className="text-lg font-bold text-green-600">{rule.dos.length}</div>
-                            <div className="text-xs text-green-600">Nên làm</div>
-                          </div>
-                          <div className="p-3 bg-red-50 rounded-lg">
-                            <div className="text-lg font-bold text-red-600">{rule.donts.length}</div>
-                            <div className="text-xs text-red-600">Không nên</div>
-                          </div>
-                        </div>
-
-                        {/* Floating number */}
-                        <div className={`absolute -top-4 -right-4 w-12 h-12 bg-gradient-to-br ${rule.gradient} rounded-full flex items-center justify-center text-white font-bold text-lg shadow-lg`}>
-                          {index + 1}
-                        </div>
-                      </Card>
-                    </div>
-                  </div>
-                </div>
-              </div>
+                  <h3 className="font-semibold text-lg mb-2 text-gray-900">
+                    {stat.label}
+                  </h3>
+                  <p className="text-gray-600 text-sm">{stat.description}</p>
+                </CardContent>
+              </Card>
             ))}
           </div>
+        </div>
 
-          {/* Legal Statistics Section */}
-          <div className="mt-20">
-            <div className="text-center mb-16">
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-                Thống Kê Pháp Lý Toàn Cầu
+        {/* Final Call to Action */}
+        <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8 py-16">
+          <Card className="bg-gradient-to-r from-indigo-600 to-purple-600 text-white border-0">
+            <CardContent className="p-12">
+              <Scale className="h-16 w-16 mx-auto mb-6" />
+              <h2 className="text-3xl md:text-4xl font-bold mb-6">
+                Cùng Xây Dựng Không Gian Số Hợp Pháp!
               </h2>
-              <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-                Những con số cho thấy tầm quan trọng của tuân thủ pháp luật số
+              <p className="text-xl mb-8 opacity-90 max-w-2xl mx-auto leading-relaxed">
+                Hiểu biết pháp luật giúp bạn sáng tạo tự do và bảo vệ quyền lợi 
+                của bản thân cũng như người khác
               </p>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-              {digitalLawStats.map((stat, index) => (
-                <Card
-                  key={index}
-                  className="text-center hover:shadow-lg transition-shadow"
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <Button
+                  size="lg"
+                  variant="secondary"
+                  className="bg-white text-indigo-600 hover:bg-gray-100"
                 >
-                  <CardContent className="p-6">
-                    <div
-                      className={`w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-r ${stat.color} flex items-center justify-center`}
-                    >
-                      <span className="text-2xl font-bold text-white">
-                        {stat.value}
-                      </span>
-                    </div>
-                    <h3 className="font-semibold text-lg mb-2 text-gray-900">
-                      {stat.label}
-                    </h3>
-                    <p className="text-gray-600 text-sm">{stat.description}</p>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          </div>
-
-          {/* Final Call to Action */}
-          <div className="mt-20 text-center">
-            <Card className="bg-gradient-to-r from-indigo-600 to-purple-600 text-white border-0">
-              <CardContent className="p-12">
-                <Scale className="h-16 w-16 mx-auto mb-6" />
-                <h2 className="text-3xl md:text-4xl font-bold mb-6">
-                  Cùng Xây Dựng Không Gian Số Hợp Pháp!
-                </h2>
-                <p className="text-xl mb-8 opacity-90 max-w-2xl mx-auto leading-relaxed">
-                  Hiểu biết pháp luật giúp bạn sáng tạo tự do và bảo vệ quyền lợi 
-                  của bản thân cũng như người khác
-                </p>
-                <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                  <Button
-                    size="lg"
-                    variant="secondary"
-                    className="bg-white text-indigo-600 hover:bg-gray-100"
-                  >
-                    <Scale className="h-5 w-5 mr-2" />
-                    Tìm hiểu thêm luật Việt Nam
-                  </Button>
-                  <Button
-                    size="lg"
-                    variant="outline"
-                    className="border-white text-white hover:bg-white/10"
-                  >
-                    <FileText className="h-5 w-5 mr-2" />
-                    Tải template bản quyền
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
+                  <Scale className="h-5 w-5 mr-2" />
+                  Tìm hiểu thêm luật Việt Nam
+                </Button>
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className="border-white text-white hover:bg-white/10"
+                >
+                  <FileText className="h-5 w-5 mr-2" />
+                  Tải template bản quyền
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
         </div>
       </div>
 
@@ -839,9 +697,34 @@ export default function DigitalLaw() {
 
         {/* Mobile Content */}
         <div className="px-4 py-6 space-y-6">
+          {/* Legal Concepts Mobile */}
           <div className="text-center mb-8">
             <h2 className="text-2xl font-bold text-gray-900 mb-3 leading-tight">
-              ⚖️ Quy định pháp lý cần biết
+              💼 Khái niệm pháp lý cơ bản
+            </h2>
+            <div className="grid grid-cols-2 gap-3 mt-6">
+              <Card className="p-4 text-center">
+                <Copyright className="h-8 w-8 text-indigo-600 mx-auto mb-2" />
+                <div className="text-sm font-semibold">Bản quyền</div>
+              </Card>
+              <Card className="p-4 text-center">
+                <Shield className="h-8 w-8 text-indigo-600 mx-auto mb-2" />
+                <div className="text-sm font-semibold">Sở hữu trí tuệ</div>
+              </Card>
+              <Card className="p-4 text-center">
+                <Users className="h-8 w-8 text-indigo-600 mx-auto mb-2" />
+                <div className="text-sm font-semibold">Fair Use</div>
+              </Card>
+              <Card className="p-4 text-center">
+                <Lock className="h-8 w-8 text-indigo-600 mx-auto mb-2" />
+                <div className="text-sm font-semibold">Creative Commons</div>
+              </Card>
+            </div>
+          </div>
+
+          <div className="text-center mb-8">
+            <h2 className="text-2xl font-bold text-gray-900 mb-3 leading-tight">
+              ⚖️ Quy định pháp lý chi tiết
             </h2>
             <p className="text-gray-600 text-base leading-relaxed">
               6 lĩnh vực pháp lý quan trọng khi hoạt động số
@@ -878,7 +761,7 @@ export default function DigitalLaw() {
                         </div>
                         <div className="flex items-center space-x-1 text-green-600">
                           <CheckCircle className="h-3 w-3" />
-                          <span>{rule.dos.length} quy tắc</span>
+                          <span>{rule.dos.length + rule.donts.length} quy tắc</span>
                         </div>
                       </div>
                     </div>
